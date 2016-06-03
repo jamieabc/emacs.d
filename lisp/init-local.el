@@ -14,6 +14,8 @@
 (setq projectile-completion-system 'ivy)
 
 ;;; swiper
+(ivy-mode 1)
+(require 'swiper)
 (setq ivy-use-virtual-buffers )
 (setq ivy-count-format "(%d/%d) ")
 (setq ivy-display-style 'fancy)
@@ -23,9 +25,9 @@
 (global-set-key (kbd "C-c b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x C-m") 'counsel-M-x)
-;; (define-key swiper-map (kbd "C-.")
-;;   (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'symbol))))))
-;; (define-key swiper-map (kbd "M-.")
-;;   (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'word))))))
+(define-key swiper-map (kbd "C-.")
+  (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'symbol))))))
+(define-key swiper-map (kbd "M-.")
+  (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'word))))))
 
 (provide 'init-local)
