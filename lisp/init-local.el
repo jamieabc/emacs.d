@@ -16,7 +16,7 @@
 ;;; swiper
 (ivy-mode 1)
 (require 'swiper)
-(setq ivy-use-virtual-buffers )
+(setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
 (setq ivy-display-style 'fancy)
 (setq enable-recursive-minibuffers t)
