@@ -10,7 +10,7 @@
 
 ;;; swiper
 (global-set-key (kbd "C-c r") 'ivy-resume)
-(global-set-key (kbd "C-c C-b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x C-m") 'counsel-M-x)
 (global-set-key (kbd "C-s") 'swiper)
