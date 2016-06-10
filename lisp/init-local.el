@@ -5,10 +5,12 @@
 (global-linum-mode t)
 
 ;;; avy
+(require-package 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-x C-;") 'avy-goto-line)
 
 ;;; swiper
+(require-package 'swiper)
 (global-set-key (kbd "C-c r") 'ivy-resume)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-c k") 'counsel-ag)
@@ -40,8 +42,34 @@
      ))
 
 ;;; projectile
+(require-package 'projectile)
 (setq projectile-keymap-prefix (kbd "C-c C-p"))
 (projectile-global-mode)
 (setq projectile-completion-system 'ivy)
+
+;;; rails
+(eval-after-load 'rinari
+  '(progn (setq rinari-tags-file-name "TAGS"))
+  )
+
+;;; rvm
+(require-package 'rvm)
+(rvm-use-default)
+
+;;; ggtags
+(require-package 'ggtags)
+(add-hook 'prog-mode-hook
+          '(lambda ()
+             (when (derived-mode-p 'ruby-mode 'js2-mode)
+               (ggtags-mode 1))))
+(eval-after-load 'ggtags
+  '(progn
+     (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+     (define-key ggtags-mode-map (kbd "M-.") 'ggtags-find-tag-dwim)
+     (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+     (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+     (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+     (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+     ))
 
 (provide 'init-local)
