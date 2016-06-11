@@ -93,4 +93,11 @@
        ;; (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
        ))
 
+;; start git difftool
+(defun gdt ()
+  "start difftool"
+  (interactive)
+  (shell-command "git difftool")
+  )
+
 (provide 'init-local)
