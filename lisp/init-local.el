@@ -100,4 +100,17 @@
   (shell-command "git difftool")
   )
 
+(defun my-select-word-in-quote ()
+  "Select text between nearest left and right delimiters."
+  (interactive)
+  (let (p1 p2 (skipChars "^\"<>(){}[]\'"))
+    (skip-chars-backward skipChars)
+    (setq p1 (point))
+    (skip-chars-forward skipChars)
+    (setq p2 (point))
+    (set-mark p1)
+    )
+  )
+(global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
+
 (provide 'init-local)
