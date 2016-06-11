@@ -1,13 +1,3 @@
-;;**************************************
-;; Determine OS environment
-;;**************************************
-(defvar system-type-as-string (prin1-to-string system-type))
-(defvar on_windows (string-match "windows-nt" system-type-as-string))
-(defvar on_mac     (string-match "darwin" system-type-as-string))
-(defvar on_linux   (string-match "gnu/linux" system-type-as-string))
-(defvar on_cygwin  (string-match "cygwin" system-type-as-string))
-(defvar on_solaris (string-match "usg-unix-v" system-type-as-string))
-
 ;;; set default font and size
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
 
@@ -86,12 +76,11 @@
      ))
 
 ;;; Mac keybindings
-(cond (on_mac
-       (setq mac-command-modifier 'meta) ; sets the Command key as Meta
-       (setq mac-option-modifier 'super) ; make opt key do Super
-       (setq ns-function-modifier 'control)
-       ;; (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
-       ))
+(when *is-a-mac*
+  (setq mac-option-modifier 'super) ; make opt key do Super
+  (setq ns-function-modifier 'control)
+  ;; (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
+  )
 
 ;; start git difftool
 (defun gdt ()
