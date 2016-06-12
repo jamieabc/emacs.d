@@ -75,4 +75,31 @@
      (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
      ))
 
+;;; Mac keybindings
+(when *is-a-mac*
+  (setq mac-option-modifier 'super) ; make opt key do Super
+  (setq ns-function-modifier 'control)
+  ;; (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
+  )
+
+;; start git difftool
+(defun gdt ()
+  "start difftool"
+  (interactive)
+  (shell-command "git difftool")
+  )
+
+(defun my-select-word-in-quote ()
+  "Select text between nearest left and right delimiters."
+  (interactive)
+  (let (p1 p2 (skipChars "^\"<>(){}[]\'"))
+    (skip-chars-backward skipChars)
+    (setq p1 (point))
+    (skip-chars-forward skipChars)
+    (setq p2 (point))
+    (set-mark p1)
+    )
+  )
+(global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
+
 (provide 'init-local)
