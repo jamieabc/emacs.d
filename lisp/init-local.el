@@ -46,7 +46,7 @@
 (require-package 'projectile-rails)
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 (setq projectile-keymap-prefix (kbd "C-c C-p"))
-(setq projectile-rails-keymap-prefix (kbd "C-c C-p r"))
+(setq projectile-rails-keymap-prefix (kbd "C-c C-p C-r"))
 (projectile-global-mode)
 (setq projectile-completion-system 'ivy)
 
