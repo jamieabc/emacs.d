@@ -102,4 +102,13 @@
   )
 (global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
 
+;;; rspec
+(require-package 'rspec-mode)
+(add-hook 'ruby-mode-hook 'rspec-mode)
+(add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(eval-after-load 'rspec-mode
+  '(progn
+     (setq rspec-command-options "--fail-fast --color")
+     ))
+
 (provide 'init-local)
