@@ -111,4 +111,8 @@
      (setq rspec-command-options "--fail-fast --color")
      ))
 
+;;; window number
+(require-package 'window-numbering)
+(window-numbering-mode)
+
 (provide 'init-local)
