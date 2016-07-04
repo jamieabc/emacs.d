@@ -115,4 +115,9 @@
 (require-package 'window-numbering)
 (window-numbering-mode)
 
+;;; ido-vertical-mode
+(require-package 'ido-vertical-mode)
+(ido-vertical-mode t)
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
 (provide 'init-local)
