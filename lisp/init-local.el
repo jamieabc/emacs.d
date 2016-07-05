@@ -41,15 +41,6 @@
      (setq enable-recursive-minibuffers t)
      ))
 
-;;; projectile
-(require-package 'projectile)
-(require-package 'projectile-rails)
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-(setq projectile-rails-keymap-prefix (kbd "C-c C-p C-r"))
-(setq projectile-keymap-prefix (kbd "C-c C-p"))
-(projectile-global-mode)
-(setq projectile-completion-system 'ivy)
-
 ;;; rails
 (eval-after-load 'rinari
   '(progn (setq rinari-tags-file-name "GTAGS"))
@@ -121,5 +112,14 @@
 (setq ido-vertical-show-count t)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 (global-set-key (kbd "C-,") 'imenu)
+
+;;; bookmark plus
+(require-package 'bookmark+)
+
+;;; find file in project
+(require-package 'find-file-in-project)
+(global-set-key (kbd "C-c C-p f") 'find-file-in-project)
+(global-set-key (kbd "C-c C-p d") 'find-file-in-current-directory)
+(global-set-key (kbd "C-c C-p i") 'ffip-show-diff)
 
 (provide 'init-local)
