@@ -115,9 +115,18 @@
 
 ;;; bookmark plus
 (require-package 'bookmark+)
+(require 'bookmark+)
 
 ;;; find file in project
 (require-package 'find-file-in-project)
+(defun my-setup-find-file-in-project ()
+  (interactive)
+  ;; interested filetypes
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.xml" "*.tmpl" "*.json" "*.md"))
+  ;; exclude below directories and files
+  (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/build/*" "*/dist/*"))
+  )
+(add-hook 'prog-mode-hook 'my-setup-find-file-in-project)
 (global-set-key (kbd "C-c C-p f") 'find-file-in-project)
 (global-set-key (kbd "C-c C-p d") 'find-file-in-current-directory)
 (global-set-key (kbd "C-c C-p i") 'ffip-show-diff)
