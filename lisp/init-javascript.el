@@ -24,7 +24,7 @@
 
 ;; Change some defaults: customize them to override
 (setq-default js2-basic-offset 2
-              js2-bounce-indent-p nil)
+              js2-bounce-indent-p t)
 (after-load 'js2-mode
   ;; Disable js2 mode's syntax error highlighting by default...
   (setq-default js2-mode-show-parse-errors nil
