@@ -18,7 +18,7 @@
 (global-set-key (kbd "C-s") 'swiper)
 (eval-after-load 'swiper
   '(progn
-     (define-key swiper-map (kbd "M-.")
+     (define-key swiper-map (kbd "C-.")
        (lambda ()
          (interactive)
          (insert
@@ -26,7 +26,7 @@
            "\\<%s\\>"
            (with-ivy-window
              (thing-at-point 'symbol))))))
-     (define-key swiper-map (kbd "C-.")
+     (define-key swiper-map (kbd "M-.")
        (lambda ()
          (interactive)
          (insert
