@@ -271,4 +271,9 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
+;;; redmien list my tasks
+(defun rmi ()
+  (interactive)
+  (insert) (shell-command "redmine i -m"))
+
 (provide 'init-local)
