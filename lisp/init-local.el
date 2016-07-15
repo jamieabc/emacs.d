@@ -285,11 +285,11 @@
 (defun rdi (i)
   "Develop redmine issue"
   (interactive "nEnter ticket number: ")
-  (insert) (shell-command (format "redmine ui -a 72 -s 'In Progress' %n" i)))
+  (insert) (shell-command (format "redmine ui -a 72 -s 'In Progress' %d" i)))
 
 (defun rri (i)
   "Resolve redmine issue"
   (interactive "nEnter ticket number: ")
-  (insert) (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" i)))
+  (insert) (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %d" i)))
 
 (provide 'init-local)
