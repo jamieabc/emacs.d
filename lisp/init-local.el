@@ -279,17 +279,17 @@
 
 (defun roi (i)
   "Open remine issue"
-  (interactive "sEnter ticket number: ")
-  (insert) (shell-command "redmine open %s" i))
+  (interactive "nEnter ticket number: ")
+  (insert) (shell-command (format "redmine open %d" i)))
 
 (defun rdi (i)
   "Develop redmine issue"
-  (interactive "sEnter ticket number: ")
-  (insert) (shell-command "redmine ui -a 72 -s 'In Progress' %s") i)
+  (interactive "nEnter ticket number: ")
+  (insert) (shell-command (format "redmine ui -a 72 -s 'In Progress' %n" i)))
 
 (defun rri (i)
   "Resolve redmine issue"
-  (interactive "sEnter ticket number: ")
-  (insert) (shell-command "redmine ui -a 72 -r 100 -s Resolved %s") i)
+  (interactive "nEnter ticket number: ")
+  (insert) (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" i)))
 
 (provide 'init-local)
