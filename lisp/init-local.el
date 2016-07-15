@@ -271,9 +271,25 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
-;;; redmien list my tasks
+;;; redmien commands
 (defun rmi ()
+  "List my redmine issue"
   (interactive)
   (insert) (shell-command "redmine i -m"))
+
+(defun roi (i)
+  "Open remine issue"
+  (interactive "sEnter ticket number: ")
+  (insert) (shell-command "redmine open %s" i))
+
+(defun rdi (i)
+  "Develop redmine issue"
+  (interactive "sEnter ticket number: ")
+  (insert) (shell-command "redmine ui -a 72 -s 'In Progress' %s") i)
+
+(defun rri (i)
+  "Resolve redmine issue"
+  (interactive "sEnter ticket number: ")
+  (insert) (shell-command "redmine ui -a 72 -r 100 -s Resolved %s") i)
 
 (provide 'init-local)
