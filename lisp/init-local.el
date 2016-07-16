@@ -113,10 +113,6 @@
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 (global-set-key (kbd "C-,") 'imenu)
 
-;;; bookmark plus
-(require-package 'bookmark+)
-(require 'bookmark+)
-
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
