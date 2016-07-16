@@ -268,6 +268,18 @@
 (keyfreq-autosave-mode 1)
 
 ;;; redmien commands
+(defun redmine ()
+  "Open my redmine tickets."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine i -m")))
+  (switch-to-buffer "redmine")
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t))
+
 (defun rmi ()
   "List my redmine issue"
   (interactive)
