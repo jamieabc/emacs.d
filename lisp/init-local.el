@@ -268,6 +268,16 @@
 (keyfreq-autosave-mode 1)
 
 ;;; redmien commands
+(defun get-ticket-number ()
+  "Get ticket number from each line."
+  (interactive)
+  (setq line-start-point (line-beginning-position))
+  (setq line-end-point (line-end-position))
+  (setq current-line (buffer-substring-no-properties line-start-point line-end-point))
+  (setq ticket-number-end-point (string-match "[ ]+" current-line))
+  (buffer-substring-no-properties (+ line-start-point 1) (+ line-start-point ticket-number-end-point))
+  )
+
 (defun redmine ()
   "Open my redmine tickets."
   (interactive)
@@ -278,7 +288,9 @@
     (insert (shell-command-to-string "redmine i -m")))
   (switch-to-buffer "redmine")
   (delete-trailing-whitespace)
-  (setq buffer-read-only t))
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") (roi (get-ticket-number)))
+  )
 
 (defun rmi ()
   "List my redmine issue"
@@ -287,17 +299,18 @@
 
 (defun roi (i)
   "Open remine issue"
-  (interactive "nEnter ticket number: ")
-  (insert) (shell-command (format "redmine open %d" i)))
+  ;; (interactive "nEnter ticket number: ")
+  (interactive)
+  (shell-command (format "redmine open %s" i)))
 
 (defun rdi (i)
   "Develop redmine issue"
   (interactive "nEnter ticket number: ")
-  (insert) (shell-command (format "redmine ui -a 72 -s 'In Progress' %d" i)))
+  (shell-command (format "redmine ui -a 72 -s 'In Progress' %d" i)))
 
 (defun rri (i)
   "Resolve redmine issue"
   (interactive "nEnter ticket number: ")
-  (insert) (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %d" i)))
+  (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %d" i)))
 
 (provide 'init-local)
