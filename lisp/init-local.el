@@ -300,7 +300,7 @@
   (insert) (shell-command "redmine i -m"))
 
 (defun roi ()
-  "Open remine issue"
+  "Open redmine issue"
   ;; (interactive "nEnter ticket number: ")
   (interactive)
   (shell-command (format "redmine open %s" (get-ticket-number))))
