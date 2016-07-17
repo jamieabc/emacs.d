@@ -267,7 +267,7 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
-;;; redmien commands
+;;; redmine commands
 (defun get-ticket-number ()
   "Get ticket number from each line."
   (interactive)
