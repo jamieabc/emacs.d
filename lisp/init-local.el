@@ -289,7 +289,9 @@
   (switch-to-buffer "redmine")
   (delete-trailing-whitespace)
   (setq buffer-read-only t)
-  (local-set-key (kbd "o") (roi (get-ticket-number)))
+  (local-set-key (kbd "o") 'roi)
+  (local-set-key (kbd "d") 'rdi)
+  (local-set-key (kbd "r") 'rri)
   )
 
 (defun rmi ()
@@ -297,20 +299,20 @@
   (interactive)
   (insert) (shell-command "redmine i -m"))
 
-(defun roi (i)
+(defun roi ()
   "Open remine issue"
   ;; (interactive "nEnter ticket number: ")
   (interactive)
-  (shell-command (format "redmine open %s" i)))
+  (shell-command (format "redmine open %s" (get-ticket-number))))
 
-(defun rdi (i)
+(defun rdi ()
   "Develop redmine issue"
-  (interactive "nEnter ticket number: ")
-  (shell-command (format "redmine ui -a 72 -s 'In Progress' %d" i)))
+  (interactive)
+  (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
 
-(defun rri (i)
+(defun rri ()
   "Resolve redmine issue"
-  (interactive "nEnter ticket number: ")
-  (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %d" i)))
+  (interactive)
+  (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
 
 (provide 'init-local)
