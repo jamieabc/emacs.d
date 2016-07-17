@@ -296,18 +296,22 @@
 
 (defun roi ()
   "Open redmine issue"
-  ;; (interactive "nEnter ticket number: ")
   (interactive)
-  (shell-command (format "redmine open %s" (get-ticket-number))))
+  (shell-command (format "redmine open %s" (get-ticket-number)))
+  )
 
-(defun rdi ()
+(defun rdi (yes-or-no)
   "Develop redmine issue"
-  (interactive)
-  (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
+  (interactive "sDevelop this issue?")
+  (if (equal yes-or-no "y")
+      (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
+  )
 
-(defun rri ()
+(defun rri (yes-or-no)
   "Resolve redmine issue"
-  (interactive)
-  (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
+  (interactive "sResolve this issue?")
+  (if (equal yes-or-no "y")
+      (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
+  )
 
 (provide 'init-local)
