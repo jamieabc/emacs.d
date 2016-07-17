@@ -294,11 +294,6 @@
   (local-set-key (kbd "r") 'rri)
   )
 
-(defun rmi ()
-  "List my redmine issue"
-  (interactive)
-  (insert) (shell-command "redmine i -m"))
-
 (defun roi ()
   "Open redmine issue"
   ;; (interactive "nEnter ticket number: ")
