@@ -292,6 +292,7 @@
   (local-set-key (kbd "o") 'roi)
   (local-set-key (kbd "d") 'rdi)
   (local-set-key (kbd "r") 'rri)
+  (local-set-key (kbd "g") 'redmine)
   )
 
 (defun roi ()
