@@ -289,26 +289,26 @@
   (switch-to-buffer "redmine")
   (delete-trailing-whitespace)
   (setq buffer-read-only t)
-  (local-set-key (kbd "o") 'roi)
-  (local-set-key (kbd "d") 'rdi)
-  (local-set-key (kbd "r") 'rri)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
   (local-set-key (kbd "g") 'redmine)
   )
 
-(defun roi ()
+(defun redmine-open-issue ()
   "Open redmine issue"
   (interactive)
   (shell-command (format "redmine open %s" (get-ticket-number)))
   )
 
-(defun rdi (yes-or-no)
+(defun redmine-develop-issue (yes-or-no)
   "Develop redmine issue"
   (interactive "sDevelop this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
   )
 
-(defun rri (yes-or-no)
+(defun redmine-resolve-issue (yes-or-no)
   "Resolve redmine issue"
   (interactive "sResolve this issue?")
   (if (equal yes-or-no "y")
@@ -316,3 +316,4 @@
   )
 
 (provide 'init-local)
+;;; init-local.el ends here
