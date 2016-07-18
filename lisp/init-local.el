@@ -293,6 +293,13 @@
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
   (local-set-key (kbd "g") 'redmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  )
+
+(defun redmine-add-subtask (subject)
+  "Create subtask under current ticket"
+  (interactive "sPlease enter subject:")
+  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
   )
 
 (defun redmine-open-issue ()
