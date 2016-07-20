@@ -127,6 +127,23 @@
 (global-set-key (kbd "C-c C-p d") 'find-file-in-current-directory)
 (global-set-key (kbd "C-c C-p i") 'ffip-show-diff)
 
+;;; comment whole line or add tail
+(defun comment-whole-line-or-add-tail (&optional arg)
+  "Comment the current line with region selected or at the beginning of line,
+    otherwise, add comment at tail."
+  "Replacement for the comment-dwim command.
+   If no region is selected and current line is not blank and we are not at
+   the end of the line, then comment current line.
+   Replaces default behaviour of comment-dwim, when it inserts comment at the
+   end of the line."
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg))
+  )
+(global-set-key (kbd "M-;") 'comment-whole-line-or-add-tail)
+
 ;;; key frequency
 (require-package 'keyfreq)
 (setq keyfreq-excluded-commands
