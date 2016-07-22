@@ -118,7 +118,7 @@
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "" "*.sh" "*.example" "*.txt" "*.scss"))
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.example" "*.txt" ""))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/build/*" "*/dist/*"))
   )
