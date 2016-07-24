@@ -345,6 +345,12 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
+;;; turn off linum-mode when file over 2000 lines
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (if (and (> (buffer-size)
+                        (* 2000 80)))
+                (linum-mode -1))))
 
 (provide 'init-local)
 ;;; init-local.el ends here
