@@ -1,4 +1,4 @@
-;;; redmine commands
+;;; redmine related functions
 (defun get-ticket-number ()
   "Get ticket number from each line."
   (interactive)
