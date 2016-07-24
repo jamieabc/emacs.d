@@ -1,3 +1,64 @@
+;;; redmine commands
+(defun get-ticket-number ()
+  "Get ticket number from each line."
+  (interactive)
+  (setq line-start-point (line-beginning-position))
+  (setq line-end-point (line-end-position))
+  (setq current-line (buffer-substring-no-properties line-start-point line-end-point))
+  (setq ticket-number-end-point (string-match "[ ]+" current-line))
+  (buffer-substring-no-properties (+ line-start-point 1) (+ line-start-point ticket-number-end-point))
+  )
+
+(defun redmine ()
+  "Open my redmine tickets."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine i -m")))
+  (switch-to-buffer "redmine")
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'redmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  )
+
+(defun redmine-add-subtask (subject)
+  "Create subtask under current ticket"
+  (interactive "sPlease enter subject:")
+  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
+  )
+
+(defun redmine-add-task (subject)
+  "Create redmine task"
+  (shell-command (format "redmine ci -a 72 -t Task 1 '%s'" subject))
+  )
+
+(defun redmine-open-issue ()
+  "Open redmine issue"
+  (interactive)
+  (shell-command (format "redmine open %s" (get-ticket-number)))
+  )
+
+(defun redmine-develop-issue (yes-or-no)
+  "Develop redmine issue"
+  (interactive "sDevelop this issue?")
+  (if (equal yes-or-no "y")
+      (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
+  )
+
+(defun redmine-resolve-issue (yes-or-no)
+  "Resolve redmine issue"
+  (interactive "sResolve this issue?")
+  (if (equal yes-or-no "y")
+      (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
+  )
+
 ;;; set default font and size
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
 
@@ -284,66 +345,6 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
-;;; redmine commands
-(defun get-ticket-number ()
-  "Get ticket number from each line."
-  (interactive)
-  (setq line-start-point (line-beginning-position))
-  (setq line-end-point (line-end-position))
-  (setq current-line (buffer-substring-no-properties line-start-point line-end-point))
-  (setq ticket-number-end-point (string-match "[ ]+" current-line))
-  (buffer-substring-no-properties (+ line-start-point 1) (+ line-start-point ticket-number-end-point))
-  )
-
-(defun redmine ()
-  "Open my redmine tickets."
-  (interactive)
-  (if (get-buffer "redmine")
-      (kill-buffer "redmine"))
-  (with-current-buffer
-      (get-buffer-create "redmine")
-    (insert (shell-command-to-string "redmine i -m")))
-  (switch-to-buffer "redmine")
-  (delete-trailing-whitespace)
-  (setq buffer-read-only t)
-  (local-set-key (kbd "o") 'redmine-open-issue)
-  (local-set-key (kbd "d") 'redmine-develop-issue)
-  (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'redmine)
-  (local-set-key (kbd "s") 'redmine-add-subtask)
-  (local-set-key (kbd "c") 'redmine-add-task)
-  )
-
-(defun redmine-add-subtask (subject)
-  "Create subtask under current ticket"
-  (interactive "sPlease enter subject:")
-  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
-  )
-
-(defun redmine-add-task (subject)
-  "Create redmine task"
-  (shell-command (format "redmine ci -a 72 -t Task 1 '%s'" subject))
-  )
-
-(defun redmine-open-issue ()
-  "Open redmine issue"
-  (interactive)
-  (shell-command (format "redmine open %s" (get-ticket-number)))
-  )
-
-(defun redmine-develop-issue (yes-or-no)
-  "Develop redmine issue"
-  (interactive "sDevelop this issue?")
-  (if (equal yes-or-no "y")
-      (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
-  )
-
-(defun redmine-resolve-issue (yes-or-no)
-  "Resolve redmine issue"
-  (interactive "sResolve this issue?")
-  (if (equal yes-or-no "y")
-      (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
-  )
 
 (provide 'init-local)
 ;;; init-local.el ends here
