@@ -26,7 +26,14 @@
   (local-set-key (kbd "g") 'redmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
   )
+
+  (defun redmine-kill-buffer ()
+    "Delete redmine buffer"
+    (interactive)
+    (kill-buffer "redmine")
+    )
 
 (defun redmine-add-subtask (subject)
   "Create subtask under current ticket"
