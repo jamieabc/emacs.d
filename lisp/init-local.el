@@ -1,4 +1,4 @@
-;;; redmine related functions
+;;;  redmine related functions start
 (defun get-ticket-number ()
   "Get ticket number from each line."
   (interactive)
@@ -65,6 +65,7 @@
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
   )
+;;; redmine related functions end
 
 ;;; set default font and size
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
@@ -77,7 +78,7 @@
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-x C-;") 'avy-goto-line)
 
-;;; swiper
+;;; swiper start
 (require-package 'swiper)
 (global-set-key (kbd "C-c r") 'ivy-resume)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
@@ -108,6 +109,7 @@
      (setq ivy-display-style 'fancy)
      (setq enable-recursive-minibuffers t)
      ))
+;;; swiper end
 
 ;;; rails
 (eval-after-load 'rinari
@@ -118,7 +120,7 @@
 (require-package 'rvm)
 (rvm-use-default)
 
-;;; ggtags
+;;; ggtags start
 (require-package 'ggtags)
 (add-hook 'prog-mode-hook
           '(lambda ()
@@ -134,6 +136,8 @@
      (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
      ))
 
+;;; ggtags end
+
 ;;; Mac keybindings
 (when *is-a-mac*
   (setq mac-option-modifier 'super) ; make opt key do Super
@@ -148,6 +152,7 @@
   (shell-command "git difftool")
   )
 
+;;; select words in quote
 (defun my-select-word-in-quote ()
   "Select text between nearest left and right delimiters."
   (interactive)
@@ -181,7 +186,7 @@
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 (global-set-key (kbd "C-,") 'imenu)
 
-;;; find file in project
+;;; find file in project start
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
   (interactive)
@@ -194,6 +199,7 @@
 (global-set-key (kbd "C-c C-p f") 'find-file-in-project)
 (global-set-key (kbd "C-c C-p d") 'find-file-in-current-directory)
 (global-set-key (kbd "C-c C-p i") 'ffip-show-diff)
+;;; find file in project end
 
 ;;; comment whole line or add tail
 (defun comment-whole-line-or-add-tail (&optional arg)
@@ -212,7 +218,7 @@
   )
 (global-set-key (kbd "M-;") 'comment-whole-line-or-add-tail)
 
-;;; key frequency
+;;; key frequency start
 (require-package 'keyfreq)
 (setq keyfreq-excluded-commands
       '(self-insert-command
@@ -351,6 +357,7 @@
         yank))
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
+;;; key frequency end
 
 ;;; turn off linum-mode when file over 2000 lines
 (add-hook 'prog-mode-hook
@@ -359,7 +366,7 @@
                         (* 2000 80)))
                 (linum-mode -1))))
 
-;;; git-timemachine
+;;; git-timemachine start
 (require-package 'git-timemachine)
 (defun my-git-timemachine-show-selected-revision ()
   "Show last (current) revision of file."
@@ -381,6 +388,7 @@
   (unless (featurep 'git-timemachine)
     (require 'git-timemachine))
   (git-timemachine--start #'my-git-timemachine-show-selected-revision))
+;;; git-timemachine end
 
 (provide 'init-local)
 ;;; init-local.el ends here
