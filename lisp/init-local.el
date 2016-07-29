@@ -383,5 +383,9 @@
   (git-timemachine--start #'my-git-timemachine-show-selected-revision))
 ;;; git-timemachine end
 
+;;; yasnippet start
+(require-package 'yasnippet)
+;;; yasnippet end
+
 (provide 'init-local)
 ;;; init-local.el ends here
