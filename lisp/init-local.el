@@ -392,6 +392,7 @@
 
 ;;; yasnippet start
 (require-package 'yasnippet)
+(yas-global-mode 1)
 ;;; yasnippet end
 
 (provide 'init-local)
