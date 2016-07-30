@@ -121,20 +121,20 @@
 (rvm-use-default)
 
 ;;; ggtags start
-(require-package 'ggtags)
-(add-hook 'prog-mode-hook
-          '(lambda ()
-             (when (derived-mode-p 'ruby-mode 'js2-mode)
-               (ggtags-mode 1))))
-(eval-after-load 'ggtags
-  '(progn
-     (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-     (define-key ggtags-mode-map (kbd "M-.") 'ggtags-find-tag-dwim)
-     (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
-     (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
-     (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-     (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
-     ))
+;; (require-package 'ggtags)
+;; (add-hook 'prog-mode-hook
+;;           '(lambda ()
+;;              (when (derived-mode-p 'ruby-mode 'js2-mode)
+;;                (ggtags-mode 1))))
+;; (eval-after-load 'ggtags
+;;   '(progn
+;;      (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+;;      (define-key ggtags-mode-map (kbd "M-.") 'ggtags-find-tag-dwim)
+;;      (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+;;      (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+;;      (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+;;      (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+;;      ))
 
 ;;; ggtags end
 
@@ -394,6 +394,16 @@
 (require-package 'yasnippet)
 (yas-global-mode 1)
 ;;; yasnippet end
+
+;;; ctags start
+(require-package 'etags-select)
+(setq tags-table-list '("~/Documents/Project/vpon-dsp/TAGS"))
+(eval-after-load 'etags-select
+  '(progn
+     (global-set-key (kbd "M-,") 'pop-tag-mark)
+     (global-set-key (kbd "M-.") 'etags-select-find-tag-at-point)
+     ))
+;;; ctags end
 
 (provide 'init-local)
 ;;; init-local.el ends here
