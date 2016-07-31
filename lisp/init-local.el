@@ -395,5 +395,8 @@
 (yas-global-mode 1)
 ;;; yasnippet end
 
+;;; go to last change
+(global-set-key (kbd "C-x C-\\") 'session-jump-to-last-change)
+
 (provide 'init-local)
 ;;; init-local.el ends here
