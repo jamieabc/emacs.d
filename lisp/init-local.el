@@ -398,5 +398,10 @@
 ;;; go to last change
 (global-set-key (kbd "C-x C-\\") 'session-jump-to-last-change)
 
+;;; save & jump between positions start
+(global-set-key (kbd "C-c C-<SPC>") 'point-to-register)
+(global-set-key (kbd "C-c C-c C-<SPC>") 'jump-to-register)
+;;; save & jump between positions end
+
 (provide 'init-local)
 ;;; init-local.el ends here
