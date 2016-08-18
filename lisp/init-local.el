@@ -27,6 +27,7 @@
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
   )
 
   (defun redmine-kill-buffer ()
@@ -64,6 +65,13 @@
   (interactive "sResolve this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
+  )
+
+(defun redmine-close-issue (yes-or-no)
+  "Close redmine issue"
+  (interactive "sClose this issue?")
+  (if (equal yes-or-no "y")
+      (shell-command (format "redmine ui -a 72 -r 100 -s Closed %s" (get-ticket-number))))
   )
 ;;; redmine related functions end
 
