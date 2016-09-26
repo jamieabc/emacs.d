@@ -30,7 +30,7 @@
   (local-set-key (kbd "C") 'redmine-close-issue)
   )
 
-(defun redminel ()
+(defun lredmine ()
   "Redmine custom query."
   (interactive)
   (if (get-buffer "redmine")
