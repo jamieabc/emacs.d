@@ -30,11 +30,32 @@
   (local-set-key (kbd "C") 'redmine-close-issue)
   )
 
-  (defun redmine-kill-buffer ()
-    "Delete redmine buffer"
-    (interactive)
-    (kill-buffer "redmine")
-    )
+(defun redminel ()
+  "Redmine custom query."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 60")))
+  (switch-to-buffer "redmine")
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'redmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
+(defun redmine-kill-buffer ()
+  "Delete redmine buffer"
+  (interactive)
+  (kill-buffer "redmine")
+  )
 
 (defun redmine-add-subtask (subject)
   "Create subtask under current ticket"
