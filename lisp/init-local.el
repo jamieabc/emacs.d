@@ -97,7 +97,7 @@
 ;;; redmine related functions end
 
 ;;; set default font and size
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-16"))
 
 ;;; enable line number mode
 (global-linum-mode t)
@@ -220,11 +220,12 @@
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.example" "*.txt" ""))
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.example" "*.txt" "*.el" ""))
   ;; exclude below directories and files
-  (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/build/*" "*/dist/*"))
+  (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
 (add-hook 'prog-mode-hook 'my-setup-find-file-in-project)
+(add-hook 'markdown-mode-hook 'my-setup-find-file-in-project)
 (global-set-key (kbd "C-c C-p f") 'find-file-in-project)
 (global-set-key (kbd "C-c C-p d") 'find-file-in-current-directory)
 (global-set-key (kbd "C-c C-p i") 'ffip-show-diff)
