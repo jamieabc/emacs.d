@@ -46,7 +46,7 @@
   (local-set-key (kbd "o") 'redmine-open-issue)
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'redmine)
+  (local-set-key (kbd "g") 'lredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
