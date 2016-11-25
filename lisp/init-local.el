@@ -26,6 +26,7 @@
   (local-set-key (kbd "r") 'redmine-resolve-issue)
   (local-set-key (kbd "g") 'redmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
@@ -48,6 +49,7 @@
   (local-set-key (kbd "r") 'redmine-resolve-issue)
   (local-set-key (kbd "g") 'lredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
@@ -63,6 +65,12 @@
   "Create subtask under current ticket"
   (interactive "sPlease enter subject:")
   (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
+  )
+
+(defun redmine-add-verify-subtask (subject)
+  "Create verify subtask under current ticket"
+  (interactive "sPlease enter subject: please verify ")
+  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 'please verify %s'" (get-ticket-number) subject))
   )
 
 (defun redmine-add-task (subject)
