@@ -18,6 +18,7 @@
       (get-buffer-create "redmine")
     (insert (shell-command-to-string "redmine i -m")))
   (switch-to-buffer "redmine")
+  (setq truncate-lines t)
   (delete-trailing-whitespace)
   (setq buffer-read-only t)
   (local-set-key (kbd "o") 'redmine-open-issue)
@@ -25,21 +26,51 @@
   (local-set-key (kbd "r") 'redmine-resolve-issue)
   (local-set-key (kbd "g") 'redmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
   )
 
-  (defun redmine-kill-buffer ()
-    "Delete redmine buffer"
-    (interactive)
-    (kill-buffer "redmine")
-    )
+(defun lredmine ()
+  "Redmine custom query."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 60")))
+  (switch-to-buffer "redmine")
+  (setq truncate-lines t)
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'lredmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
+(defun redmine-kill-buffer ()
+  "Delete redmine buffer"
+  (interactive)
+  (kill-buffer "redmine")
+  )
 
 (defun redmine-add-subtask (subject)
   "Create subtask under current ticket"
   (interactive "sPlease enter subject:")
   (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
+  )
+
+(defun redmine-add-verify-subtask (subject)
+  "Create verify subtask under current ticket"
+  (interactive "sPlease enter subject: please verify ")
+  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 'please verify %s'" (get-ticket-number) subject))
   )
 
 (defun redmine-add-task (subject)
@@ -76,7 +107,7 @@
 ;;; redmine related functions end
 
 ;;; set default font and size
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-16"))
 
 ;;; enable line number mode
 (global-linum-mode t)
@@ -199,14 +230,16 @@
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.example" "*.txt" ""))
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java" "*.example" "*.txt" "*.el" ""))
   ;; exclude below directories and files
-  (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/build/*" "*/dist/*"))
+  (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
 (add-hook 'prog-mode-hook 'my-setup-find-file-in-project)
-(global-set-key (kbd "C-c C-p f") 'find-file-in-project)
-(global-set-key (kbd "C-c C-p d") 'find-file-in-current-directory)
-(global-set-key (kbd "C-c C-p i") 'ffip-show-diff)
+(add-hook 'markdown-mode-hook 'my-setup-find-file-in-project)
+(add-hook 'java-mode-hook 'my-setup-find-file-in-project)
+(global-set-key (kbd "C-c p f") 'find-file-in-project)
+(global-set-key (kbd "C-c p d") 'find-file-in-current-directory)
+(global-set-key (kbd "C-c p i") 'ffip-show-diff)
 ;;; find file in project end
 
 ;;; comment whole line or add tail
