@@ -1,4 +1,4 @@
-;;;  redmine related functions start
+;;;  redmine related functions
 (defun get-ticket-number ()
   "Get ticket number from each line."
   (interactive)
@@ -104,7 +104,7 @@
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Closed %s" (get-ticket-number))))
   )
-;;; redmine related functions end
+;;; redmine related functions
 
 ;;; set default font and size
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-16"))
@@ -116,8 +116,9 @@
 (require-package 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-x C-;") 'avy-goto-line)
+;;; avy
 
-;;; swiper start
+;;; swiper
 (require-package 'swiper)
 (global-set-key (kbd "C-c r") 'ivy-resume)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
@@ -148,18 +149,20 @@
      (setq ivy-display-style 'fancy)
      (setq enable-recursive-minibuffers t)
      ))
-;;; swiper end
+;;; swiper
 
 ;;; rails
 (eval-after-load 'rinari
   '(progn (setq rinari-tags-file-name "GTAGS"))
   )
+;;; rails
 
 ;;; rvm
 (require-package 'rvm)
 (rvm-use-default)
+;;; rvm
 
-;;; ggtags start
+;;; ggtags
 (require-package 'ggtags)
 (add-hook 'prog-mode-hook
           '(lambda ()
@@ -174,8 +177,7 @@
      (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
      (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
      ))
-
-;;; ggtags end
+;;; ggtags
 
 ;;; Mac keybindings
 (when *is-a-mac*
@@ -183,13 +185,15 @@
   (setq ns-function-modifier 'control)
   ;; (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
   )
+;;; Mac keybindings
 
-;; start git difftool
+;; git difftool
 (defun gdt ()
   "start difftool"
   (interactive)
   (shell-command "git difftool")
   )
+;; git difftool
 
 ;;; select words in quote
 (defun my-select-word-in-quote ()
@@ -213,6 +217,7 @@
   '(progn
      (setq rspec-command-options "--fail-fast --color")
      ))
+;;; rspec
 
 ;;; window number
 (require-package 'window-numbering)
@@ -224,8 +229,9 @@
 (setq ido-vertical-show-count t)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 (global-set-key (kbd "C-,") 'imenu)
+;;; ido-vertical-mode
 
-;;; find file in project start
+;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
   (interactive)
@@ -240,7 +246,7 @@
 (global-set-key (kbd "C-c p f") 'find-file-in-project)
 (global-set-key (kbd "C-c p d") 'find-file-in-current-directory)
 (global-set-key (kbd "C-c p i") 'ffip-show-diff)
-;;; find file in project end
+;;; find file in project
 
 ;;; comment whole line or add tail
 (defun comment-whole-line-or-add-tail (&optional arg)
@@ -258,8 +264,9 @@
     (comment-dwim arg))
   )
 (global-set-key (kbd "M-;") 'comment-whole-line-or-add-tail)
+;;; comment whole line or add tail
 
-;;; key frequency start
+;;; key frequency
 (require-package 'keyfreq)
 (setq keyfreq-excluded-commands
       '(self-insert-command
@@ -407,7 +414,7 @@
                         (* 2000 80)))
                 (linum-mode -1))))
 
-;;; git-timemachine start
+;;; git-timemachine
 (require-package 'git-timemachine)
 (defun my-git-timemachine-show-selected-revision ()
   "Show last (current) revision of file."
@@ -431,10 +438,10 @@
   (git-timemachine--start #'my-git-timemachine-show-selected-revision))
 ;;; git-timemachine end
 
-;;; yasnippet start
+;;; yasnippet
 (require-package 'yasnippet)
 (yas-global-mode 1)
-;;; yasnippet end
+;;; yasnippet
 
 ;;; go to last change
 (global-set-key (kbd "C-x C-\\") 'session-jump-to-last-change)
