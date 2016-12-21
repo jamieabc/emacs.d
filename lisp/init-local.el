@@ -231,6 +231,11 @@
 (global-set-key (kbd "C-,") 'imenu)
 ;;; ido-vertical-mode
 
+;;; js2-mode
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
+;;; js2-mode
+
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
@@ -445,7 +450,7 @@
 
 ;;; multi-term
 (require-package 'multi-term)
-(add-to-list 'load-path "~/multi-term-plus")
+(add-to-list 'load-path "~/.emacs.d/site-list/multi-term-plus")
 (require 'multi-term-config)            ;sh -c "$(curl -fsSL https://raw.github.com/aborn/multi-term-plus/master/scripts/install.sh)"
 (setq multi-term-program "/bin/bash")
 (setq multi-term-buffer-name "mterm")  ;; term buffer name setting.
