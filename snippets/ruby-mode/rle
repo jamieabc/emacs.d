@@ -1,5 +1,5 @@
 #name : Rails.logger.info " ... "
 #group: general
-# key: rli
+# key: rle
 # --
-Rails.logger.info "${Text here...}"
+Rails.logger.error "${Text here...}"
