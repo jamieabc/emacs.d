@@ -1,0 +1,7 @@
+#-*- require-final-newline: nil -*-
+#contributor: gary <ge.iams@gmail.com>
+#name : flexmock mock object, ActiveRecord
+# key: im
+# --
+import ${1:package} from '${2:location}';
+$0
