@@ -114,7 +114,7 @@
 
 ;;; avy
 (require-package 'avy)
-(global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-c C-;") 'avy-goto-char)
 (global-set-key (kbd "C-x C-;") 'avy-goto-line)
 ;;; avy
 
@@ -241,7 +241,7 @@
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java" "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp" ""))
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java" "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp" "*.erb" "*.php" ""))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
@@ -455,7 +455,7 @@
 (setq multi-term-program "/bin/bash")
 (setq multi-term-buffer-name "mterm")  ;; term buffer name setting.
 (setq system-uses-terminfo nil) ;; Use Emacs terminfo, not system terminfo, for mac OS 4m
-(global-set-key (kbd "C-{") 'multi-term-find)
+(global-set-key (kbd "C-M-{") 'multi-term-find)
 (global-set-key (kbd "C-M-,") 'multi-term)
 (add-hook 'term-mode-hook
           (lambda ()
@@ -484,6 +484,45 @@
 ;;; hdl mode
 (add-to-list 'auto-mode-alist '("\\.hdl?\\'" . vhdl-mode))
 ;;; hdl mode
+
+;;; emacs abbrev
+(clear-abbrev-table global-abbrev-table)
+(define-abbrev-table 'global-abbrev-table
+  '(
+
+    ;; phrase
+    ("afaik" "as far as i know" )
+    ("atm" "at the moment" )
+    ("ty" "thank you" )
+
+    ("btw" "by the way" )
+
+    ;; programing
+    ("eq" "==" )
+    ("eqq" "===" )
+    ("r" "return" )
+
+    ;; regex
+    ("uaz" "\\([A-Za-z0-9]+\\)" )
+    ("ubracket" "\\[\\([^]]+?\\)\\]" )
+    ("ucurly" "“\\([^”]+?\\)”" )
+    ("ud" "\\([0-9]+\\)" )
+    ("udate" "\\([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\\)" )
+    ("udot" "\\(.\\)" )
+    ("ustr" "\\([^\"]+?\\)" )
+    ("utag" "\\([</>=\" A-Za-z0-9]+\\)" )
+
+    ;; unicode
+    ("md" "—" )
+    ("uascii" "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~" )
+
+    ;; code
+    ("uutf8" "-*- coding: utf-8 -*-" )
+    ))
+
+(set-default 'abbrev-mode t)
+(setq save-abbrevs nil)
+;;; emacs abbrev
 
 (provide 'init-local)
 ;;; init-local.el ends here
