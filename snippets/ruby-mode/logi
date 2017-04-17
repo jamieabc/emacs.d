@@ -2,4 +2,4 @@
 #group: general
 # key: logi
 # --
-logger.info "${Text here...}"
+Rails.logger.info "#{self.class.name} #{__method__} ${Text here...}"
