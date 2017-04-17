@@ -171,11 +171,13 @@
 (eval-after-load 'ggtags
   '(progn
      (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-     (define-key ggtags-mode-map (kbd "M-.") 'ggtags-find-tag-dwim)
+     (define-key ggtags-mode-map (kbd "C-c .") 'ggtags-find-tag-dwim)
+     (define-key ggtags-mode-map (kbd "C-c g d") ' ggtags-find-definition)
      (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
      (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
      (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-     (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+     (define-key ggtags-mode-map (kbd "C-c g x") 'ggtags-find-tag-regexp)
+     (define-key ggtags-mode-map (kbd "C-c g k") 'ggtags-kill-file-buffers)
      ))
 ;;; ggtags
 
@@ -235,6 +237,17 @@
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
 ;;; js2-mode
+
+;;; xref-js2
+(global-set-key (kbd "C-c x d") 'xref-find-definitions)
+(global-set-key (kbd "C-c x r") 'xref-find-references)
+(global-set-key (kbd "C-c x p") 'xref-pop-marker-stack)
+;;; xref-js2
+
+;;; tern-mode
+(require-package 'tern)
+(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;;; tern-mode
 
 ;;; find file in project
 (require-package 'find-file-in-project)
