@@ -10,7 +10,7 @@
   )
 
 (defun redmine ()
-  "Open my redmine tickets."
+  "List my redmine tickets."
   (interactive)
   (if (get-buffer "redmine")
       (kill-buffer "redmine"))
@@ -33,7 +33,7 @@
   )
 
 (defun lredmine ()
-  "Redmine custom query f2e teams."
+  "List redmine custom query taipier f2e teams."
   (interactive)
   (if (get-buffer "redmine")
       (kill-buffer "redmine"))
@@ -70,7 +70,30 @@
   (local-set-key (kbd "o") 'redmine-open-issue)
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'lredmine)
+  (local-set-key (kbd "g") 'credmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
+(defun aredmine ()
+  "Redmine custom query all f2e bugs"
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 211")))
+  (switch-to-buffer "redmine")
+  (setq truncate-lines t)
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'aredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
@@ -90,10 +113,11 @@
   (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
   )
 
-(defun redmine-add-verify-subtask (subject)
+(defun redmine-add-verify-subtask ()
   "Create verify subtask under current ticket"
-  (interactive "sPlease enter subject: please verify ")
-  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 'please verify %s'" (get-ticket-number) subject))
+  (interactive)
+  ;; (interactive "sPlease enter subject: please verify ")
+  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 'please verify %s'" (get-ticket-number) (get-ticket-number)))
   )
 
 (defun redmine-add-task (subject)
@@ -534,9 +558,9 @@
     ("btw" "by the way" )
 
     ;; programing
-    ("eq" "==" )
+    ("eeq" "==" )
     ("eqq" "===" )
-    ("r" "return" )
+    ("ret" "return" )
 
     ;; regex
     ("uaz" "\\([A-Za-z0-9]+\\)" )
