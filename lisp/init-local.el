@@ -600,6 +600,7 @@
 (global-set-key (kbd "M-p") 'symbol-overlay-jump-prev)
 (global-set-key (kbd "M-I") 'symbol-overlay-put)
 (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
+(global-set-key (kbd "M-W") 'symbol-overlay-save-symbol)
 
 (provide 'init-local)
 ;;; init-local.el ends here
