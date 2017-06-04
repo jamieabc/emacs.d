@@ -315,8 +315,6 @@
 
 ;;; comment whole line or add tail
 (defun comment-whole-line-or-add-tail (&optional arg)
-  "Comment the current line with region selected or at the beginning of line,
-    otherwise, add comment at tail."
   "Replacement for the comment-dwim command.
    If no region is selected and current line is not blank and we are not at
    the end of the line, then comment current line.
@@ -583,6 +581,25 @@
 (set-default 'abbrev-mode t)
 (setq save-abbrevs nil)
 ;;; emacs abbrev
+
+;;; reveal current file in finder
+(require-package 'reveal-in-osx-finder)
+
+;;; symbol-overly: highlight symbol
+(require-package 'symbol-overlay)
+(dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
+  (add-hook hook 'symbol-overlay-mode))
+(after-load 'symbol-overlay
+  (diminish 'symbol-overlay-mode)
+  (defadvice symbol-overlay-temp-highlight (around sanityinc/maybe-suppress activate)
+    "Suppress symbol highlighting while isearching."
+    (unless (or isearch-mode
+                (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
+      ad-do-it)))
+(global-set-key (kbd "M-n") 'symbol-overlay-jump-next)
+(global-set-key (kbd "M-p") 'symbol-overlay-jump-prev)
+(global-set-key (kbd "M-I") 'symbol-overlay-put)
+(global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
 
 (provide 'init-local)
 ;;; init-local.el ends here
