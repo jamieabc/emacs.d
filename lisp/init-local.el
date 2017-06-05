@@ -602,5 +602,10 @@
 (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
 (global-set-key (kbd "M-W") 'symbol-overlay-save-symbol)
 
+;;; editorconfig
+;; (require-package 'editoconfig)
+;; (editorconfig-mode 1)
+;;; editorconfig
+
 (provide 'init-local)
 ;;; init-local.el ends here
