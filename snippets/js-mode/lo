@@ -1,8 +1,6 @@
 #-*- require-final-newline: nil -*-
 #contributor: aaron.chang <aaron.chang@gmail.com>
-#name : describe
-# key: des
+#name : lo
+# key: lo
 # --
-describe('${1:title}', (${2:variable}) => {
-  $0
-});
+console.log(${1:message});
