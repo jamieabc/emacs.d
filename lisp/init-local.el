@@ -504,6 +504,9 @@
 ;;; yasnippet
 (require-package 'yasnippet)
 (yas-global-mode 1)
+;;; not to add new line
+(defun foo () (set (make-local-variable 'require-final-newline) nil))
+(setq-default require-final-newline nil)
 ;;; yasnippet
 
 ;;; multi-term
