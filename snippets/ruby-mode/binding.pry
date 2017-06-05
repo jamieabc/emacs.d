@@ -1,0 +1,4 @@
+# snippet for binding.pry
+# key: bin
+# --
+binding.pry

@@ -1,8 +1,6 @@
 #-*- require-final-newline: nil -*-
 #contributor: aaron.chang <aaron.chang@gmail.com>
-#name : before
-# key: bef
+#name : allow
+# key: all
 # --
-before do
-  $0
-end
+allow(${1:object}).to receive(${0:method})

@@ -1,3 +1,4 @@
+#-*- require-final-newline: nil -*-
 #name: it "should do something" do ... end
 # key: it
 # --
