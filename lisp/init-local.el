@@ -505,8 +505,9 @@
 (require-package 'yasnippet)
 (yas-global-mode 1)
 ;;; not to add new line
-(defun foo () (set (make-local-variable 'require-final-newline) nil))
-(setq-default require-final-newline nil)
+(defun remove-final-newline () (set (make-local-variable 'require-final-newline) nil))
+(add-hook 'js2-mode-hook 'remove-final-newline)
+(add-hook 'ruby-mode-hook 'remove-final-newline)
 ;;; yasnippet
 
 ;;; multi-term
