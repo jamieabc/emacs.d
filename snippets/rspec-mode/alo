@@ -1,6 +1,6 @@
 #-*- require-final-newline: nil -*-
 #contributor: aaron.chang <aaron.chang@gmail.com>
-#name : lo
-# key: lo
+#name : allow
+# key: alo
 # --
-console.log(${1:message});
+allow(${1:object}).to receive(${0:method})

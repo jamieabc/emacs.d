@@ -1,8 +1,8 @@
 #-*- require-final-newline: nil -*-
 #contributor: aaron.chang <araon.chang@gmail.com>
-#name : describe (Controller)
+#name : describe
 # key: desc
 # --
-describe ${1:controller} do
+describe '${1:condition}' do
   $0
 end

@@ -1,6 +1,0 @@
-#-*- require-final-newline: nil -*-
-#contributor: aaron.chang <aaron.chang@gmail.com>
-#name : allow
-# key: all
-# --
-allow(${1:object}).to receive(${0:method})
