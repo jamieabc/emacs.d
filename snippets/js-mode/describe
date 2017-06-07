@@ -1,8 +1,8 @@
 #-*- require-final-newline: nil -*-
 #contributor: aaron.chang <aaron.chang@gmail.com>
-#name : before
-# key: bef
+#name : describe
+# key: des
 # --
-before do
+describe('${1:title}', (${2:variable}) => {
   $0
-end
+});

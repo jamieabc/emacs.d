@@ -10,7 +10,7 @@
   )
 
 (defun redmine ()
-  "Open my redmine tickets."
+  "List my redmine tickets."
   (interactive)
   (if (get-buffer "redmine")
       (kill-buffer "redmine"))
@@ -33,7 +33,7 @@
   )
 
 (defun lredmine ()
-  "Redmine custom query."
+  "List redmine custom query taipier f2e teams."
   (interactive)
   (if (get-buffer "redmine")
       (kill-buffer "redmine"))
@@ -55,6 +55,52 @@
   (local-set-key (kbd "C") 'redmine-close-issue)
   )
 
+(defun credmine ()
+  "Redmine custom query my not closed tasks/bugs."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 210")))
+  (switch-to-buffer "redmine")
+  (setq truncate-lines t)
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'credmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
+(defun aredmine ()
+  "Redmine custom query all f2e bugs"
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 211")))
+  (switch-to-buffer "redmine")
+  (setq truncate-lines t)
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'aredmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
 (defun redmine-kill-buffer ()
   "Delete redmine buffer"
   (interactive)
@@ -67,10 +113,11 @@
   (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
   )
 
-(defun redmine-add-verify-subtask (subject)
+(defun redmine-add-verify-subtask ()
   "Create verify subtask under current ticket"
-  (interactive "sPlease enter subject: please verify ")
-  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 'please verify %s'" (get-ticket-number) subject))
+  (interactive)
+  ;; (interactive "sPlease enter subject: please verify ")
+  (shell-command (format "redmine ci -a 72 -t Task -p %s 1 'please verify %s'" (get-ticket-number) (get-ticket-number)))
   )
 
 (defun redmine-add-task (subject)
@@ -114,7 +161,7 @@
 
 ;;; avy
 (require-package 'avy)
-(global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-c C-;") 'avy-goto-char)
 (global-set-key (kbd "C-x C-;") 'avy-goto-line)
 ;;; avy
 
@@ -171,11 +218,13 @@
 (eval-after-load 'ggtags
   '(progn
      (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-     (define-key ggtags-mode-map (kbd "M-.") 'ggtags-find-tag-dwim)
+     (define-key ggtags-mode-map (kbd "C-c .") 'ggtags-find-tag-dwim)
+     (define-key ggtags-mode-map (kbd "C-c g d") ' ggtags-find-definition)
      (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
      (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
      (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-     (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+     (define-key ggtags-mode-map (kbd "C-c g x") 'ggtags-find-tag-regexp)
+     (define-key ggtags-mode-map (kbd "C-c g k") 'ggtags-kill-file-buffers)
      ))
 ;;; ggtags
 
@@ -236,12 +285,23 @@
 (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
 ;;; js2-mode
 
+;;; xref-js2
+(global-set-key (kbd "C-c x d") 'xref-find-definitions)
+(global-set-key (kbd "C-c x r") 'xref-find-references)
+(global-set-key (kbd "C-c x p") 'xref-pop-marker-stack)
+;;; xref-js2
+
+;;; tern-mode
+(require-package 'tern)
+(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;;; tern-mode
+
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java" "*.example" "*.txt" "*.el" ""))
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java" "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp" "*.erb" "*.php" "*"))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
@@ -249,14 +309,12 @@
 (add-hook 'markdown-mode-hook 'my-setup-find-file-in-project)
 (add-hook 'java-mode-hook 'my-setup-find-file-in-project)
 (global-set-key (kbd "C-c p f") 'find-file-in-project)
-(global-set-key (kbd "C-c p d") 'find-file-in-current-directory)
+(global-set-key (kbd "C-c p s") 'find-file-in-project-by-selected)
 (global-set-key (kbd "C-c p i") 'ffip-show-diff)
 ;;; find file in project
 
 ;;; comment whole line or add tail
 (defun comment-whole-line-or-add-tail (&optional arg)
-  "Comment the current line with region selected or at the beginning of line,
-    otherwise, add comment at tail."
   "Replacement for the comment-dwim command.
    If no region is selected and current line is not blank and we are not at
    the end of the line, then comment current line.
@@ -446,6 +504,10 @@
 ;;; yasnippet
 (require-package 'yasnippet)
 (yas-global-mode 1)
+;;; not to add new line
+(defun remove-final-newline () (set (make-local-variable 'require-final-newline) nil))
+(add-hook 'js2-mode-hook 'remove-final-newline)
+(add-hook 'ruby-mode-hook 'remove-final-newline)
 ;;; yasnippet
 
 ;;; multi-term
@@ -455,7 +517,7 @@
 (setq multi-term-program "/bin/bash")
 (setq multi-term-buffer-name "mterm")  ;; term buffer name setting.
 (setq system-uses-terminfo nil) ;; Use Emacs terminfo, not system terminfo, for mac OS 4m
-(global-set-key (kbd "C-{") 'multi-term-find)
+(global-set-key (kbd "C-M-{") 'multi-term-find)
 (global-set-key (kbd "C-M-,") 'multi-term)
 (add-hook 'term-mode-hook
           (lambda ()
@@ -480,6 +542,65 @@
 (global-set-key (kbd "C-c C-<SPC>") 'point-to-register)
 (global-set-key (kbd "C-c C-c C-<SPC>") 'jump-to-register)
 ;;; save & jump between positions end
+
+;;; hdl mode
+(add-to-list 'auto-mode-alist '("\\.hdl?\\'" . vhdl-mode))
+;;; hdl mode
+
+;;; emacs abbrev
+(clear-abbrev-table global-abbrev-table)
+(define-abbrev-table 'global-abbrev-table
+  '(
+
+    ;; phrase
+    ("afaik" "as far as i know" )
+    ("atm" "at the moment" )
+    ("ty" "thank you" )
+
+    ("btw" "by the way" )
+
+    ;; programing
+    ("eeq" "==" )
+    ("eqq" "===" )
+    ("ret" "return" )
+
+    ;; regex
+    ("uaz" "\\([A-Za-z0-9]+\\)" )
+    ("ubracket" "\\[\\([^]]+?\\)\\]" )
+    ("ucurly" "“\\([^”]+?\\)”" )
+    ("ud" "\\([0-9]+\\)" )
+    ("udate" "\\([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\\)" )
+    ("udot" "\\(.\\)" )
+    ("ustr" "\\([^\"]+?\\)" )
+    ("utag" "\\([</>=\" A-Za-z0-9]+\\)" )
+
+    ;; unicode
+    ("md" "—" )
+    ("uascii" "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~" )
+
+    ;; code
+    ("uutf8" "-*- coding: utf-8 -*-" )
+    ))
+
+(set-default 'abbrev-mode t)
+(setq save-abbrevs nil)
+;;; emacs abbrev
+
+;;; reveal current file in finder
+(require-package 'reveal-in-osx-finder)
+
+;;; symbol-overly: highlight symbol
+(require-package 'symbol-overlay)
+(after-load 'symbol-overlay
+  (define-key symbol-overlay-mode-map (kbd "M-I") 'symbol-overlay-put)
+  (define-key symbol-overlay-mode-map (kbd "<f8>") 'symbol-overlay-remove-all)
+  (define-key symbol-overlay-mode-map (kbd "M-W") 'symbol-overlay-save-symbol)
+  )
+
+;;; editorconfig
+;; (require-package 'editoconfig)
+;; (editorconfig-mode 1)
+;;; editorconfig
 
 (provide 'init-local)
 ;;; init-local.el ends here

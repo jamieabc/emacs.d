@@ -1,6 +1,7 @@
+#-*- require-final-newline: nil -*-
 #name: it "should do something" do ... end
 # key: it
 # --
-it "should ${1:do something}" do
-  $0
+it 'should ${1:do something}' do
+  expect(${0:variable}).to
 end

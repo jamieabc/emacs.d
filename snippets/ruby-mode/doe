@@ -1,0 +1,7 @@
+#name : do ... end
+#group : Blocks
+# key: doe
+# --
+do
+  $0
+end

@@ -1,0 +1,4 @@
+#name: contain_exactly($value)
+# key: coe
+# --
+contain_exactly(${0:array})

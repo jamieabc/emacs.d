@@ -1,0 +1,6 @@
+#-*- require-final-newline: nil -*-
+#contributor: aaron.chang <aaron.chang@gmail.com>
+#name : allow_any_instance_of
+# key: aai
+# --
+allow_any_instance_of(${1:described class}).to receive(${0:method})

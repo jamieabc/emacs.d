@@ -1,8 +1,7 @@
 #-*- require-final-newline: nil -*-
 #contributor: aaron.chang <aaron.chang@gmail.com>
-#name : before
-# key: bef
+#name : expect
+# key: exp
 # --
-before do
-  $0
-end
+expect(${1:variable}).to.equal(${2:result});
+$0

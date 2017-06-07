@@ -1,8 +1,8 @@
 #-*- require-final-newline: nil -*-
 #contributor: aaron.chang <aaron.chang@gmail.com>
-#name : before
-# key: bef
+#name : context (situation)
+# key: cont
 # --
-before do
+context '${1:situation}' do
   $0
 end

@@ -1,0 +1,7 @@
+#-*- require-final-newline: nil -*-
+#name: let do ... end
+# key: lete
+# --
+let(${1:variable}) do
+  $0
+end

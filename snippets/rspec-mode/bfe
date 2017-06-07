@@ -1,3 +1,4 @@
+#-*- require-final-newline: nil -*-
 #name: before(:each) do ... end
 # key: bfe
 # --
