@@ -591,20 +591,11 @@
 
 ;;; symbol-overly: highlight symbol
 (require-package 'symbol-overlay)
-(dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
-  (add-hook hook 'symbol-overlay-mode))
 (after-load 'symbol-overlay
-  (diminish 'symbol-overlay-mode)
-  (defadvice symbol-overlay-temp-highlight (around sanityinc/maybe-suppress activate)
-    "Suppress symbol highlighting while isearching."
-    (unless (or isearch-mode
-                (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
-      ad-do-it)))
-(global-set-key (kbd "M-n") 'symbol-overlay-jump-next)
-(global-set-key (kbd "M-p") 'symbol-overlay-jump-prev)
-(global-set-key (kbd "M-I") 'symbol-overlay-put)
-(global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
-(global-set-key (kbd "M-W") 'symbol-overlay-save-symbol)
+  (define-key symbol-overlay-mode-map (kbd "M-I") 'symbol-overlay-put)
+  (define-key symbol-overlay-mode-map (kbd "<f8>") 'symbol-overlay-remove-all)
+  (define-key symbol-overlay-mode-map (kbd "M-W") 'symbol-overlay-save-symbol)
+  )
 
 ;;; editorconfig
 ;; (require-package 'editoconfig)
