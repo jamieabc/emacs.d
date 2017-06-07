@@ -101,6 +101,13 @@
 ;;     (unless (or isearch-mode
 ;;                 (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
 ;;       ad-do-it)))
+(when (maybe-require-package 'symbol-overlay)
+  (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
+    (add-hook hook 'symbol-overlay-mode))
+  (after-load 'symbol-overlay
+    (diminish 'symbol-overlay-mode)
+    (define-key symbol-overlay-mode-map (kbd "M-n") 'symbol-overlay-jump-next)
+    (define-key symbol-overlay-mode-map (kbd "M-p") 'symbol-overlay-jump-prev)))
 
 ;;----------------------------------------------------------------------------
 ;; Zap *up* to char is a handy pair for zap-to-char
