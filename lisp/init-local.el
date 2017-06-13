@@ -208,11 +208,6 @@
   )
 ;;; rails
 
-;;; rvm
-(require-package 'rvm)
-(rvm-use-default)
-;;; rvm
-
 ;;; ggtags
 (require-package 'ggtags)
 (add-hook 'prog-mode-hook
@@ -261,6 +256,12 @@
     )
   )
 (global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
+;;; select words in quote
+
+;;; rvm
+(require-package 'rvm)
+(rvm-use "ruby-2.3.3" "dsp")
+;;; rvm
 
 ;;; rspec
 (require-package 'rspec-mode)
@@ -270,6 +271,13 @@
   '(progn
      (setq rspec-command-options "--fail-fast --color")
      ))
+
+(defadvice rspec-compile (around rspec-compile-around)
+  "Use BASH shell for running the specs because of ZSH issues."
+  (let ((shell-file-name "/bin/bash"))
+    ad-do-it))
+
+(ad-activate 'rspec-compile)
 ;;; rspec
 
 ;;; window number
