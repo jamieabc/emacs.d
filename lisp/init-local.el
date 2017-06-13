@@ -165,11 +165,15 @@
 (global-set-key (kbd "C-x C-;") 'avy-goto-line)
 ;;; avy
 
+;;; ag
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "M-?") 'sanityinc/counsel-ag-project)
+;;; ag
+
 ;;; swiper
 (require-package 'swiper)
 (global-set-key (kbd "C-c r") 'ivy-resume)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-(global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x C-m") 'counsel-M-x)
 (global-set-key (kbd "C-s") 'swiper)
 (eval-after-load 'swiper
@@ -203,11 +207,6 @@
   '(progn (setq rinari-tags-file-name "GTAGS"))
   )
 ;;; rails
-
-;;; rvm
-(require-package 'rvm)
-(rvm-use-default)
-;;; rvm
 
 ;;; ggtags
 (require-package 'ggtags)
@@ -257,6 +256,12 @@
     )
   )
 (global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
+;;; select words in quote
+
+;;; rvm
+(require-package 'rvm)
+(rvm-use "ruby-2.3.3" "dsp")
+;;; rvm
 
 ;;; rspec
 (require-package 'rspec-mode)
@@ -266,6 +271,13 @@
   '(progn
      (setq rspec-command-options "--fail-fast --color")
      ))
+
+(defadvice rspec-compile (around rspec-compile-around)
+  "Use BASH shell for running the specs because of ZSH issues."
+  (let ((shell-file-name "/bin/bash"))
+    ad-do-it))
+
+(ad-activate 'rspec-compile)
 ;;; rspec
 
 ;;; window number
@@ -601,6 +613,52 @@
 ;; (require-package 'editoconfig)
 ;; (editorconfig-mode 1)
 ;;; editorconfig
+
+;;; typescript
+(require-package 'tide)
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+
+;; ;; ;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; ;; ;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;; ;; ;;; ts
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . js2-mode))
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (when (string-equal "ts" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+
+;; ;;; js
+;; (add-hook 'js2-mode-hook #'setup-tide-mode)
+;;; typescript
+
+;;; hackernews
+(require-package 'hackernews)
+;;; hackernews
+
+;;; copy file path & name to clipboard
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+(global-set-key (kbd "C-c p p") 'copy-file-name-to-clipboard)
+;;;
 
 (provide 'init-local)
 ;;; init-local.el ends here
