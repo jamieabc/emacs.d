@@ -165,11 +165,15 @@
 (global-set-key (kbd "C-x C-;") 'avy-goto-line)
 ;;; avy
 
+;;; ag
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "M-?") 'sanityinc/counsel-ag-project)
+;;; ag
+
 ;;; swiper
 (require-package 'swiper)
 (global-set-key (kbd "C-c r") 'ivy-resume)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-(global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x C-m") 'counsel-M-x)
 (global-set-key (kbd "C-s") 'swiper)
 (eval-after-load 'swiper
