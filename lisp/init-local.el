@@ -519,7 +519,7 @@
 
 ;;; multi-term
 (require-package 'multi-term)
-(add-to-list 'load-path "~/.emacs.d/site-list/multi-term-plus")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/multi-term-plus")
 (require 'multi-term-config)            ;sh -c "$(curl -fsSL https://raw.github.com/aborn/multi-term-plus/master/scripts/install.sh)"
 (setq multi-term-program "/bin/bash")
 (setq multi-term-buffer-name "mterm")  ;; term buffer name setting.
