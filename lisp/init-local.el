@@ -629,5 +629,18 @@
 (global-set-key (kbd "C-c p p") 'copy-file-name-to-clipboard)
 ;;;
 
+;;; remove trailing whitespace
+(add-to-list 'before-save-hook 'delete-trailing-whitespace)
+;;; remove trailing whitespace
+
+;;; flow
+;; (load-file "~/.emacs.d/site-lisp/flow-for-emacs/flow.el")
+(require-package 'flycheck-flow)
+(flycheck-add-next-checker 'javascript-eslint 'javascript-flow)
+;; (flycheck-add-mode 'javascript-flow 'js2-mode)
+(require-package 'flow-minor-mode)
+(add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
+;;; flow
+
 (provide 'init-local)
 ;;; init-local.el ends here
