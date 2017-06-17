@@ -642,5 +642,9 @@
 (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
 ;;; flow
 
+;;; company
+(setq company-dabbrev-downcase nil)     ;not to downcase
+;;; company
+
 (provide 'init-local)
 ;;; init-local.el ends here
