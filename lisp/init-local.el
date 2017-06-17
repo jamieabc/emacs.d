@@ -303,11 +303,6 @@
 (global-set-key (kbd "C-c x p") 'xref-pop-marker-stack)
 ;;; xref-js2
 
-;;; tern-mode
-(require-package 'tern)
-(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;;; tern-mode
-
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
