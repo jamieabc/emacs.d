@@ -79,7 +79,7 @@
   )
 
 (defun aredmine ()
-  "Redmine custom query all f2e bugs"
+  "Redmine custom query all f2e bugs."
   (interactive)
   (if (get-buffer "redmine")
       (kill-buffer "redmine"))
@@ -94,6 +94,29 @@
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
   (local-set-key (kbd "g") 'aredmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
+(defun jredmine ()
+  "List jira redmine issues."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 214")))
+  (switch-to-buffer "redmine")
+  (setq truncate-lines t)
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'lredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
@@ -636,8 +659,7 @@
 ;;; flow
 ;; (load-file "~/.emacs.d/site-lisp/flow-for-emacs/flow.el")
 (require-package 'flycheck-flow)
-(flycheck-add-next-checker 'javascript-eslint 'javascript-flow)
-;; (flycheck-add-mode 'javascript-flow 'js2-mode)
+;; (flycheck-add-next-checker 'javascript-eslint 'javascript-flow)
 (require-package 'flow-minor-mode)
 (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
 ;;; flow
