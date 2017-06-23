@@ -303,10 +303,6 @@
 (ad-activate 'rspec-compile)
 ;;; rspec
 
-;;; window number
-(require-package 'window-numbering)
-(window-numbering-mode)
-
 ;;; ido-vertical-mode
 (require-package 'ido-vertical-mode)
 (ido-vertical-mode t)
