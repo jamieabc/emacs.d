@@ -664,5 +664,17 @@
 (setq company-dabbrev-downcase nil)     ;not to downcase
 ;;; company
 
+;;; open line above
+(defun vi-open-line-above ()
+  "Insert a newline above the current line and put point at beginning."
+  (interactive)
+  (unless (bolp)
+    (beginning-of-line))
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+(global-set-key (kbd "S-<return>") 'vi-open-line-above)
+;;; open line above
+
 (provide 'init-local)
 ;;; init-local.el ends here
