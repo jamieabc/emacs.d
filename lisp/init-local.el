@@ -673,7 +673,16 @@
   (newline)
   (forward-line -1)
   (indent-according-to-mode))
+
+(defun vi-open-line-below ()
+  "Insert a newline below the current line and put point at beginning."
+  (interactive)
+  (unless (eolp)
+    (end-of-line))
+  (newline-and-indent))
+
 (global-set-key (kbd "S-<return>") 'vi-open-line-above)
+(global-set-key (kbd "C-o") 'vi-open-line-below)
 ;;; open line above
 
 (provide 'init-local)
