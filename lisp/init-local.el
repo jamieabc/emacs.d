@@ -685,5 +685,12 @@
 (global-set-key (kbd "C-o") 'vi-open-line-below)
 ;;; open line above
 
+;;; emacs line
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+
+(add-hook 'prog-mode-hook 'whitespace-mode)
+;;; emacs line
+
 (provide 'init-local)
 ;;; init-local.el ends here
