@@ -190,7 +190,6 @@
 
 ;;; ag
 (global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "M-?") 'sanityinc/counsel-ag-project)
 ;;; ag
 
 ;;; swiper
@@ -327,7 +326,10 @@
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java" "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp" "*.erb" "*.php" "*"))
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml"
+                              "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java"
+                              "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp"
+                              "*.erb" "*.php" "*"))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
@@ -690,6 +692,7 @@
 (setq whitespace-style '(face lines-tail))
 
 (add-hook 'prog-mode-hook 'whitespace-mode)
+;; (global-whitespace-mode +1) ;; enable this line if globally set line limit to 80 characters
 ;;; emacs line
 
 (provide 'init-local)
