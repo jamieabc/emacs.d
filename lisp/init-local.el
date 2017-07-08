@@ -695,5 +695,12 @@
 ;; (global-whitespace-mode +1) ;; enable this line if globally set line limit to 80 characters
 ;;; emacs line
 
+
+;;; projectile
+(require-package 'projectile)
+(require-package 'counsel-projectile)
+(global-set-key (kbd "M-?") 'counsel-projectile-ag)
+;;; projectile
+
 (provide 'init-local)
 ;;; init-local.el ends here
