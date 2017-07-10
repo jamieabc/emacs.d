@@ -688,11 +688,11 @@
 ;;; open line above
 
 ;;; emacs line
-(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-line-column 90) ;; limit line length
 (setq whitespace-style '(face lines-tail))
 
 (add-hook 'prog-mode-hook 'whitespace-mode)
-;; (global-whitespace-mode +1) ;; enable this line if globally set line limit to 80 characters
+;; (global-whitespace-mode +1) ;; enable this line if globally set line limit to 90 characters
 ;;; emacs line
 
 
