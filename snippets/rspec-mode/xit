@@ -1,0 +1,6 @@
+#-*- require-final-newline: nil -*-
+#name: xit "should do something" do ... end
+# key: xit
+# --
+xit 'should ${0:do something}' do
+end
