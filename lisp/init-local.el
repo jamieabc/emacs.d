@@ -320,7 +320,6 @@
 (global-set-key (kbd "C-c x r") 'xref-find-references)
 (global-set-key (kbd "C-c x p") 'xref-pop-marker-stack)
 ;;; xref-js2
-
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
@@ -701,6 +700,11 @@
 (require-package 'counsel-projectile)
 (global-set-key (kbd "M-?") 'counsel-projectile-ag)
 ;;; projectile
+
+;;; cucumber
+(require-package 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+;;; cucumber
 
 (provide 'init-local)
 ;;; init-local.el ends here
