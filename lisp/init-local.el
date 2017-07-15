@@ -336,6 +336,7 @@
 (add-hook 'markdown-mode-hook 'my-setup-find-file-in-project)
 (add-hook 'java-mode-hook 'my-setup-find-file-in-project)
 (global-set-key (kbd "C-c p f") 'find-file-in-project)
+(global-set-key (kbd "C-c p r") 'find-file-with-similar-name)
 (global-set-key (kbd "C-c p s") 'find-file-in-project-by-selected)
 (global-set-key (kbd "C-c p i") 'ffip-show-diff)
 ;;; find file in project
