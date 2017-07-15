@@ -707,5 +707,17 @@
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 ;;; cucumber
 
+;;; wgrep
+;;; use C-c C-o: to make counsel-ag to grep buffer
+;;; use C-x C-q: enter wgrep mode
+;;; use C-c C-c: finish edit and apply change
+;;; use C-c C-d: Mark as delete to current line (including newline).
+;;; use C-c C-r: Remove the changes in the region (these changes are not applied to the
+;;;              files. Of course, the remaining changes can still be applied to the files.)
+;;; use C-c C-k: Discard all changes and exit.
+(require-package 'wgrep)
+(setq wgrep-auto-save-buffer t)
+;;; wgrep
+
 (provide 'init-local)
 ;;; init-local.el ends here
