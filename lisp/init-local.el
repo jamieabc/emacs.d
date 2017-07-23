@@ -695,7 +695,6 @@
 ;; (global-whitespace-mode +1) ;; enable this line if globally set line limit to 90 characters
 ;;; emacs line
 
-
 ;;; projectile
 (require-package 'projectile)
 (require-package 'counsel-projectile)
@@ -718,6 +717,10 @@
 (require-package 'wgrep)
 (setq wgrep-auto-save-buffer t)
 ;;; wgrep
+
+;;; switch between frame
+(global-set-key (kbd "s-o") 'ns-next-frame)
+;;; switch between frame
 
 (provide 'init-local)
 ;;; init-local.el ends here
