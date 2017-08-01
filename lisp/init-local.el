@@ -79,7 +79,7 @@
   )
 
 (defun aredmine ()
-  "Redmine custom query all f2e bugs"
+  "Redmine custom query all f2e bugs."
   (interactive)
   (if (get-buffer "redmine")
       (kill-buffer "redmine"))
@@ -94,6 +94,29 @@
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
   (local-set-key (kbd "g") 'aredmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
+(defun jredmine ()
+  "List jira redmine issues."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 214")))
+  (switch-to-buffer "redmine")
+  (setq truncate-lines t)
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'lredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
@@ -167,7 +190,6 @@
 
 ;;; ag
 (global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "M-?") 'sanityinc/counsel-ag-project)
 ;;; ag
 
 ;;; swiper
@@ -280,10 +302,6 @@
 (ad-activate 'rspec-compile)
 ;;; rspec
 
-;;; window number
-(require-package 'window-numbering)
-(window-numbering-mode)
-
 ;;; ido-vertical-mode
 (require-package 'ido-vertical-mode)
 (ido-vertical-mode t)
@@ -302,18 +320,15 @@
 (global-set-key (kbd "C-c x r") 'xref-find-references)
 (global-set-key (kbd "C-c x p") 'xref-pop-marker-stack)
 ;;; xref-js2
-
-;;; tern-mode
-(require-package 'tern)
-(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;;; tern-mode
-
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml" "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java" "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp" "*.erb" "*.php" "*"))
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml"
+                              "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java"
+                              "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp"
+                              "*.erb" "*.php" "*"))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
@@ -321,6 +336,7 @@
 (add-hook 'markdown-mode-hook 'my-setup-find-file-in-project)
 (add-hook 'java-mode-hook 'my-setup-find-file-in-project)
 (global-set-key (kbd "C-c p f") 'find-file-in-project)
+(global-set-key (kbd "C-c p r") 'find-file-with-similar-name)
 (global-set-key (kbd "C-c p s") 'find-file-in-project-by-selected)
 (global-set-key (kbd "C-c p i") 'ffip-show-diff)
 ;;; find file in project
@@ -524,7 +540,7 @@
 
 ;;; multi-term
 (require-package 'multi-term)
-(add-to-list 'load-path "~/.emacs.d/site-list/multi-term-plus")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/multi-term-plus")
 (require 'multi-term-config)            ;sh -c "$(curl -fsSL https://raw.github.com/aborn/multi-term-plus/master/scripts/install.sh)"
 (setq multi-term-program "/bin/bash")
 (setq multi-term-buffer-name "mterm")  ;; term buffer name setting.
@@ -614,34 +630,8 @@
 ;; (editorconfig-mode 1)
 ;;; editorconfig
 
-;;; typescript
-(require-package 'tide)
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1))
-
 ;; ;; ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
-
-;; ;; ;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
-
-;; ;; ;;; ts
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . js2-mode))
-(add-hook 'js2-mode-hook
-          (lambda ()
-            (when (string-equal "ts" (file-name-extension buffer-file-name))
-              (setup-tide-mode))))
-
-;; ;;; js
-;; (add-hook 'js2-mode-hook #'setup-tide-mode)
-;;; typescript
 
 ;;; hackernews
 (require-package 'hackernews)
@@ -659,6 +649,78 @@
       (message "Copied buffer file name '%s' to the clipboard." filename))))
 (global-set-key (kbd "C-c p p") 'copy-file-name-to-clipboard)
 ;;;
+
+;;; remove trailing whitespace
+(add-to-list 'before-save-hook 'delete-trailing-whitespace)
+;;; remove trailing whitespace
+
+;;; flow
+;; (load-file "~/.emacs.d/site-lisp/flow-for-emacs/flow.el")
+(require-package 'flycheck-flow)
+;; (flycheck-add-next-checker 'javascript-eslint 'javascript-flow)
+(require-package 'flow-minor-mode)
+(add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
+;;; flow
+
+;;; company
+(setq company-dabbrev-downcase nil)     ;not to downcase
+;;; company
+
+;;; open line above
+(defun vi-open-line-above ()
+  "Insert a newline above the current line and put point at beginning."
+  (interactive)
+  (unless (bolp)
+    (beginning-of-line))
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun vi-open-line-below ()
+  "Insert a newline below the current line and put point at beginning."
+  (interactive)
+  (unless (eolp)
+    (end-of-line))
+  (newline-and-indent))
+
+(global-set-key (kbd "S-<return>") 'vi-open-line-above)
+(global-set-key (kbd "C-o") 'vi-open-line-below)
+;;; open line above
+
+;;; emacs line
+(setq whitespace-line-column 90) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+
+(add-hook 'prog-mode-hook 'whitespace-mode)
+;; (global-whitespace-mode +1) ;; enable this line if globally set line limit to 90 characters
+;;; emacs line
+
+;;; projectile
+(require-package 'projectile)
+(require-package 'counsel-projectile)
+(global-set-key (kbd "M-?") 'counsel-projectile-ag)
+;;; projectile
+
+;;; cucumber
+(require-package 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+;;; cucumber
+
+;;; wgrep
+;;; use C-c C-o: to make counsel-ag to grep buffer
+;;; use C-x C-q: enter wgrep mode
+;;; use C-c C-c: finish edit and apply change
+;;; use C-c C-d: Mark as delete to current line (including newline).
+;;; use C-c C-r: Remove the changes in the region (these changes are not applied to the
+;;;              files. Of course, the remaining changes can still be applied to the files.)
+;;; use C-c C-k: Discard all changes and exit.
+(require-package 'wgrep)
+(setq wgrep-auto-save-buffer t)
+;;; wgrep
+
+;;; switch between frame
+(global-set-key (kbd "s-o") 'ns-next-frame)
+;;; switch between frame
 
 (provide 'init-local)
 ;;; init-local.el ends here
