@@ -30,6 +30,7 @@
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
+  (local-set-key (kdb "b") 'redmine-get-branch)
   )
 
 (defun lredmine ()
@@ -174,6 +175,12 @@
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Closed %s" (get-ticket-number))))
   )
+
+(defun redmine-get-branch ()
+  "Get branch naming from ticket"
+  (interactive)
+  (shell-command (format "i -b %s" (get-ticket-number)))
+  )
 ;;; redmine related functions
 
 ;;; set default font and size
@@ -289,6 +296,7 @@
 (require-package 'rspec-mode)
 (add-hook 'ruby-mode-hook 'rspec-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(add-hook 'rspec-mode-hook (lambda () (local-set-key (kbd "C-c , s") 'rspec-verify-single)))
 (eval-after-load 'rspec-mode
   '(progn
      (setq rspec-command-options "--fail-fast --color")
