@@ -315,7 +315,6 @@
 (ido-vertical-mode t)
 (setq ido-vertical-show-count t)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
-(global-set-key (kbd "C-,") 'imenu)
 ;;; ido-vertical-mode
 
 ;;; js2-mode
@@ -745,6 +744,11 @@
 (global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
 (global-set-key (kbd "C-c n") 'crux-cleanup-buffer-or-region)
 ;;;; crux
+
+;;; imenu anywhere
+(require-package 'imenu-anywhere)
+(global-set-key (kbd "C-,") #'imenu-anywhere)
+;;; imenu anywhere
 
 (provide 'init-local)
 ;;; init-local.el ends here
