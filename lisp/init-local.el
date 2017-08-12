@@ -737,5 +737,14 @@
 (key-chord-mode t)
 ;;; key-chord
 
+;;; crux
+(require-package 'crux)
+(require 'crux)
+(global-set-key [remap kill-whole-line] #'crux-kill-whole-line)
+(global-set-key (kbd "C-c o") 'crux-open-with)
+(global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
+(global-set-key (kbd "C-c n") 'crux-cleanup-buffer-or-region)
+;;;; crux
+
 (provide 'init-local)
 ;;; init-local.el ends here
