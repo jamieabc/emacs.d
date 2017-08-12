@@ -730,5 +730,12 @@
 (global-set-key (kbd "s-o") 'ns-next-frame)
 ;;; switch between frame
 
+;;; key-chord
+(load-file "~/.emacs.d/site-lisp/key-chord.el")
+(require 'key-chord)
+(key-chord-define-global "jj" 'ns-next-frame)
+(key-chord-mode t)
+;;; key-chord
+
 (provide 'init-local)
 ;;; init-local.el ends here
