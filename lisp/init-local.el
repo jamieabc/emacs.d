@@ -750,5 +750,14 @@
 (global-set-key (kbd "C-,") #'imenu-anywhere)
 ;;; imenu anywhere
 
+;;; switch to previous buffer
+(defun switch-to-previous-buffer ()
+  "Switch to previously open buffer. Repeated invocations toggle between the two
+ most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+(key-chord-define-global "JJ" 'switch-to-previous-buffer)
+;;; switch to previous buffer
+
 (provide 'init-local)
 ;;; init-local.el ends here
