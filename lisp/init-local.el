@@ -30,6 +30,7 @@
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
+  (local-set-key (kdb "b") 'redmine-get-branch)
   )
 
 (defun lredmine ()
@@ -174,6 +175,12 @@
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Closed %s" (get-ticket-number))))
   )
+
+(defun redmine-get-branch ()
+  "Get branch naming from ticket"
+  (interactive)
+  (shell-command (format "i -b %s" (get-ticket-number)))
+  )
 ;;; redmine related functions
 
 ;;; set default font and size
@@ -289,6 +296,7 @@
 (require-package 'rspec-mode)
 (add-hook 'ruby-mode-hook 'rspec-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(add-hook 'rspec-mode-hook (lambda () (local-set-key (kbd "C-c , s") 'rspec-verify-single)))
 (eval-after-load 'rspec-mode
   '(progn
      (setq rspec-command-options "--fail-fast --color")
@@ -307,7 +315,6 @@
 (ido-vertical-mode t)
 (setq ido-vertical-show-count t)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
-(global-set-key (kbd "C-,") 'imenu)
 ;;; ido-vertical-mode
 
 ;;; js2-mode
@@ -721,6 +728,36 @@
 ;;; switch between frame
 (global-set-key (kbd "s-o") 'ns-next-frame)
 ;;; switch between frame
+
+;;; key-chord
+(load-file "~/.emacs.d/site-lisp/key-chord.el")
+(require 'key-chord)
+(key-chord-define-global "jj" 'ns-next-frame)
+(key-chord-mode t)
+;;; key-chord
+
+;;; crux
+(require-package 'crux)
+(require 'crux)
+(global-set-key [remap kill-whole-line] #'crux-kill-whole-line)
+(global-set-key (kbd "C-c o") 'crux-open-with)
+(global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
+(global-set-key (kbd "C-c n") 'crux-cleanup-buffer-or-region)
+;;;; crux
+
+;;; imenu anywhere
+(require-package 'imenu-anywhere)
+(global-set-key (kbd "C-,") #'imenu-anywhere)
+;;; imenu anywhere
+
+;;; switch to previous buffer
+(defun switch-to-previous-buffer ()
+  "Switch to previously open buffer. Repeated invocations toggle between the two
+ most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+(key-chord-define-global "JJ" 'switch-to-previous-buffer)
+;;; switch to previous buffer
 
 (provide 'init-local)
 ;;; init-local.el ends here
