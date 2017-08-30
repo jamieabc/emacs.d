@@ -1,6 +1,6 @@
 #-*- require-final-newline: nil -*-
-#contributor: aaron.chang <aaron.chang@gmail.com>
-#name : describe
+# contributor: aaron.chang <aaron.chang@gmail.com>
+# name : it
 # key: it
 # --
 it('${1:title}', (${2:variable}) => {
