@@ -759,5 +759,19 @@
 (key-chord-define-global "JJ" 'switch-to-previous-buffer)
 ;;; switch to previous buffer
 
+;;; dumb jump
+(require-package 'dumb-jump)
+(setq dumb-jump-selector 'ivy)
+(define-key dumb-jump-mode-map (kbd "C-M-g") nil)
+(define-key dumb-jump-mode-map (kbd "C-M-p") nil)
+(define-key dumb-jump-mode-map (kbd "C-M-q") nil)
+(define-key dumb-jump-mode-map (kbd "C-M-g g") 'dumb-jump-go)
+(define-key dumb-jump-mode-map (kbd "C-M-g b") 'dumb-jump-back)
+(define-key dumb-jump-mode-map (kbd "C-M-g q") 'dumb-jump-quick-look)
+(define-key dumb-jump-mode-map (kbd "C-M-g o") 'dumb-jump-go-other-window)
+(define-key dumb-jump-mode-map (kbd "C-M-g p") 'dumb-jump-go-prompt)
+(dumb-jump-mode)
+;;; dumb jump
+
 (provide 'init-local)
 ;;; init-local.el ends here
