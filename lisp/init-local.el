@@ -201,6 +201,7 @@
 
 ;;; swiper
 (require-package 'swiper)
+(ivy-mode)
 (global-set-key (kbd "C-c r") 'ivy-resume)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-x C-m") 'counsel-M-x)
