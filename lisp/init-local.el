@@ -774,5 +774,17 @@
 (dumb-jump-mode)
 ;;; dumb jump
 
+;;; prettier
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(setq prettier-js-args '(
+                         "--trailing-comma" "all"
+                         "--bracket-spacing" "true"
+                         "--print-width" "80"
+                         "--tab-with" "2"
+                         "--single-quote" "true"
+                         "--jsx-bracket-same-line" "false"
+                         ))
+;;; prettier
+
 (provide 'init-local)
 ;;; init-local.el ends here
