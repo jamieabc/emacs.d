@@ -30,7 +30,7 @@
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
-  (local-set-key (kdb "b") 'redmine-get-branch)
+  (local-set-key (kbd "b") 'redmine-get-branch)
   )
 
 (defun lredmine ()
@@ -123,7 +123,7 @@
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
-  (local-set-key (kdb "b") 'redmine-get-branch)
+  (local-set-key (kbd "b") 'redmine-get-branch)
   )
 
 (defun redmine-kill-buffer ()
