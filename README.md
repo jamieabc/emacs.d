@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/purcell/emacs.d.png?branch=master)](https://travis-ci.org/purcell/emacs.d)
+<a href="https://www.patreon.com/sanityinc"><img alt="Support me" src="https://img.shields.io/badge/Support%20Me-%F0%9F%92%97-ff69b4.svg"></a>
 
 # A reasonable Emacs config
 
@@ -113,10 +114,10 @@ versions (see "Updates" above). If you still experience problems, go ahead and
 
 <hr>
 
-[![](http://api.coderwall.com/purcell/endorsecount.png)](http://coderwall.com/purcell)
+[Support this project and my other Open Source work](https://www.patreon.com/sanityinc)
 
 [![](http://www.linkedin.com/img/webpromo/btn_liprofile_blue_80x15.png)](http://uk.linkedin.com/in/stevepurcell)
 
 [sanityinc.com](http://www.sanityinc.com/)
 
-[@sanityinc](https://twitter.com/)
+[@sanityinc](https://twitter.com/sanityinc)

@@ -30,7 +30,7 @@
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
-  (local-set-key (kdb "b") 'redmine-get-branch)
+  (local-set-key (kbd "b") 'redmine-get-branch)
   )
 
 (defun lredmine ()
@@ -79,29 +79,6 @@
   (local-set-key (kbd "C") 'redmine-close-issue)
   )
 
-(defun aredmine ()
-  "Redmine custom query all f2e bugs."
-  (interactive)
-  (if (get-buffer "redmine")
-      (kill-buffer "redmine"))
-  (with-current-buffer
-      (get-buffer-create "redmine")
-    (insert (shell-command-to-string "redmine l -q 211")))
-  (switch-to-buffer "redmine")
-  (setq truncate-lines t)
-  (delete-trailing-whitespace)
-  (setq buffer-read-only t)
-  (local-set-key (kbd "o") 'redmine-open-issue)
-  (local-set-key (kbd "d") 'redmine-develop-issue)
-  (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'aredmine)
-  (local-set-key (kbd "s") 'redmine-add-subtask)
-  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
-  (local-set-key (kbd "c") 'redmine-add-task)
-  (local-set-key (kbd "q") 'redmine-kill-buffer)
-  (local-set-key (kbd "C") 'redmine-close-issue)
-  )
-
 (defun jredmine ()
   "List jira redmine issues."
   (interactive)
@@ -123,6 +100,30 @@
   (local-set-key (kbd "c") 'redmine-add-task)
   (local-set-key (kbd "q") 'redmine-kill-buffer)
   (local-set-key (kbd "C") 'redmine-close-issue)
+  )
+
+(defun bredmine ()
+  "List beta redmine tickets."
+  (interactive)
+  (if (get-buffer "redmine")
+      (kill-buffer "redmine"))
+  (with-current-buffer
+      (get-buffer-create "redmine")
+    (insert (shell-command-to-string "redmine l -q 211")))
+  (switch-to-buffer "redmine")
+  (setq truncate-lines t)
+  (delete-trailing-whitespace)
+  (setq buffer-read-only t)
+  (local-set-key (kbd "o") 'redmine-open-issue)
+  (local-set-key (kbd "d") 'redmine-develop-issue)
+  (local-set-key (kbd "r") 'redmine-resolve-issue)
+  (local-set-key (kbd "g") 'redmine)
+  (local-set-key (kbd "s") 'redmine-add-subtask)
+  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
+  (local-set-key (kbd "c") 'redmine-add-task)
+  (local-set-key (kbd "q") 'redmine-kill-buffer)
+  (local-set-key (kbd "C") 'redmine-close-issue)
+  (local-set-key (kbd "b") 'redmine-get-branch)
   )
 
 (defun redmine-kill-buffer ()
@@ -201,6 +202,7 @@
 
 ;;; swiper
 (require-package 'swiper)
+(ivy-mode)
 (global-set-key (kbd "C-c r") 'ivy-resume)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-x C-m") 'counsel-M-x)
@@ -758,6 +760,32 @@
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 (key-chord-define-global "JJ" 'switch-to-previous-buffer)
 ;;; switch to previous buffer
+
+;;; dumb jump
+(require-package 'dumb-jump)
+(setq dumb-jump-selector 'ivy)
+(define-key dumb-jump-mode-map (kbd "C-M-g") nil)
+(define-key dumb-jump-mode-map (kbd "C-M-p") nil)
+(define-key dumb-jump-mode-map (kbd "C-M-q") nil)
+(define-key dumb-jump-mode-map (kbd "C-M-g g") 'dumb-jump-go)
+(define-key dumb-jump-mode-map (kbd "C-M-g b") 'dumb-jump-back)
+(define-key dumb-jump-mode-map (kbd "C-M-g q") 'dumb-jump-quick-look)
+(define-key dumb-jump-mode-map (kbd "C-M-g o") 'dumb-jump-go-other-window)
+(define-key dumb-jump-mode-map (kbd "C-M-g p") 'dumb-jump-go-prompt)
+(dumb-jump-mode)
+;;; dumb jump
+
+;;; prettier
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(setq prettier-js-args '(
+                         "--trailing-comma" "none"
+                         "--bracket-spacing" "true"
+                         "--print-width" "80"
+                         "--tab-with" "2"
+                         "--single-quote" "true"
+                         "--jsx-bracket-same-line" "false"
+                         ))
+;;; prettier
 
 (provide 'init-local)
 ;;; init-local.el ends here
