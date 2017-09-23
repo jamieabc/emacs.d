@@ -507,12 +507,14 @@
 (keyfreq-autosave-mode 1)
 ;;; key frequency end
 
-;;; turn off linum-mode when file over 2000 lines
+;;; for large file(over 2000 lines), make some modification for performace
 (add-hook 'prog-mode-hook
           (lambda ()
-            (if (and (> (buffer-size)
-                        (* 2000 80)))
-                (linum-mode -1))))
+            (when (> (buffer-size) (* 2000 80))
+              (setq buffer-read-only t)
+              (buffer-disable-undo)
+              (fundamental-mode)
+              (linum-mode -1))))
 
 ;;; git-timemachine
 (require-package 'git-timemachine)
