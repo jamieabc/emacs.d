@@ -94,7 +94,7 @@
   (local-set-key (kbd "o") 'redmine-open-issue)
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'lredmine)
+  (local-set-key (kbd "g") 'jredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
@@ -117,7 +117,7 @@
   (local-set-key (kbd "o") 'redmine-open-issue)
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'redmine)
+  (local-set-key (kbd "g") 'bredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
@@ -699,7 +699,7 @@
 ;;; open line above
 
 ;;; emacs line
-(setq whitespace-line-column 90) ;; limit line length
+(setq whitespace-line-column 100) ;; limit line length
 (setq whitespace-style '(face lines-tail))
 
 (add-hook 'prog-mode-hook 'whitespace-mode)
@@ -778,11 +778,11 @@
 ;;; dumb jump
 
 ;;; prettier
-(add-hook 'js2-mode-hook 'prettier-js-mode)
+;; (add-hook 'js2-mode-hook 'prettier-js-mode)
 (setq prettier-js-args '(
                          "--trailing-comma" "none"
                          "--bracket-spacing" "true"
-                         "--print-width" "80"
+                         "--print-width" "100"
                          "--tab-with" "2"
                          "--single-quote" "true"
                          "--jsx-bracket-same-line" "false"
