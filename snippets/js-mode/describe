@@ -1,8 +1,8 @@
 #-*- require-final-newline: nil -*-
 # contributor: aaron.chang <aaron.chang@gmail.com>
-# name : describe
+# name: describe
 # key: desc
 # --
-describe('${1:title}', (${2:variable}) => {
+describe('${1:title}', () => {
   $0
 });
