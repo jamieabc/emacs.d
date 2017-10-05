@@ -778,7 +778,7 @@
 ;;; dumb jump
 
 ;;; prettier
-;; (add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
 (setq prettier-js-args '(
                          "--trailing-comma" "none"
                          "--bracket-spacing" "true"
