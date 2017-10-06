@@ -789,5 +789,26 @@
                          ))
 ;;; prettier
 
+;;; request
+(require-package 'request)
+;; (defun testurl ()
+;;   (request
+;;    "http://tw.yahoo.com"))
+;; (request
+;;  "http://192.168.100.12"
+;;  :params '(("X-Redmine-API-Key" . "a94b5d457d5fb86efb6bda9e92f0ac3e6872baee"))
+;;  :parser 'json-read
+;;  :success (cl-function
+;;            (lambda (&key data &allow-other-keys)
+;;              (message "I sent: %S" (assoc-default 'args data
+;;                                                   ))))
+;;  )
+;;; request
+
+;;; rubocop
+(require-package 'rubocop)
+(add-hook 'ruby-mode-hook #'rubocop-mode)
+;;; rubocop
+
 (provide 'init-local)
 ;;; init-local.el ends here
