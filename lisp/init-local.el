@@ -780,7 +780,7 @@
 ;;; prettier
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (setq prettier-js-args '(
-                         "--trailing-comma" "none"
+                         "--trailing-comma" "es5"
                          "--bracket-spacing" "true"
                          "--print-width" "100"
                          "--tab-with" "2"
