@@ -351,19 +351,19 @@
 ;;; find file in project
 
 ;;; comment whole line or add tail
-(defun comment-whole-line-or-add-tail (&optional arg)
-  "Replacement for the comment-dwim command.
-   If no region is selected and current line is not blank and we are not at
-   the end of the line, then comment current line.
-   Replaces default behaviour of comment-dwim, when it inserts comment at the
-   end of the line."
-  (interactive "*P")
-  (comment-normalize-vars)
-  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
-      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    (comment-dwim arg))
-  )
-(global-set-key (kbd "M-;") 'comment-whole-line-or-add-tail)
+;; (defun comment-whole-line-or-add-tail (&optional arg)
+;;   "Replacement for the comment-dwim command.
+;;    If no region is selected and current line is not blank and we are not at
+;;    the end of the line, then comment current line.
+;;    Replaces default behaviour of comment-dwim, when it inserts comment at the
+;;    end of the line."
+;;   (interactive "*P")
+;;   (comment-normalize-vars)
+;;   (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+;;       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+;;     (comment-dwim arg))
+;;   )
+;; (global-set-key (kbd "M-;") 'comment-whole-line-or-add-tail)
 ;;; comment whole line or add tail
 
 ;;; key frequency
@@ -662,7 +662,7 @@
 ;;;
 
 ;;; remove trailing whitespace
-(add-to-list 'before-save-hook 'delete-trailing-whitespace)
+(add-to-list 'before-save-hook #'delete-trailing-whitespace)
 ;;; remove trailing whitespace
 
 ;;; flow
@@ -740,13 +740,13 @@
 (key-chord-mode t)
 ;;; key-chord
 
-;;; crux
+;;; crux - Collection of Ridiculously Useful eXtensions
 (require-package 'crux)
 (require 'crux)
 (global-set-key [remap kill-whole-line] #'crux-kill-whole-line)
-(global-set-key (kbd "C-c o") 'crux-open-with)
-(global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
-(global-set-key (kbd "C-c n") 'crux-cleanup-buffer-or-region)
+(global-set-key (kbd "C-c o") #'crux-open-with)
+(global-set-key (kbd "C-c M-d") #'crux-duplicate-and-comment-current-line-or-region)
+(global-set-key (kbd "C-c n") #'crux-cleanup-buffer-or-region)
 ;;;; crux
 
 ;;; imenu anywhere
@@ -756,8 +756,7 @@
 
 ;;; switch to previous buffer
 (defun switch-to-previous-buffer ()
-  "Switch to previously open buffer. Repeated invocations toggle between the two
- most recently open buffers."
+  "Switch to previously open buffer. Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 (key-chord-define-global "JJ" 'switch-to-previous-buffer)
@@ -793,12 +792,16 @@
 (require-package 'rubocop)
 (add-hook 'ruby-mode-hook #'rubocop-mode)
 ;;; auto format ruby file
-(add-hook 'ruby-mode-hook (lambda () (add-hook 'before-save-hook #'rubocop-autocorrect-current-file nil t)))
+;; (add-hook 'ruby-mode-hook (lambda () (add-hook 'before-save-hook #'rubocop-autocorrect-current-file nil t)))
 ;;; rubocop
 
 ;;; auto pair
 (setq electric-pair-preserve-balance nil)
 ;;; auto pair
+
+;;; magit
+(define-key magit-log-mode-map (kbd "C-c C-w") #'magit-copy-section-value)
+;;; magit
 
 (provide 'init-local)
 ;;; init-local.el ends here
