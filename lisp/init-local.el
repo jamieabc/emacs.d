@@ -814,7 +814,10 @@
 ;;; auto pair
 
 ;;; magit
-(define-key magit-log-mode-map (kbd "C-c C-w") #'magit-copy-section-value)
+(eval-after-load 'magit
+  '(progn
+     (define-key magit-log-mode-map (kbd "C-c C-w") #'magit-copy-section-value)
+     ))
 ;;; magit
 
 (provide 'init-local)
