@@ -649,16 +649,30 @@
 ;;; hackernews
 
 ;;; copy file path & name to clipboard
-(defun copy-file-name-to-clipboard ()
-  "Copy the current buffer file name to the clipboard."
-  (interactive)
+(defun copy-file-name-or-path-to-clipboard (path)
+  "Copy the current buffer file name and path to clipboard."
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
                     (buffer-file-name))))
+    (message "path is %s" path)
     (when filename
-      (kill-new filename)
-      (message "Copied buffer file name '%s' to the clipboard." filename))))
-(global-set-key (kbd "C-c p p") 'copy-file-name-to-clipboard)
+      (if path (kill-new filename)
+        (kill-new (replace-regexp-in-string "\\/.*\\/"  "" filename)))
+      ;; (kill-new filename)
+      (message "Copied buffer '%s' to clipboard." filename))))
+
+(defun copy-file-name-to-clipboard ()
+  "Copy the current file name and path to clipbpard."
+  (interactive)
+  (copy-file-name-or-path-to-clipboard nil))
+
+(defun copy-file-path-to-clipboard ()
+  "Copy the current file name to clipbpard."
+  (interactive)
+  (copy-file-name-or-path-to-clipboard t))
+
+(global-set-key (kbd "C-c p p") #'copy-file-path-to-clipboard)
+(global-set-key (kbd "C-c p n") #'copy-file-name-to-clipboard)
 ;;;
 
 ;;; remove trailing whitespace
