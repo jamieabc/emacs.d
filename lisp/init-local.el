@@ -202,7 +202,7 @@
 
 ;;; convert word between snake-case or camel-case
 (defun my-camel-case-snake-case-conversion (camel-case)
-  "CONVERT string into CAMEL-CASE."
+  "Convert string into CAMEL-CASE."
   (save-excursion (let* ((bounds (if (use-region-p)
                                      (cons (region-beginning) (region-end))
                                    (bounds-of-thing-at-point 'symbol)))
