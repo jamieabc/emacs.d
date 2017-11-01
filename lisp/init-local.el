@@ -201,29 +201,21 @@
 ;;; ag
 
 ;;; convert word between snake-case or camel-case
-(defun my-camel-case-snake-case-conversion (camel-case)
+(defun my-toggle-between-camel-case-and-snake-case ()
   "Convert string into CAMEL-CASE."
+  (interactive)
   (save-excursion (let* ((bounds (if (use-region-p)
                                      (cons (region-beginning) (region-end))
                                    (bounds-of-thing-at-point 'symbol)))
-                         (text (buffer-substring-no-properties (car bounds) (cdr bounds))))
+                         (text (buffer-substring-no-properties (car bounds) (cdr bounds)))
+                         (snake-case (string-match-p "_" text)))
                     (when bounds (delete-region (car bounds) (cdr bounds))
-                          (if camel-case
+                          (if snake-case
                               (insert (s-lower-camel-case text))
                             (insert (s-snake-case text))
                             )))))
 
-(defun my-camel-case ()
-  "Convert word into CAMEL-CASE format."
-  (interactive)
-  (my-camel-case-snake-case-conversion t))
-
-(defun my-snake-case ()
-  "Convert word into SNAKE-CASE format."
-  (interactive)
-  (my-camel-case-snake-case-conversion nil))
-(global-set-key (kbd "s-c") #'my-camel-case)
-(global-set-key (kbd "s-s") #'my-snake-case)
+(global-set-key (kbd "s-s") #'my-toggle-between-camel-case-and-snake-case)
 ;;; convert word between snake-case or camel-case
 
 ;;; swiper
