@@ -867,6 +867,10 @@
   ;; guru settings
   (go-guru-hl-identifier-mode)                    ; highlight identifiers
 
+  ;; (setq-default indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+
   ;; Key bindings specific to go-mode
   (local-set-key (kbd "M-.") 'godef-jump)         ; Go to definition
   (local-set-key (kbd "M-*") 'pop-tag-mark)       ; Return from whence you came
