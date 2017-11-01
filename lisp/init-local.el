@@ -847,10 +847,19 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-copy-env "GOPATH"))
 
-;; Define function to call when go-mode loads
 (defun my-go-mode-hook ()
+  "Define function to call when go-mode load."
+  (require-package 'go-guru)
+  (require-package 'go-snippets)
+  (require-package 'company-go)
+
+  (set (make-local-variable 'company-backends) '(company-go))
+  (company-mode)
+
   (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
+
   (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
+
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
@@ -868,10 +877,6 @@
 
 ;; Connect go-mode-hook with the function we just defined
 (add-hook 'go-mode-hook #'my-go-mode-hook)
-
-;; Ensure the go specific autocomplete is active in go-mode.
-(with-eval-after-load 'go-mode
-  (require-package 'go-autocomplete))
 ;;; go
 
 (provide 'init-local)
