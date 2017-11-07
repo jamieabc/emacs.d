@@ -307,6 +307,8 @@
 (global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
 ;;; select words in quote
 
+;;; ruby
+
 ;;; rvm
 (require-package 'rvm)
 (rvm-use "ruby-2.3.3" "dsp")
@@ -329,6 +331,15 @@
 
 (ad-activate 'rspec-compile)
 ;;; rspec
+
+;;; rubocop
+(require-package 'rubocop)
+(add-hook 'ruby-mode-hook #'rubocop-mode)
+;;; auto format ruby file
+;; (add-hook 'ruby-mode-hook (lambda () (add-hook 'before-save-hook #'rubocop-autocorrect-current-file nil t)))
+;;; rubocop
+
+;;; ruby
 
 ;;; ido-vertical-mode
 (require-package 'ido-vertical-mode)
@@ -561,8 +572,10 @@
 ;;; yasnippet
 (require-package 'yasnippet)
 (yas-global-mode 1)
-;;; not to add new line
-(defun remove-final-newline () (set (make-local-variable 'require-final-newline) nil))
+
+(defun remove-final-newline ()
+  "Remove new line."
+  (set (make-local-variable 'require-final-newline) nil))
 (add-hook 'js2-mode-hook 'remove-final-newline)
 (add-hook 'ruby-mode-hook 'remove-final-newline)
 ;;; yasnippet
@@ -819,13 +832,6 @@
                          "--jsx-bracket-same-line" "false"
                          ))
 ;;; prettier
-
-;;; rubocop
-(require-package 'rubocop)
-(add-hook 'ruby-mode-hook #'rubocop-mode)
-;;; auto format ruby file
-;; (add-hook 'ruby-mode-hook (lambda () (add-hook 'before-save-hook #'rubocop-autocorrect-current-file nil t)))
-;;; rubocop
 
 ;;; auto pair
 (setq electric-pair-preserve-balance nil)
