@@ -339,6 +339,10 @@
 ;; (add-hook 'ruby-mode-hook (lambda () (add-hook 'before-save-hook #'rubocop-autocorrect-current-file nil t)))
 ;;; rubocop
 
+(add-hook 'ruby-mode-hook (lambda ()
+                            "Set imenu expression for ruby methods."
+                            (set (make-local-variable imenu-generic-expression)
+                                 '(("Methods" "^\\( *\\(def\\) +.+\\)") 1))))
 ;;; ruby
 
 ;;; ido-vertical-mode
@@ -794,9 +798,10 @@
 (global-set-key (kbd "C-c n") #'crux-cleanup-buffer-or-region)
 ;;;; crux
 
-;;; imenu anywhere
+;;; imenu
 (require-package 'imenu-anywhere)
-(global-set-key (kbd "C-,") #'imenu-anywhere)
+(global-set-key (kbd "s-,") #'imenu-anywhere)
+(global-set-key (kbd "C-,") #'imenu)
 ;;; imenu anywhere
 
 ;;; switch to previous buffer
