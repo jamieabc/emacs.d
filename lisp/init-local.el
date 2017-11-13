@@ -847,6 +847,7 @@
   '(progn
      (define-key magit-log-mode-map (kbd "C-c C-w") #'magit-copy-section-value)
      ))
+(global-set-key (kbd "C-x G") #'counsel-git-change-worktree)
 ;;; magit
 
 ;;; go
