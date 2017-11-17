@@ -335,14 +335,8 @@
 ;;; rubocop
 (require-package 'rubocop)
 (add-hook 'ruby-mode-hook #'rubocop-mode)
-;;; auto format ruby file
-;; (add-hook 'ruby-mode-hook (lambda () (add-hook 'before-save-hook #'rubocop-autocorrect-current-file nil t)))
 ;;; rubocop
 
-(add-hook 'ruby-mode-hook (lambda ()
-                            "Set imenu expression for ruby methods."
-                            (set (make-local-variable imenu-generic-expression)
-                                 '(("Methods" "^\\( *\\(def\\) +.+\\)") 1))))
 ;;; ruby
 
 ;;; ido-vertical-mode
