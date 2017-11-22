@@ -3,5 +3,5 @@
 #name : expect
 # key: exp
 # --
-expect(${1:variable}).to.equal(${2:result});
+expect(${1:variable}).toEqual(${2:result});
 $0

@@ -94,7 +94,7 @@
   (local-set-key (kbd "o") 'redmine-open-issue)
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'lredmine)
+  (local-set-key (kbd "g") 'jredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
@@ -117,7 +117,7 @@
   (local-set-key (kbd "o") 'redmine-open-issue)
   (local-set-key (kbd "d") 'redmine-develop-issue)
   (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'redmine)
+  (local-set-key (kbd "g") 'bredmine)
   (local-set-key (kbd "s") 'redmine-add-subtask)
   (local-set-key (kbd "v") 'redmine-add-verify-subtask)
   (local-set-key (kbd "c") 'redmine-add-task)
@@ -199,6 +199,24 @@
 ;;; ag
 (global-set-key (kbd "C-c k") 'counsel-ag)
 ;;; ag
+
+;;; convert word between snake-case or camel-case
+(defun my-toggle-between-camel-case-and-snake-case ()
+  "Convert string into CAMEL-CASE."
+  (interactive)
+  (save-excursion (let* ((bounds (if (use-region-p)
+                                     (cons (region-beginning) (region-end))
+                                   (bounds-of-thing-at-point 'symbol)))
+                         (text (buffer-substring-no-properties (car bounds) (cdr bounds)))
+                         (snake-case (string-match-p "_" text)))
+                    (when bounds (delete-region (car bounds) (cdr bounds))
+                          (if snake-case
+                              (insert (s-lower-camel-case text))
+                            (insert (s-snake-case text))
+                            )))))
+
+(global-set-key (kbd "s-s") #'my-toggle-between-camel-case-and-snake-case)
+;;; convert word between snake-case or camel-case
 
 ;;; swiper
 (require-package 'swiper)
@@ -289,6 +307,8 @@
 (global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
 ;;; select words in quote
 
+;;; ruby
+
 ;;; rvm
 (require-package 'rvm)
 (rvm-use "ruby-2.3.3" "dsp")
@@ -311,6 +331,13 @@
 
 (ad-activate 'rspec-compile)
 ;;; rspec
+
+;;; rubocop
+(require-package 'rubocop)
+(add-hook 'ruby-mode-hook #'rubocop-mode)
+;;; rubocop
+
+;;; ruby
 
 ;;; ido-vertical-mode
 (require-package 'ido-vertical-mode)
@@ -351,19 +378,19 @@
 ;;; find file in project
 
 ;;; comment whole line or add tail
-(defun comment-whole-line-or-add-tail (&optional arg)
-  "Replacement for the comment-dwim command.
-   If no region is selected and current line is not blank and we are not at
-   the end of the line, then comment current line.
-   Replaces default behaviour of comment-dwim, when it inserts comment at the
-   end of the line."
-  (interactive "*P")
-  (comment-normalize-vars)
-  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
-      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    (comment-dwim arg))
-  )
-(global-set-key (kbd "M-;") 'comment-whole-line-or-add-tail)
+;; (defun comment-whole-line-or-add-tail (&optional arg)
+;;   "Replacement for the comment-dwim command.
+;;    If no region is selected and current line is not blank and we are not at
+;;    the end of the line, then comment current line.
+;;    Replaces default behaviour of comment-dwim, when it inserts comment at the
+;;    end of the line."
+;;   (interactive "*P")
+;;   (comment-normalize-vars)
+;;   (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+;;       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+;;     (comment-dwim arg))
+;;   )
+;; (global-set-key (kbd "M-;") 'comment-whole-line-or-add-tail)
 ;;; comment whole line or add tail
 
 ;;; key frequency
@@ -507,12 +534,14 @@
 (keyfreq-autosave-mode 1)
 ;;; key frequency end
 
-;;; turn off linum-mode when file over 2000 lines
+;;; for large file(over 2000 lines), make some modification for performace
 (add-hook 'prog-mode-hook
           (lambda ()
-            (if (and (> (buffer-size)
-                        (* 2000 80)))
-                (linum-mode -1))))
+            (when (> (buffer-size) (* 2000 80))
+              (setq buffer-read-only t)
+              (buffer-disable-undo)
+              (fundamental-mode)
+              (linum-mode -1))))
 
 ;;; git-timemachine
 (require-package 'git-timemachine)
@@ -541,8 +570,10 @@
 ;;; yasnippet
 (require-package 'yasnippet)
 (yas-global-mode 1)
-;;; not to add new line
-(defun remove-final-newline () (set (make-local-variable 'require-final-newline) nil))
+
+(defun remove-final-newline ()
+  "Remove new line."
+  (set (make-local-variable 'require-final-newline) nil))
 (add-hook 'js2-mode-hook 'remove-final-newline)
 (add-hook 'ruby-mode-hook 'remove-final-newline)
 ;;; yasnippet
@@ -647,20 +678,34 @@
 ;;; hackernews
 
 ;;; copy file path & name to clipboard
-(defun copy-file-name-to-clipboard ()
-  "Copy the current buffer file name to the clipboard."
-  (interactive)
+(defun copy-file-name-or-path-to-clipboard (path)
+  "Copy the current buffer file name and path to clipboard."
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
                     (buffer-file-name))))
+    (message "path is %s" path)
     (when filename
-      (kill-new filename)
-      (message "Copied buffer file name '%s' to the clipboard." filename))))
-(global-set-key (kbd "C-c p p") 'copy-file-name-to-clipboard)
+      (if path (kill-new filename)
+        (kill-new (replace-regexp-in-string "\\/.*\\/"  "" filename)))
+      ;; (kill-new filename)
+      (message "Copied buffer '%s' to clipboard." filename))))
+
+(defun copy-file-name-to-clipboard ()
+  "Copy the current file name and path to clipbpard."
+  (interactive)
+  (copy-file-name-or-path-to-clipboard nil))
+
+(defun copy-file-path-to-clipboard ()
+  "Copy the current file name to clipbpard."
+  (interactive)
+  (copy-file-name-or-path-to-clipboard t))
+
+(global-set-key (kbd "C-c p p") #'copy-file-path-to-clipboard)
+(global-set-key (kbd "C-c p n") #'copy-file-name-to-clipboard)
 ;;;
 
 ;;; remove trailing whitespace
-(add-to-list 'before-save-hook 'delete-trailing-whitespace)
+(add-to-list 'before-save-hook #'delete-trailing-whitespace)
 ;;; remove trailing whitespace
 
 ;;; flow
@@ -697,7 +742,7 @@
 ;;; open line above
 
 ;;; emacs line
-(setq whitespace-line-column 90) ;; limit line length
+(setq whitespace-line-column 100) ;; limit line length
 (setq whitespace-style '(face lines-tail))
 
 (add-hook 'prog-mode-hook 'whitespace-mode)
@@ -738,24 +783,24 @@
 (key-chord-mode t)
 ;;; key-chord
 
-;;; crux
+;;; crux - Collection of Ridiculously Useful eXtensions
 (require-package 'crux)
 (require 'crux)
 (global-set-key [remap kill-whole-line] #'crux-kill-whole-line)
-(global-set-key (kbd "C-c o") 'crux-open-with)
-(global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
-(global-set-key (kbd "C-c n") 'crux-cleanup-buffer-or-region)
+(global-set-key (kbd "C-c o") #'crux-open-with)
+(global-set-key (kbd "C-c M-d") #'crux-duplicate-and-comment-current-line-or-region)
+(global-set-key (kbd "C-c n") #'crux-cleanup-buffer-or-region)
 ;;;; crux
 
-;;; imenu anywhere
+;;; imenu
 (require-package 'imenu-anywhere)
-(global-set-key (kbd "C-,") #'imenu-anywhere)
+(global-set-key (kbd "s-,") #'imenu-anywhere)
+(global-set-key (kbd "C-,") #'imenu)
 ;;; imenu anywhere
 
 ;;; switch to previous buffer
 (defun switch-to-previous-buffer ()
-  "Switch to previously open buffer. Repeated invocations toggle between the two
- most recently open buffers."
+  "Switch to previously open buffer. Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 (key-chord-define-global "JJ" 'switch-to-previous-buffer)
@@ -780,12 +825,69 @@
 (setq prettier-js-args '(
                          "--trailing-comma" "none"
                          "--bracket-spacing" "true"
-                         "--print-width" "80"
+                         "--print-width" "100"
                          "--tab-with" "2"
                          "--single-quote" "true"
                          "--jsx-bracket-same-line" "false"
                          ))
 ;;; prettier
+
+;;; auto pair
+(setq electric-pair-preserve-balance nil)
+;;; auto pair
+
+;;; magit
+(eval-after-load 'magit
+  '(progn
+     (define-key magit-log-mode-map (kbd "C-c C-w") #'magit-copy-section-value)
+     ))
+(global-set-key (kbd "C-x G") #'counsel-git-change-worktree)
+;;; magit
+
+;;; go
+(require-package 'go-mode)
+(require-package 'go-snippets)
+(require-package 'go-guru)
+
+;;; get GOPATH
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-copy-env "GOPATH"))
+
+(defun my-go-mode-hook ()
+  "Define function to call when go-mode load."
+  (require-package 'go-guru)
+  (require-package 'go-snippets)
+  (require-package 'company-go)
+
+  (set (make-local-variable 'company-backends) '(company-go))
+  (company-mode)
+
+  (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
+
+  (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
+
+  (if (not (string-match "go" compile-command))   ; set compile command default
+      (set (make-local-variable 'compile-command)
+           "go build -v && go test -v && go vet"))
+
+  ;; guru settings
+  (go-guru-hl-identifier-mode)                    ; highlight identifiers
+
+  ;; (setq-default indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+
+  ;; Key bindings specific to go-mode
+  (local-set-key (kbd "M-.") 'godef-jump)         ; Go to definition
+  (local-set-key (kbd "M-*") 'pop-tag-mark)       ; Return from whence you came
+  (local-set-key (kbd "M-p") 'compile)            ; Invoke compiler
+  (local-set-key (kbd "M-P") 'recompile)          ; Redo most recent compile cmd
+  (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
+  (local-set-key (kbd "M-[") 'previous-error))    ; Go to previous error or msg
+
+;; Connect go-mode-hook with the function we just defined
+(add-hook 'go-mode-hook #'my-go-mode-hook)
+;;; go
 
 (provide 'init-local)
 ;;; init-local.el ends here
