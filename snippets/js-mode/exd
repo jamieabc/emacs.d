@@ -1,0 +1,6 @@
+#-*- require-final-newline: nil -*-
+#contributor: aaron
+#name : export default module
+# key: exd
+# --
+export default ${0:module};

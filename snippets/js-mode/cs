@@ -1,0 +1,8 @@
+#-*- require-final-newline: nil -*-
+#contributor: aaron
+#name : react class
+# key: rc
+# --
+class ${1:class} extends Component {
+$0
+}

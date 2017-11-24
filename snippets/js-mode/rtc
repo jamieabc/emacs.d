@@ -1,0 +1,11 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: react toggle component
+# key: rtc
+# contributor: Aaron Chang
+# --
+<ToggleComponent
+  registeredKey="${1:key}"
+  propsForAlternative={${0:props}}
+>
+{false}
+</ToggleComponent>

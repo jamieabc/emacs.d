@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: React default props
+# key: rdp
+# --
+${1:class}.defaultProps={
+$0
+}

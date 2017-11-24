@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: React propTypes
+# key: rpt
+# --
+${1:class}.propTypes={
+$0
+}
