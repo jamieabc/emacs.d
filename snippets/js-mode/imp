@@ -1,6 +1,5 @@
 # -*- coding: utf-8; mode: snippet -*-
 # name: import component from '../component'
 # key: imp
-# contributor: Aaron Chang <aaron DOT chang AT gmail>
 # --
-import ${1:variable} from '../${1:$(yas/substr yas-text "[^ ]*")}';
+import ${1:variable} from './${1:$(yas/substr yas-text "[^ ]*")}';

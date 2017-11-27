@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: import react related libraries
-# key: ipr
+# name: react import related libraries
+# key: rim
 # --
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';

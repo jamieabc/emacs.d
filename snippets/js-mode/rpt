@@ -4,4 +4,4 @@
 # --
 ${1:class}.propTypes={
 $0
-}
+};
