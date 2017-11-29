@@ -798,6 +798,20 @@
   (define-key symbol-overlay-mode-map (kbd "M-W") 'symbol-overlay-save-symbol)
   )
 
+;;; editing
+(defun insert-i18n-text-at-region (BEGIN END)
+  "Convert region text into i18n format."
+  (interactive "r")
+  (if (use-region-p)
+      (save-excursion
+        (goto-char begin)
+        (insert "{i18n.t('::'")
+        (goto-char (+ end 12))
+        (insert "')}")
+        ))
+  )
+;;; editing
+
 ;;; editorconfig
 ;; (require-package 'editoconfig)
 ;; (editorconfig-mode 1)
