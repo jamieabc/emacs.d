@@ -799,17 +799,17 @@
   )
 
 ;;; editing
-(defun insert-i18n-text-at-region (BEGIN END)
+(defun insert-i18n-text-at-region (begin end)
   "Convert region text into i18n format."
   (interactive "r")
   (if (use-region-p)
-      (save-excursion
-        (goto-char begin)
-        (insert "{i18n.t('::'")
-        (goto-char (+ end 12))
-        (insert "')}")
-        ))
-  )
+      (progn (save-excursion
+               (goto-char end)
+               (insert "')}")
+               (goto-char begin)
+               (insert "{i18n.t('::")
+               )
+             (goto-char (+ begin 9)))))
 ;;; editing
 
 ;;; editorconfig
