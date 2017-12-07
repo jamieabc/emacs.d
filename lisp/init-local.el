@@ -807,7 +807,7 @@
                (goto-char end)
                (insert "')}")
                (goto-char begin)
-               (insert "{i18n.t('::")
+               (insert "{i18n.t(':::")
                )
              (goto-char (+ begin 9)))))
 ;;; editing
