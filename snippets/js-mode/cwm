@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: React#componentWillReceiveProps
+# key: cwm
+# --
+componentWillMount() {
+  $0
+}
