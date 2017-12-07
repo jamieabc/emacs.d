@@ -974,7 +974,7 @@
                          "--bracket-spacing" "true"
                          "--print-width" "100"
                          "--tab-with" "2"
-                         "--single-quote" "true"
+                         "--single-quote" "false"
                          "--jsx-bracket-same-line" "false"
                          ))
 ;;; prettier
@@ -1038,11 +1038,10 @@
 
 ;;; dash
 (require-package 'helm-dash)
-(setq helm-dash-common-docsets '("Javascript" "Ruby_2" "Ruby_on_Rails_5" "Emacs_Lisp" "Go"))
-(add-hook 'ruby-mode-hook (lambda () (setq-local hel-dash-docsets '("Ruby_2" "Ruby_or_Rails_5"))))
-(add-hook 'js2-mode-hook (lambda () (setq-local hel-dash-docsets '("Javascript"))))
-(add-hook 'emacs-lisp-mode-hook (lambda () (setq-local hel-dash-docsets '("Emacs_Lisp"))))
-(add-hook 'go-mode-hook (lambda () (setq-local hel-dash-docsets '("Go"))))
+(add-hook 'ruby-mode-hook (lambda () (setq-local helm-dash-docsets '("Ruby" "Ruby on Rails"))))
+(add-hook 'js2-mode-hook (lambda () (setq-local helm-dash-docsets '("Javascript"))))
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq-local helm-dash-docsets '("Emacs_Lisp"))))
+(add-hook 'go-mode-hook (lambda () (setq-local helm-dash-docsets '("Go"))))
 (global-set-key (kbd "C-x D") #'helm-dash-at-point)
 ;;; dash
 
