@@ -3,6 +3,4 @@
 # name: describe
 # key: desc
 # --
-describe("${1:title}", () => {
-  $0
-});
+describe("${1:title}", () => {$0});
