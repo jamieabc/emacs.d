@@ -1,0 +1,6 @@
+#-*- require-final-newline: nil -*-
+#contributor: aaron
+#name : prettier-ignore
+# key: pig
+# --
+// prettier-ignore
