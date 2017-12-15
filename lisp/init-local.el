@@ -754,6 +754,7 @@
   '(
     ;; phrase
     ("btw" "by the way" )
+    ("jd" "[Deliver]")
 
     ;; programing
     ("eeq" "==" )
