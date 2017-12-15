@@ -752,12 +752,7 @@
 (clear-abbrev-table global-abbrev-table)
 (define-abbrev-table 'global-abbrev-table
   '(
-
     ;; phrase
-    ("afaik" "as far as i know" )
-    ("atm" "at the moment" )
-    ("ty" "thank you" )
-
     ("btw" "by the way" )
 
     ;; programing
@@ -923,10 +918,18 @@
 (global-set-key (kbd "s-o") 'ns-next-frame)
 ;;; switch between frame
 
+;;; switch to previous buffer
+(defun switch-to-previous-buffer ()
+  "Switch to previously open buffer. Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+;;; switch to previous buffer
+
 ;;; key-chord
 (load-file "~/.emacs.d/site-lisp/key-chord.el")
 (require 'key-chord)
 (key-chord-define-global "jj" 'ns-next-frame)
+(key-chord-define-global "JJ" 'switch-to-previous-buffer)
 (key-chord-mode t)
 ;;; key-chord
 
@@ -944,14 +947,6 @@
 (global-set-key (kbd "s-,") #'imenu-anywhere)
 (global-set-key (kbd "C-,") #'imenu)
 ;;; imenu anywhere
-
-;;; switch to previous buffer
-(defun switch-to-previous-buffer ()
-  "Switch to previously open buffer. Repeated invocations toggle between the two most recently open buffers."
-  (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) 1)))
-(key-chord-define-global "JJ" 'switch-to-previous-buffer)
-;;; switch to previous buffer
 
 ;;; dumb jump
 (require-package 'dumb-jump)
