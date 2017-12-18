@@ -728,6 +728,7 @@
             (add-to-list 'term-bind-key-alist '("C-a" . multi-term-move-beginning-of-line))
             (add-to-list 'term-bind-key-alist '("C-e" . multi-term-move-end-of-line))
             (add-to-list 'term-bind-key-alist '("C-k" . multi-term-kill-line))
+            (add-to-list 'term-bind-key-alist '("C-y" . term-paste))
             (setq show-trailing-whitespace nil)
             (setq yas-dont-activate t)  ;disable yasnippet, tab should be working
             (setq multi-term-recovery-p nil)
@@ -806,6 +807,17 @@
                (insert "{i18n.t(':::")
                )
              (goto-char (+ begin 9)))))
+
+(defun remove-i18n-text-at-region (begin end)
+  "Remove i18n format."
+  (interactive "r")
+  (if (use-region-p)
+      (progn (save-excursion
+               (let* ((str (buffer-substring begin end))
+                      (target (replace-regexp-in-string "^i18n.*\\:\\:\\(.*\\))$" "\"\\1" str)))
+                 (delete-region begin end)
+                 (insert target)
+                 )))))
 ;;; editing
 
 ;;; editorconfig
