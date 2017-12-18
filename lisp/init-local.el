@@ -814,10 +814,10 @@
   (if (use-region-p)
       (progn (save-excursion
                (let* ((str (buffer-substring begin end))
-                      (target (replace-regexp-in-string "^i18n.*\\:\\:\\(.*\\))$" "\"\\1" str)))
+                      (target (replace-regexp-in-string "i18n.t([[:ascii:][:nonascii:]]*\\([\"']\\).*::\\(.*\\)[\"'][[:ascii:][:nonascii:]]*)" "\\1\\2\\1" str)))
                  (delete-region begin end)
-                 (insert target)
-                 )))))
+                 (insert target))
+               ))))
 ;;; editing
 
 ;;; editorconfig
