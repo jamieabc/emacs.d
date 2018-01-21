@@ -1044,14 +1044,10 @@
 (add-hook 'go-mode-hook #'my-go-mode-hook)
 ;;; go
 
-;;; dash
-(require-package 'helm-dash)
-(add-hook 'ruby-mode-hook (lambda () (setq-local helm-dash-docsets '("Ruby" "Ruby on Rails"))))
-(add-hook 'js2-mode-hook (lambda () (setq-local helm-dash-docsets '("Javascript"))))
-(add-hook 'emacs-lisp-mode-hook (lambda () (setq-local helm-dash-docsets '("Emacs_Lisp"))))
-(add-hook 'go-mode-hook (lambda () (setq-local helm-dash-docsets '("Go"))))
-(global-set-key (kbd "C-x D") #'helm-dash-at-point)
-;;; dash
+;;; vue
+(require-package 'vue-mode)
+(add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
+;;; vue
 
 (provide 'init-local)
 ;;; init-local.el ends here
