@@ -443,8 +443,9 @@
 ;;; ruby
 
 ;;; rvm
-;; (require-package 'rvm)
+(require-package 'rvm)
 ;; (rvm-use "ruby-2.3.3" "dsp")
+(rvm-use-default)
 ;;; rvm
 
 ;;; rspec
