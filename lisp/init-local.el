@@ -391,22 +391,22 @@
 ;;; rails
 
 ;;; ggtags
-(require-package 'ggtags)
-(add-hook 'prog-mode-hook
-          '(lambda ()
-             (when (derived-mode-p 'ruby-mode 'js2-mode)
-               (ggtags-mode 1))))
-(eval-after-load 'ggtags
-  '(progn
-     (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-     (define-key ggtags-mode-map (kbd "C-c .") 'ggtags-find-tag-dwim)
-     (define-key ggtags-mode-map (kbd "C-c g d") ' ggtags-find-definition)
-     (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
-     (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
-     (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-     (define-key ggtags-mode-map (kbd "C-c g x") 'ggtags-find-tag-regexp)
-     (define-key ggtags-mode-map (kbd "C-c g k") 'ggtags-kill-file-buffers)
-     ))
+;; (require-package 'ggtags)
+;; (add-hook 'prog-mode-hook
+;;           '(lambda ()
+;;              (when (derived-mode-p 'ruby-mode 'js2-mode)
+;;                (ggtags-mode 1))))
+;; (eval-after-load 'ggtags
+;;   '(progn
+;;      (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+;;      (define-key ggtags-mode-map (kbd "C-c .") 'ggtags-find-tag-dwim)
+;;      (define-key ggtags-mode-map (kbd "C-c g d") ' ggtags-find-definition)
+;;      (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+;;      (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+;;      (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+;;      (define-key ggtags-mode-map (kbd "C-c g x") 'ggtags-find-tag-regexp)
+;;      (define-key ggtags-mode-map (kbd "C-c g k") 'ggtags-kill-file-buffers)
+;;      ))
 ;;; ggtags
 
 ;;; Mac keybindings
