@@ -1050,5 +1050,10 @@
 (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
 ;;; vue
 
+;;; org
+(require-package 'org-bullets)
+(require-package 'org-beautify-theme)
+;;; org
+
 (provide 'init-local)
 ;;; init-local.el ends here
