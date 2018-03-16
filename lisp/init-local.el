@@ -384,6 +384,12 @@
      ))
 ;;; swiper
 
+;;; ivy frame
+(require-package 'ivy-posframe)
+(setq ivy-display-function #'ivy-posframe-display)
+(ivy-posframe-enable)
+;;; ivy frame
+
 ;;; rails
 (eval-after-load 'rinari
   '(progn (setq rinari-tags-file-name "GTAGS"))
