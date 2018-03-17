@@ -1,7 +1,0 @@
-#-*- require-final-newline: nil -*-
-#contributor: aaron.chang <aaron.chang@gmail.com>
-#name : expect
-# key: exp
-# --
-expect(${1:variable}).toEqual(${2:result});
-$0

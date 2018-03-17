@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: react import related libraries
-# key: rim
-# --
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import i18n from 'i18next';

@@ -1,0 +1,14 @@
+# -*- coding: utf-8; mode: snippet -*-
+# contributor: aaron.chang
+# name: react class
+# key: rcl
+# --
+class ${1:class} extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    $0
+  }
+}

@@ -1,0 +1,7 @@
+# -*- coding: utf-8; mode: snippet -*-
+# contributor: aaron
+# name : import package
+# key: im
+# --
+import ${1:package} from '${2:location}';
+$0

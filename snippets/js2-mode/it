@@ -1,4 +1,4 @@
-#-*- require-final-newline: nil -*-
+# -*- coding: utf-8; mode: snippet -*-
 # contributor: aaron.chang <aaron.chang@gmail.com>
 # name : it
 # key: it
