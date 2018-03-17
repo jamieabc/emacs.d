@@ -325,8 +325,9 @@
 
 ;;; avy
 (require-package 'avy)
-(global-set-key (kbd "C-c C-;") 'avy-goto-char)
-(global-set-key (kbd "C-x C-;") 'avy-goto-line)
+(global-set-key (kbd "C-c C-;") #'avy-goto-char)
+(global-set-key (kbd "C-x C-;") #'avy-goto-line)
+(global-set-key (kbd "C-x ;") #'avy-goto-word-1)
 ;;; avy
 
 ;;; ag
@@ -540,6 +541,8 @@
         abort-recursive-edit
         avy-goto-line
         avy-goto-char
+        avy-goto-word-1
+        avy-goto-char-timer
         avy-goto-word-or-subword-1
         backward-char
         backward-kill-word
