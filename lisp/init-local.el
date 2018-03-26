@@ -1064,5 +1064,16 @@
 (require-package 'org-beautify-theme)
 ;;; org
 
+;;; convert date of 03/04/1997 to 1997.04.03
+(defun my-convert-date ()
+  "Covert date of 03/04/1997 to 1997.04.03."
+  (interactive)
+  (let* ((bounds (if (use-region-p)
+                     (cons (region-beginning) (region-end))))
+         (text (buffer-substring-no-properties (car bounds) (cdr bounds))))
+    (when bounds
+      (delete-region (car bounds) (cdr bounds))
+      (insert (replace-regexp-in-string "\\([0-9]+\\)\/\\([0-9]+\\)\/\\([0-9]+\\)" "\\3\.\\1\.\\2" text)))))
+
 (provide 'init-local)
 ;;; init-local.el ends here
