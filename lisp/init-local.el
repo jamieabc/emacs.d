@@ -1074,6 +1074,16 @@
     (when bounds
       (delete-region (car bounds) (cdr bounds))
       (insert (replace-regexp-in-string "\\([0-9]+\\)\/\\([0-9]+\\)\/\\([0-9]+\\)" "\\3\.\\1\.\\2" text)))))
+;;; convert date of 03/04/1997 to 1997.04.03
+
+;;; highlight todos
+(defun highlight-todos ()
+  "Highlight some dev keywords."
+  (font-lock-add-keywords
+   nil
+   '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t))))
+(add-hook 'prog-mode-hook #'highlight-todos)
+;;; highlight todos
 
 (provide 'init-local)
 ;;; init-local.el ends here
