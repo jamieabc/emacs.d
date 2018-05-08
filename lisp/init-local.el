@@ -1,3 +1,6 @@
+;;; add executable path
+(add-to-list 'exec-path "/usr/local/bin")
+
 ;;;  redmine related functions
 (defun get-ticket-number ()
   "Get ticket number from each line."
@@ -1086,6 +1089,11 @@
    '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t))))
 (add-hook 'prog-mode-hook #'highlight-todos)
 ;;; highlight todos
+
+;;; chez scheme
+(require-package 'geiser)
+(setq geiser-active-implementations '(chez))
+;;; chez scheme
 
 (provide 'init-local)
 ;;; init-local.el ends here
