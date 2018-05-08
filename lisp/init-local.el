@@ -783,7 +783,7 @@
     ("utag" "\\([</>=\" A-Za-z0-9]+\\)" )
 
     ;; unicode
-    ("md" "—" )
+    ("mdd" "—" )
     ("uascii" "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~" )
 
     ;; code
@@ -1062,6 +1062,8 @@
 ;;; org
 (require-package 'org-bullets)
 (require-package 'org-beautify-theme)
+(add-hook 'org-mode-hook #'org-bullets-mode)
+(add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
