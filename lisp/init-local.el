@@ -505,7 +505,7 @@
 (defun my-setup-find-file-in-project ()
   (interactive)
   ;; interested filetypes
-  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "*.xml"
+  (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "sass" "*.xml"
                               "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java"
                               "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp"
                               "*.erb" "*.php" "*"))
@@ -1094,6 +1094,14 @@
 (require-package 'geiser)
 (setq geiser-active-implementations '(chez))
 ;;; chez scheme
+
+;;; scss
+(defun customize-scss ()
+  "Customize scss settings."
+  (and
+   (set (make-local-variable 'css-indent-offset) 2)))
+(add-hook 'css-mode-hook '(lambda () (customize-scss)))
+;;; scss
 
 (provide 'init-local)
 ;;; init-local.el ends here
