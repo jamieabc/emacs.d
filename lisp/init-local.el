@@ -389,9 +389,9 @@
 ;;; swiper
 
 ;;; ivy frame
-(require-package 'ivy-posframe)
-(setq ivy-display-function #'ivy-posframe-display)
-(ivy-posframe-enable)
+;; (require-package 'ivy-posframe)
+;; (setq ivy-display-function #'ivy-posframe-display)
+;; (ivy-posframe-enable)
 ;;; ivy frame
 
 ;;; rails
@@ -773,6 +773,7 @@
     ;; programing
     ("eeq" "==" )
     ("eqq" "===" )
+    ("xar" "=>")
     ("ret" "return" )
 
     ;; regex
@@ -1102,6 +1103,11 @@
    (set (make-local-variable 'css-indent-offset) 2)))
 (add-hook 'css-mode-hook '(lambda () (customize-scss)))
 ;;; scss
+
+;;; html
+(add-hook 'sgml-mode-hook (lambda () (tagedit-add-experimental-features)))
+(add-hook 'sgml-mode-hook 'origami-mode)
+;;; html
 
 (provide 'init-local)
 ;;; init-local.el ends here
