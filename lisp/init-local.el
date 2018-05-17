@@ -988,7 +988,7 @@
                          "--trailing-comma" "none"
                          "--bracket-spacing" "true"
                          "--print-width" "100"
-                         "--tab-with" "2"
+                         "--tab-width" "2"
                          "--single-quote" "false"
                          "--jsx-bracket-same-line" "false"
                          ))
