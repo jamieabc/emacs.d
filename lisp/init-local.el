@@ -878,14 +878,6 @@
 (add-to-list 'before-save-hook #'delete-trailing-whitespace)
 ;;; remove trailing whitespace
 
-;;; flow
-;; (load-file "~/.emacs.d/site-lisp/flow-for-emacs/flow.el")
-(require-package 'flycheck-flow)
-;; (flycheck-add-next-checker 'javascript-eslint 'javascript-flow)
-(require-package 'flow-minor-mode)
-(add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
-;;; flow
-
 ;;; company
 (setq company-dabbrev-downcase nil)     ;not to downcase
 ;;; company
