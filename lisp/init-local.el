@@ -1109,5 +1109,9 @@
 (add-hook 'sgml-mode-hook 'origami-mode)
 ;;; html
 
+;; typescript
+(add-hook 'typescript-mode-hook (lambda () (setq typescript-indent-level 2)))
+;; typescript
+
 (provide 'init-local)
 ;;; init-local.el ends here
