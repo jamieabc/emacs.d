@@ -1111,6 +1111,10 @@
   '(progn
      (require 'tern-auto-complete)
      (tern-ac-setup)))
+(defun delete-tern-process ()
+  "Force restart of tern in new project."
+  (interactive)
+  (delete-process "Tern"))
 ;; typescript
 
 (provide 'init-local)
