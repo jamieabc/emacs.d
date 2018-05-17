@@ -404,7 +404,7 @@
 ;; (require-package 'ggtags)
 ;; (add-hook 'prog-mode-hook
 ;;           '(lambda ()
-;;              (when (derived-mode-p 'ruby-mode 'js2-mode)
+;;              (when (derived-mode-p 'ruby-mode 'js2-mode 'typescript-mode)
 ;;                (ggtags-mode 1))))
 ;; (eval-after-load 'ggtags
 ;;   '(progn
@@ -500,6 +500,7 @@
 (global-set-key (kbd "C-c x r") 'xref-find-references)
 (global-set-key (kbd "C-c x p") 'xref-pop-marker-stack)
 ;;; xref-js2
+
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
@@ -1110,7 +1111,14 @@
 ;;; html
 
 ;; typescript
+(require-package 'tern)
+(require-package 'tern-auto-complete)
 (add-hook 'typescript-mode-hook (lambda () (setq typescript-indent-level 2)))
+(add-hook 'typescript-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
 ;; typescript
 
 (provide 'init-local)
