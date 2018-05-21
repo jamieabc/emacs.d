@@ -1105,13 +1105,19 @@
 (add-hook 'typescript-mode-hook (lambda () (tern-mode t)))
 (eval-after-load 'tern
   '(progn
-     (require 'tern-auto-complete)
+     (require-package 'tern-auto-complete)
      (tern-ac-setup)))
 (defun delete-tern-process ()
   "Force restart of tern in new project."
   (interactive)
   (delete-process "Tern"))
 ;; typescript
+
+;;; angular
+(eval-after-load 'typescript
+  '(progn
+     (require-package 'angular-snippets)))
+;;; angular
 
 (provide 'init-local)
 ;;; init-local.el ends here
