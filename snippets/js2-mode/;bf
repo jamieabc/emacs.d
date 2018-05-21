@@ -1,6 +1,6 @@
 # -*- coding: utf-8; mode: snippet -*-
 # contributon: aaron.chang
-# name: this.function = this.function.bind(this)
+# name: bind functions
 # key: ;bf
 # --
 this.${1:function} = this.${1:$(yas/substr yas-text "[^ ]*")}.bind(this);
