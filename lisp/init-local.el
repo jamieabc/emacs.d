@@ -518,15 +518,23 @@
 ;;; ido-vertical-mode
 
 ;;; js2-mode
+(require-package 'js2-refactor)
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(setq prettier-js-args '(
+                         "--trailing-comma" "none"
+                         "--bracket-spacing" "true"
+                         "--print-width" "100"
+                         "--tab-width" "2"
+                         "--single-quote" "false"
+                         "--jsx-bracket-same-line" "false"
+                         ))
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-m")
+(setq js2-skip-preprocessor-directives t)
+;;; link https://github.com/magnars/js2-refactor.el
 ;;; js2-mode
-
-;;; xref-js2
-(global-set-key (kbd "C-c x d") 'xref-find-definitions)
-(global-set-key (kbd "C-c x r") 'xref-find-references)
-(global-set-key (kbd "C-c x p") 'xref-pop-marker-stack)
-;;; xref-js2
 
 ;;; find file in project
 (require-package 'find-file-in-project)
@@ -1009,18 +1017,6 @@
 (dumb-jump-mode)
 ;;; dumb jump
 
-;;; prettier
-(add-hook 'js2-mode-hook 'prettier-js-mode)
-(setq prettier-js-args '(
-                         "--trailing-comma" "none"
-                         "--bracket-spacing" "true"
-                         "--print-width" "100"
-                         "--tab-width" "2"
-                         "--single-quote" "false"
-                         "--jsx-bracket-same-line" "false"
-                         ))
-;;; prettier
-
 ;;; auto pair
 (setq electric-pair-preserve-balance nil)
 ;;; auto pair
@@ -1120,7 +1116,7 @@
 (defun customize-scss ()
   "Customize scss settings."
   (and
-   (set (make-local-variable 'css-indent-offset) 2)))
+   (set (make-local-variable 'css-indent-offset) 4))) ;indent to 4 spaces/level
 (add-hook 'css-mode-hook '(lambda () (customize-scss)))
 ;;; scss
 
@@ -1136,12 +1132,27 @@
 (add-hook 'typescript-mode-hook (lambda () (tern-mode t)))
 (eval-after-load 'tern
   '(progn
-     (require 'tern-auto-complete)
+     (require-package 'tern-auto-complete)
      (tern-ac-setup)))
 (defun delete-tern-process ()
   "Force restart of tern in new project."
   (interactive)
   (delete-process "Tern"))
+
+(require-package 'tide)
+(defun setup-tide ()
+  "Setup typescript interactive env."
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1))
+
+;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide)
 ;; typescript
 
 (provide 'init-local)
