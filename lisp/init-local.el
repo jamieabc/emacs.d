@@ -498,7 +498,7 @@
 (setq prettier-js-args '(
                          "--trailing-comma" "none"
                          "--bracket-spacing" "true"
-                         "--print-width" "100"
+                         "--print-width" "90"
                          "--tab-width" "2"
                          "--single-quote" "false"
                          "--jsx-bracket-same-line" "false"
@@ -1126,6 +1126,17 @@
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
 (add-hook 'typescript-mode-hook #'setup-tide)
+
+(add-hook 'typescript-mode-hook 'prettier-js-mode)
+(setq prettier-js-args '(
+                         "--trailing-comma" "none"
+                         "--bracket-spacing" "true"
+                         "--print-width" "90"
+                         "--tab-width" "2"
+                         "--single-quote" "false"
+                         "--jsx-bracket-same-line" "false"
+                         ))
+
 ;; typescript
 
 (provide 'init-local)
