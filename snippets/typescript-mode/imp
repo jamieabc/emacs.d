@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: import
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: imp
+# --
+import { ${1:package} } from '$0${1:$(yas/substr yas-text "[^ ]*")}';
