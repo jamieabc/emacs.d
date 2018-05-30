@@ -1137,6 +1137,7 @@
                          "--jsx-bracket-same-line" "false"
                          ))
 
+(add-hook 'tyescript-mode-hook #'js2-refactor-mode)
 ;; typescript
 
 (provide 'init-local)
