@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: console.log("variable: ", variable)
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: ;lo
+# --
+console.log('${1:variable}: ', $0${1:$(yas/substr yas-text "[^ ]*")});

@@ -1163,8 +1163,13 @@
                          "--single-quote" "false"
                          "--jsx-bracket-same-line" "false"
                          ))
-
 ;; typescript
+
+;;; js2-refactor
+(setq js2-skip-preprocessor-directives t)
+(js2r-add-keybindings-with-prefix "C-c C-m") ;;eg. extract function with `C-c C-m ef`.
+;; (js2r-add-keybindings-with-modifier "C-s-") ;; eg. extract function with `C-s-e C-s-f`.
+;;; js2-refactor
 
 (provide 'init-local)
 ;;; init-local.el ends here
