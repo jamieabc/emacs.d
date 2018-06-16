@@ -446,6 +446,26 @@
 ;;      ))
 ;;; ggtags
 
+;;; tags
+(require-package 'counsel-etags)
+(eval-after-load 'counsel-etags
+  '(progn
+     ;; counsel-etags-ignore-directories does NOT support wildcast
+     (add-to-list 'counsel-etags-ignore-directories "node_modules")
+     (add-to-list 'counsel-etags-ignore-directories ".git")
+     (add-to-list 'counsel-etags-ignore-directories "build")
+     (add-to-list 'counsel-etags-ignore-directories "dest")
+     ;; counsel-etags-ignore-filenames supports wildcast
+     (add-to-list 'counsel-etags-ignore-filenames "TAGS")
+     (add-to-list 'counsel-etags-ignore-filenames "GTAGS")
+     (add-to-list 'counsel-etags-ignore-filenames "GRTAGS")
+     (add-to-list 'counsel-etags-ignore-filenames "GPATH")
+     (add-to-list 'counsel-etags-ignore-filenames "gatgs.files")
+     ;; (add-to-list 'counsel-etags-ignore-filenames "*.json")
+     )
+  )
+;;; tags
+
 ;;; Mac keybindings
 (when *is-a-mac*
   (setq mac-option-modifier 'super) ; make opt key do Super
