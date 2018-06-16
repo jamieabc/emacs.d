@@ -766,23 +766,23 @@
 (require 'multi-term-config)            ;sh -c "$(curl -fsSL https://raw.github.com/aborn/multi-term-plus/master/scripts/install.sh)"
 (setq multi-term-program "/bin/bash")
 (setq multi-term-buffer-name "mterm")  ;; term buffer name setting.
-(setq system-uses-terminfo nil) ;; Use Emacs terminfo, not system terminfo, for mac OS 4m
+(setq system-uses-terminfo nil) ;; Use Emacs terminfo, not system terminfo, for mac OS
 (global-set-key (kbd "C-M-{") 'multi-term-find)
 (global-set-key (kbd "C-M-,") 'multi-term)
 (add-hook 'term-mode-hook
           (lambda ()
             (setq term-buffer-maximum-size 5000) ;limit 5000 lines
+            (setq show-trailing-whitespace nil)
+            (setq yas-dont-activate t)  ;disable yasnippet, tab should be working
+            (setq multi-term-recovery-p nil)
+            (setq term-truncate-lines 1)
             (add-to-list 'term-bind-key-alist '("M-[" . multi-term-prev))
             (add-to-list 'term-bind-key-alist '("M-]" . multi-term-next))
             (add-to-list 'term-bind-key-alist '("C-a" . multi-term-move-beginning-of-line))
             (add-to-list 'term-bind-key-alist '("C-e" . multi-term-move-end-of-line))
             (add-to-list 'term-bind-key-alist '("C-k" . multi-term-kill-line))
-            (add-to-list 'term-bind-key-alist '("C-y" . term-paste))
-            (setq show-trailing-whitespace nil)
-            (setq yas-dont-activate t)  ;disable yasnippet, tab should be working
-            (setq multi-term-recovery-p nil)
-            )
-          )
+            (add-to-list 'term-bind-key-alist '("C-w" . term-send-backward-kill-word))
+            (add-to-list 'term-bind-key-alist '("C-y" . term-paste))))
 (multi-term-plus-init)
 ;;; multi-term
 
