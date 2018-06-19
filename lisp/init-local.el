@@ -1,3 +1,30 @@
+;;; theme
+(require-package 'solarized-theme)
+
+;; make the fringe stand out from the background
+(setq solarized-distinct-fringe-background t)
+
+;; Don't change the font for some headings and titles
+(setq solarized-use-variable-pitch nil)
+
+;; make the modeline high contrast
+(setq solarized-high-contrast-mode-line t)
+
+;; Use less bolding
+(setq solarized-use-less-bold t)
+
+;; Use more italics
+(setq solarized-use-more-italic t)
+
+;; Use less colors for indicators such as git:gutter, flycheck and similar
+(setq solarized-emphasize-indicators nil)
+
+;; Don't change size of org-mode headlines (but keep other size-changes)
+;; (setq solarized-scale-org-headlines nil)
+
+(setq x-underline-at-descent-line t)
+;;; theme
+
 ;;; add executable path
 (add-to-list 'exec-path "/usr/local/bin")
 
@@ -418,6 +445,26 @@
 ;;      (define-key ggtags-mode-map (kbd "C-c g k") 'ggtags-kill-file-buffers)
 ;;      ))
 ;;; ggtags
+
+;;; tags
+(require-package 'counsel-etags)
+(eval-after-load 'counsel-etags
+  '(progn
+     ;; counsel-etags-ignore-directories does NOT support wildcast
+     (add-to-list 'counsel-etags-ignore-directories "node_modules")
+     (add-to-list 'counsel-etags-ignore-directories ".git")
+     (add-to-list 'counsel-etags-ignore-directories "build")
+     (add-to-list 'counsel-etags-ignore-directories "dest")
+     ;; counsel-etags-ignore-filenames supports wildcast
+     (add-to-list 'counsel-etags-ignore-filenames "TAGS")
+     (add-to-list 'counsel-etags-ignore-filenames "GTAGS")
+     (add-to-list 'counsel-etags-ignore-filenames "GRTAGS")
+     (add-to-list 'counsel-etags-ignore-filenames "GPATH")
+     (add-to-list 'counsel-etags-ignore-filenames "gatgs.files")
+     ;; (add-to-list 'counsel-etags-ignore-filenames "*.json")
+     )
+  )
+;;; tags
 
 ;;; Mac keybindings
 (when *is-a-mac*
