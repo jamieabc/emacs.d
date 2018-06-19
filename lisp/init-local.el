@@ -1180,7 +1180,7 @@
                          "--bracket-spacing" "true"
                          "--print-width" "90"
                          "--tab-width" "2"
-                         "--single-quote" "false"
+                         "--single-quote" "true"
                          "--jsx-bracket-same-line" "false"
                          ))
 ;; typescript
@@ -1190,6 +1190,10 @@
 (js2r-add-keybindings-with-prefix "C-c C-m") ;;eg. extract function with `C-c C-m ef`.
 ;; (js2r-add-keybindings-with-modifier "C-s-") ;; eg. extract function with `C-s-e C-s-f`.
 ;;; js2-refactor
+
+;;; markdown
+(setq-default markdown-hide-markup t)
+;;; markdown
 
 (provide 'init-local)
 ;;; init-local.el ends here
