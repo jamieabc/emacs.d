@@ -362,6 +362,7 @@
 
 ;;; ag
 (global-set-key (kbd "C-c k") 'counsel-ag)
+(setq counsel-ag-base-command "ag -S --nocolor --nogroup %s")
 ;;; ag
 
 ;;; convert word between snake-case or camel-case
