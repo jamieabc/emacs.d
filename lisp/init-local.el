@@ -1183,6 +1183,7 @@
                          "--tab-width" "2"
                          "--single-quote" "true"
                          "--jsx-bracket-same-line" "false"
+                         "--arrow-parens" "always"
                          ))
 ;; typescript
 
