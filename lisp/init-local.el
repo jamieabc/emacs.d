@@ -367,7 +367,7 @@
 
 ;;; convert word between snake-case or camel-case
 (defun my-toggle-between-camel-case-and-snake-case ()
-  "Convert string into CAMEL-CASE."
+  "Convert string between camelCase and snake_case."
   (interactive)
   (save-excursion (let* ((bounds (if (use-region-p)
                                      (cons (region-beginning) (region-end))
@@ -380,7 +380,22 @@
                             (insert (s-snake-case text))
                             )))))
 
+(defun my-toggle-between-camel-case-and-dash-words ()
+  "Convert string betwen CamelCase and dash-words."
+  (interactive)
+  (save-excursion (let* ((bounds (if (use-region-p)
+                                     (cons (region-beginning) (region-end))
+                                   (bounds-of-thing-at-point 'symbol)))
+                         (text (buffer-substring-no-properties (car bounds) (cdr bounds)))
+                         (dashed-words (string-match-p "-" text)))
+                    (when bounds (delete-region (car bounds) (cdr bounds))
+                          (if dashed-words
+                              (insert (s-upper-camel-case text))
+                            (insert (s-dashed-words text))
+                            )))))
+
 (global-set-key (kbd "s-s") #'my-toggle-between-camel-case-and-snake-case)
+(global-set-key (kbd "s-d") #'my-toggle-between-camel-case-and-dash-words)
 ;;; convert word between snake-case or camel-case
 
 ;;; swiper
