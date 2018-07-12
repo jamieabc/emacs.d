@@ -839,14 +839,15 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ;; phrase
-    ("btw" "by the way" )
+    ("btw" "by the way")
     ("jd" "[Deliver]")
 
     ;; programing
-    ("eeq" "==" )
-    ("eqq" "===" )
+    ("eeq" "==")
+    ("eqq" "===")
+    ("neq" "!==")
     ("xar" "=>")
-    ("ret" "return" )
+    ("ret" "return")
 
     ;; regex
     ("uaz" "\\([A-Za-z0-9]+\\)" )
