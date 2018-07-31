@@ -1,6 +1,7 @@
 ;;; theme
 (require-package 'solarized-theme)
 
+
 ;; make the fringe stand out from the background
 (setq solarized-distinct-fringe-background t)
 
@@ -1132,6 +1133,27 @@
 (setq org-crypt-tag-matcher encrypt-tag)  ;encrypt content with tag "encrypt"
 (setq org-tags-exclude-from-inheritcance (quote (encrypt-tag)))  ;avoid children double encrypted
 (setq org-crypt-key nil)
+(custom-set-variables
+ '(org-directory "~/.emacs.d/org/"))
+
+;;; open org directory
+(defun org-dir ()
+  "Open Dired for Org files in and under `org-directory`."
+  (interactive)
+  (cd org-directory)
+  (dired "*.org" "-lRF"))
+
+(defun org-file ()
+  "Open Org file at `org-directory`."
+  (interactive)
+  (let* ((cands (split-string
+                 (shell-command-to-string (concat "find " org-directory "*.org")) "\n" t)))
+    (ivy-read "File: " cands
+              :action #'find-file
+              :caller 'org-file)
+    ))
+(global-set-key (kbd "s-F") 'org-dir)
+(global-set-key (kbd "s-f") 'org-file)
 ;;; encryption
 ;;; org
 
