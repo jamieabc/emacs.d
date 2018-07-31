@@ -1122,8 +1122,17 @@
 ;;; org
 (require-package 'org-bullets)
 (require-package 'org-beautify-theme)
+(require 'org-crypt)
 (add-hook 'org-mode-hook #'org-bullets-mode)
 (add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
+
+;;; encryption
+(org-crypt-use-before-save-magic)       ;encrypt before save to disk
+(setq encrypt-tag "encrypt")
+(setq org-crypt-tag-matcher encrypt-tag)  ;encrypt content with tag "encrypt"
+(setq org-tags-exclude-from-inheritcance (quote (encrypt-tag)))  ;avoid children double encrypted
+(setq org-crypt-key nil)
+;;; encryption
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
