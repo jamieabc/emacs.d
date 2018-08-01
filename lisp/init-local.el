@@ -1137,14 +1137,14 @@
  '(org-directory "~/.emacs.d/org/"))
 
 ;;; open org directory
-(defun org-dir ()
+(defun org-dir-dired ()
   "Open Dired for Org files in and under `org-directory`."
   (interactive)
   (cd org-directory)
   (dired "*.org" "-lRF"))
 
-(defun org-file ()
-  "Open Org file at `org-directory`."
+(defun org-file-list ()
+  "Open org file list at `org-directory`."
   (interactive)
   (let* ((cands (split-string
                  (shell-command-to-string (concat "find " org-directory "*.org")) "\n" t)))
@@ -1152,8 +1152,12 @@
               :action #'find-file
               :caller 'org-file)
     ))
-(global-set-key (kbd "s-F") 'org-dir)
-(global-set-key (kbd "s-f") 'org-file)
+(defun org-file-today ()
+  "Open today org file at `org-directory`."
+  (interactive)
+  (find-file (concat "~/.emacs.d/org/" (shell-command-to-string "echo -n $(date +%Y-%m-%d)") ".org")))
+(global-set-key (kbd "s-f") 'org-file-today)
+(global-set-key (kbd "s-F") 'org-file-list)
 ;;; encryption
 ;;; org
 
