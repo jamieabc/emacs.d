@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: fmt.Println("variable: ", variable)
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: ;lo
+# --
+fmt.Println("${1:variable}: ", ${1:$(yas/substr yas-text "[^ ]*")})
