@@ -1,4 +1,18 @@
 * Sprint Meeting
+** Estimation is hard
+
+   Engineer is always optimistic.
+
+** Estimate in unit but not hour
+
+   Hour is hard and different for everyone. But half day work is same
+   to everyone, some works 8 hours a day and some works 12 hours a day.
+
+** Good estimation is around 70%
+
+   When professional enginner does something not familiar, the
+   accuracy of data should be around 70%. That's also the reason that
+
 * E2E Test
 ** Difference between unit test & e2e test
    If a behavior exist only within component, then it should be a unit test.
@@ -11,5 +25,5 @@ it('Has header', async () => {});
 #+END_SRC
 
    The `title` and `header` is nothing to do with backend data, so
-   after some thinkg, it shold be in the unit test better. And for
-   unit test, it is much faster and even shadow dom test can be introduced.
+   these two tests should be writter in unit test. So it will be much
+   faster and convenient.
