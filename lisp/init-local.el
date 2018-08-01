@@ -1135,6 +1135,8 @@
 (setq org-crypt-key nil)
 (custom-set-variables
  '(org-directory "~/.emacs.d/org/"))
+;;; encryption
+
 
 ;;; open org directory
 (defun org-dir-dired ()
@@ -1158,7 +1160,32 @@
   (find-file (concat "~/.emacs.d/org/" (shell-command-to-string "echo -n $(date +%Y-%m-%d)") ".org")))
 (global-set-key (kbd "s-f") 'org-file-today)
 (global-set-key (kbd "s-F") 'org-file-list)
-;;; encryption
+
+;;; add <el for emacs-lisp expansion
+(add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+;;; add <el for emacs-lisp expansion
+
+;; add <js for javascript expansion
+(add-to-list 'org-structure-template-alist
+             '("js" "#+BEGIN_SRC js\n?\n#+END_SRC" "<src lang=\"js\">\n?\n</src>"))
+;; add <js for javascript expansion
+
+;; add <ts for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("ts" "#+BEGIN_SRC typescript\n?\n#+END_SRC" "<src lang=\"typescript\">\n?\n</src>"))
+;; add <ts for typescript expansion
+
+;; add <sql for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("sql" "#+BEGIN_SRC sql\n?\n#+END_SRC" "<src lang=\"sql\">\n?\n</src>"))
+;; add <sql for typescript expansion
+
+;; add <rb for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("ts" "#+BEGIN_SRC ruby\n?\n#+END_SRC" "<src lang=\"ruby\">\n?\n</src>"))
+;; add <rb for typescript expansion
+
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
