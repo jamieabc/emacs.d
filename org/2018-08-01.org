@@ -1,0 +1,10 @@
+* Sprint Meeting
+* E2E Test
+** Difference between unit test & e2e test
+   If a behavior exist only within component, then it should be a unit test.
+
+   take `app.e2e.ts` as an example
+
+#+BEGIN_SRC
+
+#+END_SRC

@@ -1135,16 +1135,18 @@
 (setq org-crypt-key nil)
 (custom-set-variables
  '(org-directory "~/.emacs.d/org/"))
+;;; encryption
+
 
 ;;; open org directory
-(defun org-dir ()
+(defun org-dir-dired ()
   "Open Dired for Org files in and under `org-directory`."
   (interactive)
   (cd org-directory)
   (dired "*.org" "-lRF"))
 
-(defun org-file ()
-  "Open Org file at `org-directory`."
+(defun org-file-list ()
+  "Open org file list at `org-directory`."
   (interactive)
   (let* ((cands (split-string
                  (shell-command-to-string (concat "find " org-directory "*.org")) "\n" t)))
@@ -1152,9 +1154,38 @@
               :action #'find-file
               :caller 'org-file)
     ))
-(global-set-key (kbd "s-F") 'org-dir)
-(global-set-key (kbd "s-f") 'org-file)
-;;; encryption
+(defun org-file-today ()
+  "Open today org file at `org-directory`."
+  (interactive)
+  (find-file (concat "~/.emacs.d/org/" (shell-command-to-string "echo -n $(date +%Y-%m-%d)") ".org")))
+(global-set-key (kbd "s-f") 'org-file-today)
+(global-set-key (kbd "s-F") 'org-file-list)
+
+;;; add <el for emacs-lisp expansion
+(add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+;;; add <el for emacs-lisp expansion
+
+;; add <js for javascript expansion
+(add-to-list 'org-structure-template-alist
+             '("js" "#+BEGIN_SRC js\n?\n#+END_SRC" "<src lang=\"js\">\n?\n</src>"))
+;; add <js for javascript expansion
+
+;; add <ts for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("ts" "#+BEGIN_SRC typescript\n?\n#+END_SRC" "<src lang=\"typescript\">\n?\n</src>"))
+;; add <ts for typescript expansion
+
+;; add <sql for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("sql" "#+BEGIN_SRC sql\n?\n#+END_SRC" "<src lang=\"sql\">\n?\n</src>"))
+;; add <sql for typescript expansion
+
+;; add <rb for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("ts" "#+BEGIN_SRC ruby\n?\n#+END_SRC" "<src lang=\"ruby\">\n?\n</src>"))
+;; add <rb for typescript expansion
+
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
