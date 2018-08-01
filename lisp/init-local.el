@@ -1126,6 +1126,7 @@
 (require 'org-crypt)
 (add-hook 'org-mode-hook #'org-bullets-mode)
 (add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
