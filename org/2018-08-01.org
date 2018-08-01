@@ -5,6 +5,11 @@
 
    take `app.e2e.ts` as an example
 
-#+BEGIN_SRC
-
+#+BEGIN_SRC typescript
+it('Has title', async () => {});
+it('Has header', async () => {});
 #+END_SRC
+
+   The `title` and `header` is nothing to do with backend data, so
+   after some thinkg, it shold be in the unit test better. And for
+   unit test, it is much faster and even shadow dom test can be introduced.
