@@ -2,7 +2,19 @@
 ** User observer pattern for service
 
    Implementation is abstracted inside the method `processEvent`, any
-   component
+   component used should provide type of handler:
+
+*** Client
+
+    Event is directly from browser, server acts as a proxy
+
+*** Server
+
+    Event is processed by server
+
+*** Missing unit test
+
+    I will add it if enough time
 
 ** Event has two kinds of handler
 *** Client
