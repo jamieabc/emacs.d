@@ -1,0 +1,20 @@
+* Add web tracker service
+** User observer pattern for service
+
+   Implementation is abstracted inside the method `processEvent`, any
+   component
+
+** Event has two kinds of handler
+*** Client
+**** Sign-in page action
+**** Welcome page action
+**** Account page action
+**** Properties page action
+**** Issuance page action
+**** Property detail page action
+*** Server
+**** User Location
+**** Default language option
+**** Browser type
+**** Device
+**** Traffic source

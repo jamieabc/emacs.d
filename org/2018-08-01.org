@@ -5,13 +5,15 @@
 
 ** Estimate in unit but not hour
 
-   Hour is hard and different for everyone. But half day work is same
-   to everyone, some works 8 hours a day and some works 12 hours a day.
+   Hour is hard and different for everyone, some works 8 hours a day
+   and some works 12 hours a day. But half day work is same
+   to everyone, it makes no bias on that.
 
 ** Good estimation is around 70%
 
    When professional enginner does something not familiar, the
-   accuracy of data should be around 70%. That's also the reason that
+   accuracy of estimation should be around 70%. That's also the reason why
+   do team estimation.
 
 * E2E Test
 ** Difference between unit test & e2e test
