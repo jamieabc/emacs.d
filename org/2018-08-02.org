@@ -16,6 +16,26 @@
 
     I will add it if enough time
 
+*** Abstraction
+
+    Write a presentational component which will wrap original children
+    and add additional `onClick` event. Without that, I have to add
+    onClick behavior for every page of html tag
+
+*** Angular module
+
+**** What is injectable?
+
+**** What is provider?
+
+**** What is declaration?
+
+**** What is entryComponents?
+
+**** What is import?
+
+**** What is export?
+
 ** Event has two kinds of handler
 *** Client
 **** Sign-in page action
