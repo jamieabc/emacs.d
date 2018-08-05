@@ -1,0 +1,52 @@
+* Add web tracker service
+** User observer pattern for service
+
+   Implementation is abstracted inside the method `processEvent`, any
+   component used should provide type of handler:
+
+*** Client
+
+    Event is directly from browser, server acts as a proxy
+
+*** Server
+
+    Event is processed by server
+
+*** Missing unit test
+
+    I will add it if enough time
+
+*** Abstraction
+
+    Write a presentational component which will wrap original children
+    and add additional `onClick` event. Without that, I have to add
+    onClick behavior for every page of html tag
+
+*** Angular module
+
+**** What is injectable?
+
+**** What is provider?
+
+**** What is declaration?
+
+**** What is entryComponents?
+
+**** What is import?
+
+**** What is export?
+
+** Event has two kinds of handler
+*** Client
+**** Sign-in page action
+**** Welcome page action
+**** Account page action
+**** Properties page action
+**** Issuance page action
+**** Property detail page action
+*** Server
+**** User Location
+**** Default language option
+**** Browser type
+**** Device
+**** Traffic source
