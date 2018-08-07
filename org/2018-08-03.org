@@ -1,2 +1,17 @@
 * Web tracker
-**  Everytime page enter, re-initialized page
+** Everytime page enter, re-initialized page
+**  Directive `routerLink`
+
+   Behavior of router change is processed by `Router`.
+
+#+BEGIN_SRC browser
+<wrapper>
+  <a [routerLink] />
+<wrapper>
+#+END_SRC
+
+   Event is captured by directive `routerLink` and will not be
+   propageted further, so outer component will not receive
+   this event.
+
+   Need another function for this.

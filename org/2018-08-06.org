@@ -1,0 +1,12 @@
+* WebApp Server
+** Influx DB client
+
+   [[https://github.com/influxdata/influxdb/tree/master/client][github.com/influxdata/influxdb/client/v2]]
+
+** Non-blocking of each new request
+** Timeout of too long request
+** Geo location
+*** Cache
+
+    `session.go` with redis
+*** Interface?
