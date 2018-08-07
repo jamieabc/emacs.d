@@ -847,6 +847,7 @@
     ("eeq" "==")
     ("eqq" "===")
     ("neq" "!==")
+    ("nqq" "!=")
     ("xar" "=>")
     ("lar" "<-")
     ("ass" ":=")
@@ -1090,7 +1091,7 @@
 
   (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
 
-  (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
+  ;; (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
 
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
