@@ -1188,6 +1188,13 @@
              '("ts" "#+BEGIN_SRC ruby\n?\n#+END_SRC" "<src lang=\"ruby\">\n?\n</src>"))
 ;; add <rb for typescript expansion
 
+(require-package 'ob-go)
+;; add <go for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("go" "#+BEGIN_SRC go\n?\n#+END_SRC" "<src lang=\"go\">\n?\n</src>"))
+;; add <go for typescript expansion
+
+
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
