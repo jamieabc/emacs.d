@@ -2,3 +2,46 @@
 ** How to use?
 *** Singleton
 ** Response Handling, e.g. invalid key
+** JSON decode
+*** Json object inside
+
+    Use different struct to denote
+
+#+BEGIN_SRC go
+type user struct {
+    Name   string `json:"name"`
+    Gender string `json:"gender"`
+}
+
+type info struct {
+    Browser string `json:"browser"`
+    User    user   `json:"error,omitempty"
+}
+#+END_SRC
+*** Default value
+
+    Set defautl value when declare variable
+
+#+BEGIN_SRC go
+type LogInInfo struct {
+    Browser string `json:"browser"`
+    Success bool   `json:"success,omitempty"`
+}
+
+info := LogInInfo{
+    Succcess: true
+}
+#+END_SRC
+*** Generate error
+
+    error is an `interface` by definition
+
+#+BEGIN_SRC go
+type error interface {
+    Error() string
+}
+#+END_SRC
+
+    Two ways to generate:
+    - fmt.Errorf("string")
+    - errors.New("string")
