@@ -1,5 +1,5 @@
 * Geolocation package
-** Online service
+** Utilize other service
 
    Use ipstack to resolve geolocation information, free account limit
    at 10,000/month
@@ -7,3 +7,6 @@
 ** Use Transport for client re-use
 
 ** What is defer?
+
+   A way to ensure that specific function will be executed before
+   function exits. It is guranteed to exec even after panic
