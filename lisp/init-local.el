@@ -844,8 +844,8 @@
     ("jd" "[Deliver]")
 
     ;; programing
-    ("eeq" "==")
-    ("eqq" "===")
+    ("eeq" "===")
+    ("eqq" "==")
     ("neq" "!==")
     ("nqq" "!=")
     ("xar" "=>")
