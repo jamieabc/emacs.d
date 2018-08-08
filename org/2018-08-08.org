@@ -1,0 +1,4 @@
+* Geolocation
+** How to use?
+*** Singleton
+** Response Handling, e.g. invalid key
