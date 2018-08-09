@@ -1131,8 +1131,8 @@
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
-(setq encrypt-tag "encrypt")
-(setq org-crypt-tag-matcher encrypt-tag)  ;encrypt content with tag "encrypt"
+(setq encrypt-tag "crypt")
+(setq org-crypt-tag-matcher encrypt-tag)  ;encrypt content with tag "crypt"
 (setq org-tags-exclude-from-inheritcance (quote (encrypt-tag)))  ;avoid children double encrypted
 (setq org-crypt-key nil)
 (custom-set-variables
