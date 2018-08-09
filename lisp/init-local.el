@@ -1110,7 +1110,8 @@
   (local-set-key (kbd "M-p") 'compile)            ; Invoke compiler
   (local-set-key (kbd "M-P") 'recompile)          ; Redo most recent compile cmd
   (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
-  (local-set-key (kbd "M-[") 'previous-error))    ; Go to previous error or msg
+  (local-set-key (kbd "M-[") 'previous-error)     ; Go to previous error or msg
+  )
 
 ;; Connect go-mode-hook with the function we just defined
 (add-hook 'go-mode-hook #'my-go-mode-hook)
