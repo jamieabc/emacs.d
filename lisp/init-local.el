@@ -1100,7 +1100,6 @@
   ;; guru settings
   (go-guru-hl-identifier-mode)                    ; highlight identifiers
 
-  ;; (setq-default indent-tabs-mode nil)
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
 
