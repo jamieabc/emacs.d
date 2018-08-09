@@ -1,0 +1,34 @@
+* Pre-mortem of health
+** Background
+*** Think of today is 12/31, and health project fail
+*** Avoid some blind sight about error factors
+** Group opinion
+*** Trust
+
+    Users don't trust a blockchain company own their data
+
+*** Don't Care
+
+    Users don't think their data is valuable
+    We don't know how to reach people who might care
+
+*** Benefit
+
+    Users don't see any benefit or not enough benefit to give their
+    data
+
+*** Ownership
+
+    They don't understand who owns the data
+
+*** UX
+
+    Users don't understand how to use App (private key, bad flow, etc.)
+
+*** Security
+
+    Major security breach/hack
+
+*** Data source
+
+    It's too hard for users to get their data other than health kit
