@@ -1,6 +1,6 @@
 * Pre-mortem of health
 ** Background
-*** Think of today is 12/31, and health project fail                            :crypt:
+*** Think of today is 12/31, and health project fail
 *** Avoid some blind sight about error factors
 ** Group opinion
 *** Trust
@@ -32,3 +32,18 @@
 *** Data source
 
     It's too hard for users to get their data other than health kit
+
+* Gnupg
+
+** Mac settings
+
+#+BEGIN_SRC shell
+echo 'allow-loopback-pinentry' >> ~/.gnupg/gpg-agent.conf
+echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
+#+END_SRC
+
+** Restart gpg-agent
+
+#+BEGIN_SRC shell
+gpgconf --kill gpg-agent
+#+END_SRC
