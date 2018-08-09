@@ -1128,12 +1128,13 @@
 (add-hook 'org-mode-hook #'org-bullets-mode)
 (add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
+(add-hook 'org-mode-hook (lambda () (setq auto-save-default nil)))
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
 (setq encrypt-tag "crypt")
-(setq org-crypt-tag-matcher encrypt-tag)  ;encrypt content with tag "crypt"
-(setq org-tags-exclude-from-inheritcance (quote (encrypt-tag)))  ;avoid children double encrypted
+(setq org-crypt-tag-matcher encrypt-tag)  ;encrypt content with tag
+(setq org-tags-exclude-from-inheritance (quote (encrypt-tag)))  ;avoid children double encrypted
 (setq org-crypt-key nil)
 (custom-set-variables
  '(org-directory "~/.emacs.d/org/"))
