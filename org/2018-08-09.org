@@ -1,6 +1,6 @@
 * Pre-mortem of health
 ** Background
-*** Think of today is 12/31, and health project fail
+*** Think of today is 12/31, and health project fail                            :crypt:
 *** Avoid some blind sight about error factors
 ** Group opinion
 *** Trust
