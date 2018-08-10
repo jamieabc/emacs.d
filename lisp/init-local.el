@@ -1189,6 +1189,11 @@
              '("rb" "#+BEGIN_SRC ruby\n?\n#+END_SRC" "<src lang=\"ruby\">\n?\n</src>"))
 ;; add <rb for typescript expansion
 
+;; add <html for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("html" "#+BEGIN_SRC browser\n?\n#+END_SRC" "<src lang=\"browser\">\n?\n</src>"))
+;; add <html for typescript expansion
+
 (require-package 'ob-go)
 ;; add <go for typescript expansion
 (add-to-list 'org-structure-template-alist
