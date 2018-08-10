@@ -1,0 +1,82 @@
+* Design retrospective of tracker
+** Tracker event type
+
+   Originally I was thinking of `string` type, which is limited and not
+   flexible.
+
+   #+BEGIN_SRC typescript
+     const TrackerUrl = {
+       client: 'client',
+       server: 'server'
+     };
+
+     private validate(event) {
+       const serialized = JSON.stringify(event);
+       if (typeof event !== 'object') {
+         return 'Invalid object';
+       } else if (event.type && Object.keys(TrackerUrl).includes(event.type)) {
+         return `Invalide type ${serialized}`;
+       }
+     }
+   #+END_SRC
+
+   Later on, use interface to denote it as `enum` supported by
+   `typescript`, it's easier and unified. But it comes that
+   `typescript` compiles it into string, so there's additional transformation.
+
+   #+BEGIN_SRC typescript
+     export enum EventType {
+       Client,
+       Server
+     }
+
+     private eventTypeKeys = Object.keys(EventType)
+         .filter(Boolean)
+       .map((k) => parseInt(k, 10));
+
+     private validate(event) {
+         const serialized = JSON.stringify(event);
+         if (typeof event !== 'object') {
+           return 'Invalid object';
+         } else if (!this.eventTypeKeys.includes(event.type)) {
+           return `Invalid type ${serialized}`;
+         }
+       }
+   #+END_SRC
+
+** Wrapper component
+
+   Lack of `css` class, this is important because some kind of css
+   effect is writtern in `li:after`, and it breaks if some `div`
+   component inserted.
+
+   #+BEGIN_SRC typescript
+     <div [ngClass]="customClass()" (click)="triggerEvent()">
+       <ng-content></ng-content>
+     </div>
+
+     export class TrackerWrapperComponent {
+       @Input() cssClass: string;
+
+       public customClass() {
+         return this.cssClass || '';
+       }
+     }
+   #+END_SRC
+
+** Some async behavior
+
+   When user logout, original behavior is directly redirect to logout
+   endpoint; in this kind of behavior, tracker event of logout will
+   not sent. In order to send logout event, logout behavior is
+   changed, it will first send event then after some time, logout url
+   will be redirected.
+
+   #+BEGIN_SRC typescript
+     public onLogOutClick() {
+       this.trackerService.triggerEvent(this.logoutEvent);
+       setTimeout(() => {
+         window.location.href = this.accountServer + '/logout';
+       }, 500);
+     }
+   #+END_SRC
