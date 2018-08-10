@@ -1186,7 +1186,7 @@
 
 ;; add <rb for typescript expansion
 (add-to-list 'org-structure-template-alist
-             '("ts" "#+BEGIN_SRC ruby\n?\n#+END_SRC" "<src lang=\"ruby\">\n?\n</src>"))
+             '("rb" "#+BEGIN_SRC ruby\n?\n#+END_SRC" "<src lang=\"ruby\">\n?\n</src>"))
 ;; add <rb for typescript expansion
 
 (require-package 'ob-go)
