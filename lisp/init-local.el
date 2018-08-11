@@ -1,9 +1,8 @@
 ;;; theme
 (require-package 'solarized-theme)
 
-
 ;; make the fringe stand out from the background
-(setq solarized-distinct-fringe-background t)
+(setq solarized-distinct-fringe-background nil)
 
 ;; Don't change the font for some headings and titles
 (setq solarized-use-variable-pitch nil)
@@ -18,7 +17,7 @@
 (setq solarized-use-more-italic t)
 
 ;; Use less colors for indicators such as git:gutter, flycheck and similar
-(setq solarized-emphasize-indicators nil)
+(setq solarized-emphasize-indicators t)
 
 ;; Don't change size of org-mode headlines (but keep other size-changes)
 ;; (setq solarized-scale-org-headlines nil)
@@ -1129,6 +1128,7 @@
 (add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
 (add-hook 'org-mode-hook (lambda () (setq auto-save-default nil)))
+(add-hook 'org-mode-hook (lambda () (setq-default org-hide-leading-stars t)))
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
