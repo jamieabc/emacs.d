@@ -1,0 +1,257 @@
+* Coscup Day 1
+** Viper
+*** Repository
+
+    [[https://github.com/18z/viper-trace][viper trace]]
+
+*** Use major version to simplify code complexity
+
+*** Remove uncessary function
+
+    Keep entry, end function
+
+*** Graphizy code sture
+
+**** Module dependencies
+
+**** Module import coutns
+
+**** Logic plan
+
+**** Structure
+
+*** Bottom-up or Top-down
+
+*** Decompose each module function
+
+**** Trace each line
+
+**** Take notes
+
+***** Write down each function description
+
+***** Summarize module by one line
+
+*** Compose module to know function
+
+** Language Server Protocol
+
+   [[https://github.com/Microsoft/vscode/blob/master/extensions/css-language-features/package.json][VS code Css language server]]
+
+*** Entry point
+
+    package.json:
+    main: src/out/entrypoint
+
+    client: activate()
+
+    server: listen(), etc.
+
+    stdio
+
+*** Service
+
+    [[https://github.com/Microsoft/vscode-css-languageservice][Microsoft vscode css language service]]
+
+*** Tips
+
+**** Implement specific parser to always get precise location, and the have to be for both start and end of tokens
+
+**** Start implement from whiever you can
+
+***** Compile everything whenever language feature is reuested
+
+***** Compile and updates symbol locations only when sources are saved
+
+** LLVM SmallVectory
+
+*** What is this data structure?
+
+    Performace, std::vector malloc system memory every time used, may
+    not appropriate for small number of items
+
+*** Code bloat
+
+    By nature of C++, duplicate code
+
+*** POD (Plain Old Data)
+
+    A class without constructors, destructors and virtual memeber
+    function.
+
+    Pros: direct use `memcpy`, without knowing object contructor,
+    destructor, etc.
+
+    Easire to use realloc, memcpy for initialization
+
+** Shell
+
+*** shellcheck
+
+*** shfmt
+
+*** Debug
+
+**** PS4
+
+**** read -ef "Enter"
+
+** Python unused function
+
+*** ast
+
+** IP tables
+
+*** Grep by error message
+
+*** File descriptor (fd) lock
+
+*** libiptc
+
+*** filename convention (libxt_xxx)
+
+**** Uppercase
+
+     target: -j
+
+**** Lowercase
+
+     matcher: -m
+
+** Ethereum
+
+*** hyd.ai
+
+*** Wiki & Docs & Overview
+
+    Know which component is important
+
+    trie -> evm -> vm
+
+*** Header file
+
+**** Function
+
+     # disallow copy constructor
+     A(const A& origin) = delete;
+
+     # pure virtual function, if B inherits from A, B has to implement function_name()
+     virtual A::function_name() = 0;
+
+     # destructor without virtual modifier, disallow inheritance
+     ~A() {};
+
+**** Class member
+
+     # ptr may be NULL, no dependency
+     type* ptr;
+
+     # ref will die after this class
+     # ref must be alive before we use the class
+     type& ref;
+
+**** UML
+
+     class component interaction
+
+*** Source code
+
+**** Gdb
+
+**** Print log
+
+**** Assert
+
+**** Overwrite
+
+** KKBox
+
+*** FST
+
+*** Data Processing
+
+**** Asciifolding
+
+     eu character -> en character
+
+     å -> a
+
+**** Porter_stem
+
+     apples -> apple
+
+**** word_delimiter
+
+     A-Lin -> a lin
+
+**** emojione
+
+*** Architecture
+
+**** Master * 3, Data * 16
+
+     Avoid master node crash influence function
+
+**** Woker
+
+     Update song data scheduelly
+
+**** Consul
+
+     Solve elasticsearch default go to first server (default
+     round-robin, accumulate request to first server node)
+
+*** Upgrade elasticsearch
+
+**** 2016.6 v1.6 -> 2017.10 v2.4 -> 2018.3 v5.6
+
+**** Functional test
+
+     AWS create 20 servers and simulate search result
+
+**** Client parallel conversion
+
+     Separate staging and production environment by geoman worker
+
+**** Stress test (QPS)
+
+**** Backup
+
+     New/old server run simultaneous, avoid server down time
+
+**** Gain from upgrade
+
+     cpu usage reduce 25%
+
+     API response time from 222ms -> 192ms
+
+     index time reduce 33%
+
+*** Monitor
+
+**** Munin
+
+**** Kibana
+
+**** Grafana
+
+*** Production problem
+
+**** Swap
+
+     JVM swap reduce dramatically performace -> disable swap
+
+**** Un-balance server
+
+     Some server has high cpu -> index distribution -> Refactor song/list query
+
+**** Search performance
+
+     downgrade after some run time -> recover after reboot ->
+     schedulelly reboot -> GC spend time by JVM -> groovy memory leak
+
+** Web Assembly
+
+*** [[https://github.com/LuisHsu/WasmVM][Web Assembly VM]]
+
+*** unreachable as interrupt
