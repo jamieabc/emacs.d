@@ -24,6 +24,11 @@
 
      [[https://github.com/garthenweb/react-native-e2etest][e2e test]]
 
+**** Cons
+
+***** Complex settings
+
+***** Performance
 *** [[https://github.com/wix/detox][Detox]]
 
 **** Adopt company
@@ -44,9 +49,24 @@
 
      [[https://github.com/cjcaj/detox-sample][e2e test]]
 
+     [[https://medium.com/async-la/e2e-testing-react-native-with-detox-screenshots-595146073863][blog]]
+
 *** [[https://github.com/pixielabs/cavy][Cavy]]
+
+**** Cons
+
+***** Not many community support
 *** [[https://github.com/calabash/calabash-ios][Calabash-ios]]
+**** Cons
+***** Limited community support
+
+      Microsoft stop developing it
+
 *** [[https://macacajs.com/zh/][Macaca]]
+
+**** Cons
+
+***** China...
 * Testing Terms
 ** Methodology
 *** Black-box testing
