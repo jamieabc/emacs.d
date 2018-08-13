@@ -1,0 +1,22 @@
+* Integration test
+** Requirements
+*** Fast
+*** Simulator
+*** No language specific
+** Candidates
+*** [[https://github.com/appium/appium][Appium]]
+*** [[https://github.com/wix/detox][Detox]]
+*** [[https://github.com/pixielabs/cavy][Cavy]]
+* Testing methodology
+** Black-box testing
+
+   Test w/o knowing detail
+
+** White-box testing
+
+   Test w/ knowing internal detail
+
+** Gray-box testing
+
+   Test w/ knowing partial of internal detail, e.g. document,
+   algorithm, etc.
