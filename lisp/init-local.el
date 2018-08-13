@@ -1173,7 +1173,6 @@
              '("go" "#+BEGIN_SRC go\n?\n#+END_SRC" "<src lang=\"go\">\n?\n</src>"))
 ;; add <go for typescript expansion
 
-
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
