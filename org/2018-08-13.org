@@ -1,3 +1,12 @@
+* Airbnb test env
+** Local
+*** Vagrant
+*** Chef
+** Cloud
+*** Solano
+*** ELT
+
+    Extract, Load, Transform
 * Integration test
 ** Requirements
 *** Fast
@@ -5,18 +14,77 @@
 *** No language specific
 ** Candidates
 *** [[https://github.com/appium/appium][Appium]]
+**** Aopt company
+***** [[https://teamweek.com/blog/2017/07/react-native-integration-testing-using-appium-jest/][Teamweak]]
+**** Blog
+
+     - [[https://blog.patw.me/archives/1326/reactnative-ios-android-e2e-testing-with-appium/][1]]
+
+**** Exaple
+
+     [[https://github.com/garthenweb/react-native-e2etest][e2e test]]
+
 *** [[https://github.com/wix/detox][Detox]]
+
+**** Adopt company
+
+***** [[https://pillow.codes/testing-in-react-native-jest-detox-d7b3b79a166a][Pillow]]
+
+***** Wix
+
+***** Microsoft
+
+***** Callstack.io
+
+**** Cons
+
+***** Only support ios
+
+**** Example
+
+     [[https://github.com/cjcaj/detox-sample][e2e test]]
+
 *** [[https://github.com/pixielabs/cavy][Cavy]]
-* Testing methodology
-** Black-box testing
+*** [[https://github.com/calabash/calabash-ios][Calabash-ios]]
+*** [[https://macacajs.com/zh/][Macaca]]
+* Testing Terms
+** Methodology
+*** Black-box testing
 
-   Test w/o knowing detail
+    Test w/o knowing detail
 
-** White-box testing
+*** White-box testing
 
-   Test w/ knowing internal detail
+    Test w/ knowing internal detail
 
-** Gray-box testing
+*** Gray-box testing
 
-   Test w/ knowing partial of internal detail, e.g. document,
-   algorithm, etc.
+    Test w/ knowing partial of internal detail, e.g. document,
+    algorithm, etc.
+
+** Integration test
+
+   Takes a small group of units, often two units, and tests their
+   behavior as a whole, verifying that they coherently work together
+
+* E2e tests
+
+  Reference from [[https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html][Google blog]]. The article suggest to use unit-test /
+  integration-test instead of e2e test.
+
+  Proper percentage of tests:
+
+  - Unit test: 70%
+  - Integration test: 20%
+  - E2e test: 10%
+
+** Cons
+
+*** Slow
+
+*** More smaller bugs hide behind
+
+*** Hard to identify actual error code
+
+*** A failing test does not directly benefit user
+*** Not reliable
