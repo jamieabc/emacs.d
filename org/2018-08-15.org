@@ -1,0 +1,22 @@
+* Co-working
+** Make sure understand others thinking before discussion
+** Organize thought by write down thinking
+* 10:1 ration
+** [[https://www.ybrikman.com/writing/2018/08/12/the-10-to-1-rule-of-writing-and-programming/?utm_source=wanqu.co&utm_campaign=Wanqu+Daily&utm_medium=ios][Source]]
+** Use `cloc` to calculate final lines
+** Use `git-quick-stats` to count insert/delete
+** Some stats
+
+   | Project                 | Released | Churn       | Lines     | Ratio |
+   |-------------------------+----------+-------------+-----------+-------|
+   | Terraform aws couchbase |     2018 | 37,693      | 7,481     |   5:1 |
+   | Terratest               |     2016 | 49,126      | 6,140     |   8:1 |
+   | Terraform               |     2014 | 12,945,966  | 1,371,718 |   9:1 |
+   | Express                 |     2010 | 224,211     | 15,325    |  14:1 |
+   | jQuery                  |     2006 | 730,146     | 47,559    |  15:1 |
+   | MySQL                   |     1995 | 58,562,999  | 3,662,869 |  16:1 |
+** Conclusion
+
+   The ratio of "raw materials" to "finished product" in a book is
+   roughly 10:1. If you want to write a 300 page book, you'll probably
+   have to write around 3,000 pages.
