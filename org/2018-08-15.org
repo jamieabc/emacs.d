@@ -20,3 +20,5 @@
    The ratio of "raw materials" to "finished product" in a book is
    roughly 10:1. If you want to write a 300 page book, you'll probably
    have to write around 3,000 pages.
+
+   That's why under-estimate is so common.
