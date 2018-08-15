@@ -29,3 +29,4 @@
    have to write around 3,000 pages.
 
    That's why under-estimate is so common.
+* [[https://getweeklyupdate.com/manager-guide][How to be a manager]]
