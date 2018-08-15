@@ -3,6 +3,13 @@
 ** Organize thought by write down thinking
 * 10:1 ration
 ** [[https://www.ybrikman.com/writing/2018/08/12/the-10-to-1-rule-of-writing-and-programming/?utm_source=wanqu.co&utm_campaign=Wanqu+Daily&utm_medium=ios][Source]]
+** Hofstadter's law
+
+   It always takes longer than you expect, even when you take into
+   account Hofstadter's Law.
+
+   — Douglas Hofstadter, Gödel, Escher, Bach: An Eternal Golden Braid[1]
+
 ** Use `cloc` to calculate final lines
 ** Use `git-quick-stats` to count insert/delete
 ** Some stats
