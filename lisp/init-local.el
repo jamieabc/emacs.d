@@ -553,7 +553,7 @@
   (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "sass" "*.xml"
                               "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java"
                               "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp"
-                              "*.erb" "*.php" "*"))
+                              "*.erb" "*.php" "*.m" "*"))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
@@ -1172,6 +1172,11 @@
 (add-to-list 'org-structure-template-alist
              '("go" "#+BEGIN_SRC go\n?\n#+END_SRC" "<src lang=\"go\">\n?\n</src>"))
 ;; add <go for typescript expansion
+
+;; add <sh for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("sh" "#+BEGIN_SRC shell\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
+;; add <sh for typescript expansion
 
 ;;; org
 
