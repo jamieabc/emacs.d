@@ -1,0 +1,15 @@
+* Building registry ios app
+** Missing profile
+
+   Preference -> Accounts -> Bitmark Inc. -> Download Manual Profiles
+
+** React/RCTLog.h' file not found
+
+   Product -> Scheme -> Bitmark Registry dev
+
+** config.h not found
+
+   #+BEGIN_SRC shell
+   cd node_modules/react-native/third-party/glog-0.3.4/
+   ./configure
+   #+END_SRC
