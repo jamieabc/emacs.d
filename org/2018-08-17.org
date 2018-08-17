@@ -1,0 +1,45 @@
+* iOS permissions
+** Simulator
+*** List simulators
+
+    #+BEGIN_SRC shell
+    xcrun simctl list
+    #+END_SRC
+
+*** Database
+
+    ~/Library/Developer/CoreSimulator/Devices/<device>/data/Library/TCC/TCC.db
+
+    <device> comes from previous list
+
+    the `TCC.db` can use `sqlite3` to manipulate
+
+    #+BEGIN_SRC sqlite
+    insert into access values('kTCCServiceAddressBook','BundlerIdentifier', 0, 1, 0, 0, 0)
+    #+END_SRC
+
+    Predefined permissions:
+    - calendar   => "kTCCServiceCalendar"
+    - camera     => "kTCCServiceCamera"
+    - contacts   => "kTCCServiceAddressBook"
+    - microphone => "kTCCServiceMicrophone"
+    - motion     => "kTCCServiceMotion"
+    - photos     => "kTCCServicePhotos"
+    - reminders  => "kTCCServiceReminders"
+    - twitter    => "kTCCServiceTwitter"
+
+    References:
+    - [[https://github.com/google/EarlGrey/issues/55][EarlGrey]]
+    - [[https://github.com/calabash/run_loop/pull/391][calabash]]
+    - [[https://stackoverflow.com/questions/47159066/can-we-test-face-id-in-simulator][test faceid in ios simulator]]
+    - [[https://github.com/wix/AppleSimulatorUtils][apple simulation utils]]
+    - [[https://stackoverflow.com/questions/28443578/ios-permission-alerts-removing-or-suppressing][TCC]]
+    - [[https://www.victorsigler.com/2018/01/29/simulator-permissions.html][iOS simulator permissions]]
+    - [[https://github.com/wix/detox/issues/9][detox permission]]
+
+
+**** Commands
+
+***** .tables
+
+***** .dump access
