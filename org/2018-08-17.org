@@ -37,9 +37,33 @@
     - [[https://www.victorsigler.com/2018/01/29/simulator-permissions.html][iOS simulator permissions]]
     - [[https://github.com/wix/detox/issues/9][detox permission]]
 
-
 **** Commands
 
 ***** .tables
 
 ***** .dump access
+
+* Apple Developer
+
+** Bundle ID / Bundle Identifier
+
+   A bundle ID or bundle identifier uniquely identifies an application
+   in Apple's ecosystem, no two applications can have the same bundle
+   identifier.
+
+   Apple encourage using [[https://en.wikipedia.org/wiki/Reverse_domain_name_notation][reverse domain name notation]].
+
+   for example:
+   - com.cocoacasts.scribbles.ios
+   - com.cocoacasts.scribbles.macos
+
+** Apple ID
+
+   An App ID represents one or more applications in Apple's system. It
+   consists of two components, a Team ID and a bundle ID search
+   string.
+
+   for example: ABCDE12345.com.cocoacasts.scribbles
+
+   ABCDE12345: team ID
+   com.cocoacasts.scribbles bundle ID search string
