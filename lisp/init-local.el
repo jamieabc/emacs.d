@@ -1047,6 +1047,7 @@
 (require-package 'go-snippets)
 (require-package 'go-guru)
 (require-package 'go-autocomplete)
+(require-package 'go-dlv)
 
 ;;; get GOPATH
 (when (memq window-system '(mac ns))
