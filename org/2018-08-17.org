@@ -43,6 +43,15 @@
 
 ***** .dump access
 
+* e2e Framework
+
+** Detox
+
+   Cannot interact with system alert dialog such as permission. Since
+   registry use custom keychain permission, if framework not provide
+   this feature, than it has to modify code or try another one.
+
+** Appium
 * Apple Developer
 
 ** Bundle ID / Bundle Identifier

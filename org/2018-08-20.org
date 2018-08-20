@@ -1,0 +1,54 @@
+* Appium
+** Install desktop gui
+
+   [[https://github.com/appium/appium-desktop/releases][Mac Desktop url]]
+
+   Start server first, then create new session with following settings
+
+   {
+     "platformName": "iOS",
+     "bundleId": "com.bitmark.registry.inhouse.e2e",
+     "deviceName": "ip 6",
+     "automationName": "XCUITest",
+     "udid": "0508B5E3-8BC5-469A-9B72-C76EE390D0D1"
+   }
+
+   In `Advanced Settings`, click `Allow Unauthorized Certificates`
+
+** Install web driver agent (not sure if necessary)
+
+   When install appium desktop, it also install the WebDriverAgent
+
+*** Install xcuitest driver
+
+    #+BEGIN_SRC shell
+    cd /Applications/Appium.app/Contents/Resources/app/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/
+    mkdir -p Resources/WebDriverAgent.bundle
+    sh ./Scripts/bootstrap.sh
+    #+END_SRC
+
+*** Modify web driver agent
+
+    1. Open `WebDriverAgent.xcodeproj`
+    2. Select `WebDriverAgent` in project navigation
+    3. For Target `WebDriverAgentLib`, select `Automatically manage signing`
+    4. For Target `WebDriverAgentRunner`, select `Automatically manage signing`
+
+** Get simulator udid
+
+   #+BEGIN_SRC shell
+   instruments -s devices
+   #+END_SRC
+
+** Error
+
+   - Original error: Could not create simulator with name
+     'appiumTest-ip 6', device type id 'ip 6' and runtime id
+     '11.4'. Reason: 'simctl error running 'create': Invalid device
+     typE: ip 6'
+
+     use `XCUITest`
+
+** Get session info
+
+   http://localhost:4723/wd/hub/sessions

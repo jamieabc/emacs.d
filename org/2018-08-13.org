@@ -15,7 +15,9 @@
 ** Candidates
 *** [[https://github.com/appium/appium][Appium]]
 **** Aopt company
+
 ***** [[https://teamweek.com/blog/2017/07/react-native-integration-testing-using-appium-jest/][Teamweak]]
+
 **** Blog
 
      - [[https://blog.patw.me/archives/1326/reactnative-ios-android-e2e-testing-with-appium/][1]]
@@ -29,6 +31,7 @@
 ***** Complex settings
 
 ***** Performance
+
 *** [[https://github.com/wix/detox][Detox]]
 
 **** Adopt company
@@ -56,8 +59,11 @@
 **** Cons
 
 ***** Not many community support
+
 *** [[https://github.com/calabash/calabash-ios][Calabash-ios]]
+
 **** Cons
+
 ***** Limited community support
 
       Microsoft stop developing it
@@ -67,7 +73,8 @@
 **** Cons
 
 ***** China...
-* Testing Terms
+
+D* Testing Terms
 ** Methodology
 *** Black-box testing
 
