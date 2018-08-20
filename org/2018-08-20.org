@@ -52,3 +52,19 @@
 ** Get session info
 
    http://localhost:4723/wd/hub/sessions
+** [[https://github.com/PerfectoCode/Community-Samples/blob/master/Appium/Ruby/appium_ios_test.rb][Sample code]]
+** Appium Ruby Console
+
+   #+BEGIN_SRC shell
+   gem install --no-rdoc --no-ri appium_console
+   #+END_SRC
+
+*** Commands
+
+**** page_class
+
+**** page :XCUIElementTypeOther
+
+**** find('CREATE NEW ACCOUNT')
+
+**** find('xxx').click
