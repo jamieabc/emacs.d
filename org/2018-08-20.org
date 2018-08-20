@@ -88,11 +88,28 @@
 **** element.attributes
 
 * Go
-
 ** go-callvis
 
    for `bitmarkd`, enter directory and run command
 
    #+BEGIN_SRC shell
-   go-callvis ./command/bitmarkd/
+   go-callvis -group pkg ./command/bitmarkd/
+   #+END_SRC
+
+   to specific package
+
+   #+BEGIN_SRC shell
+   go-callvis -focus blockdigest -group pkg ./command/recorderd
+   #+END_SRC
+
+   to png file, seems not working...still open server
+
+   #+BEGIN_SRC shell
+   go-callvis -focus blockdigest -group pkg ./command/recorderd | dot -Tpng -o blockdigest.png
+   #+END_SRC
+
+   copy svg from tmp directory and convert to png
+
+   #+BEGIN_SRC shell
+   convert -background none blockrecord.svg blockrecord.png
    #+END_SRC
