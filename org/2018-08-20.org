@@ -61,6 +61,8 @@
 
 *** Commands
 
+    [[https://dzone.com/refcardz/getting-started-with-appium?chapter=4][reference]]
+
 **** page_class
 
 **** page :XCUIElementTypeOther
@@ -68,3 +70,29 @@
 **** find('CREATE NEW ACCOUNT')
 
 **** find('xxx').click
+
+**** find('xxx').clear
+
+**** find('xxx').send_keys('test text')
+
+**** element.displayed?
+
+     is it visible to the user
+
+**** element.enabled?
+
+     can it be selected by the user
+
+**** element.text
+
+**** element.attributes
+
+* Go
+
+** go-callvis
+
+   for `bitmarkd`, enter directory and run command
+
+   #+BEGIN_SRC shell
+   go-callvis ./command/bitmarkd/
+   #+END_SRC
