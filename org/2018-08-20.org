@@ -53,7 +53,7 @@
 
    http://localhost:4723/wd/hub/sessions
 ** [[https://github.com/PerfectoCode/Community-Samples/blob/master/Appium/Ruby/appium_ios_test.rb][Sample code]]
-** Appium Ruby Console
+** Ruby Console
 
    #+BEGIN_SRC shell
    gem install --no-rdoc --no-ri appium_console
@@ -86,6 +86,10 @@
 **** element.text
 
 **** element.attributes
+
+** JS
+
+   [[https://github.com/appium-boneyard/sample-code/blob/master/sample-code/examples/node/ios-actions.js][reference]]
 
 * Go
 ** go-callvis
