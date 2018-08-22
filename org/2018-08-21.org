@@ -1,0 +1,4 @@
+* e2e test
+** Cucumber with typescript
+
+   [[https://github.com/igniteram/appium-webdriverio-typescript][reference]]
