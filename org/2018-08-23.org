@@ -33,3 +33,31 @@
    #+BEGIN_SRC ruby
    po XCUIApplication().debugDescription
    #+END_SRC
+** Not accessible by testID
+
+   [[https://github.com/GeekyAnts/NativeBase/issues/1230][XCUITest fail to access testID]]
+** Click position
+
+   #+BEGIN_SRC ruby
+   let app = XCUIApplication()
+   let webView = app.webViews.element
+   let coordinate = webView.coordinateWithNormalizedOffset(CGVector(dx: 10, dy: 10))
+   coordinate.tap()
+   #+END_SRC
+** Click Coordinates
+
+   #+BEGIN_SRC ruby
+     func tapCoordinate(x: Double, y: Double) {
+       let app = XCUIApplication()
+       let normalized = app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+       let coordinate = normalized.withOffset(CGVector(dx: x, dy: y))
+       coordinate.tap()
+     }
+
+     func testExample1() {
+       let app = XCUIApplication()
+       app.otherElements["WelcomeComponent.accessExistingAccount"].tap()
+       tapCoordinate(x: 100, y: 100)
+       print("hihi")
+     }
+   #+END_SRC
