@@ -64,3 +64,6 @@
 ** Show element test ID
 
    for component `TouchableWithoutFeedback`, add props of `accessible={false}`
+** Delete App after create account
+
+   [[https://stackoverflow.com/questions/33107731/is-there-a-way-to-reset-the-app-between-tests-in-swift-xctest-ui][delete app]]
