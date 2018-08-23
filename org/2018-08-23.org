@@ -1,0 +1,35 @@
+* XCUI test
+** Error message of 'Library not loaded'
+
+   Library not loaded: @rpath/BigInt.framework/BigInt
+
+*** Add new pod description
+
+    #+BEGIN_SRC ruby
+      target 'Bitmark Registry dev e2e' do
+        use_frameworks!
+
+        pods
+        pod 'HockeySDK'
+      end
+    #+END_SRC
+*** Install cocoapods
+
+    #+BEGIN_SRC shell
+    gem install cocoapods
+    pod install
+    #+END_SRC
+** Get elements
+
+   #+BEGIN_SRC ruby
+   let app = XCUIApplication()
+   app.otherElements["WelcomeComponent.accessExistingAccount"].tap()
+   #+END_SRC
+** Get all elements
+
+   stop program by placing a breakpoint, in the debug console (cmd +
+   shift + y)
+
+   #+BEGIN_SRC ruby
+   XCUIApplication().debugDescription
+   #+END_SRC
