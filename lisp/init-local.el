@@ -1271,5 +1271,9 @@
 (setq-default markdown-hide-markup t)
 ;;; markdown
 
+;;; swift
+(require-package 'swift-mode)
+;;; swift
+
 (provide 'init-local)
 ;;; init-local.el ends here
