@@ -31,5 +31,5 @@
    shift + y)
 
    #+BEGIN_SRC ruby
-   XCUIApplication().debugDescription
+   po XCUIApplication().debugDescription
    #+END_SRC
