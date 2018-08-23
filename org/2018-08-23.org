@@ -44,7 +44,7 @@
    let coordinate = webView.coordinateWithNormalizedOffset(CGVector(dx: 10, dy: 10))
    coordinate.tap()
    #+END_SRC
-** Click Coordinates
+** Click coordinates
 
    #+BEGIN_SRC ruby
      func tapCoordinate(x: Double, y: Double) {
@@ -61,3 +61,6 @@
        print("hihi")
      }
    #+END_SRC
+** Show element test ID
+
+   for component `TouchableWithoutFeedback`, add props of `accessible={false}`
