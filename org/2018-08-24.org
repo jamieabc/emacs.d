@@ -1,0 +1,11 @@
+* XCUI test
+** Reset app
+*** Swift native
+
+    [[https://m.pardel.net/resetting-ios-simulator-for-ui-tests-cd7fff57788e][reference1]]
+
+    [[https://gist.github.com/joaofranco/6862ad802fc5988074315cb9ec7d6319#file-springboard-swift][springboard]]
+** [[http://masilotti.com/ui-testing-cheat-sheet/][XCUI test cheat sheet]]
+** Cannot scroll
+
+   Currenly, just use bigger screen...
