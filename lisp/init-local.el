@@ -328,7 +328,7 @@
 
 ;;; avy
 (require-package 'avy)
-(global-set-key (kbd "C-c C-;") #'avy-goto-char)
+(global-set-key (kbd "C-c C-;") #'avy-goto-char-timer)
 (global-set-key (kbd "C-x C-;") #'avy-goto-line)
 (global-set-key (kbd "C-x ;") #'avy-goto-word-1)
 ;;; avy
