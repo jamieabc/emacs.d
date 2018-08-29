@@ -1,0 +1,38 @@
+* e2e
+** React native test ID
+
+   [[https://blog.patw.me/archives/1326/reactnative-ios-android-e2e-testing-with-appium/][Reference]]
+*** iOS
+
+    accessibilityLabel => label
+    testID => name
+
+*** Android
+
+    accessibilityLabel => content-desc
+
+* Sprint retrospective
+
+** What matters most for startup?
+
+   Time. Use time exchange for experience.
+
+   Sprint 45 has only 4 stories with total 9 esitmation points. In
+   order to learn more, ask more tasks. For example, we are building
+   health app, why not ship 3 apps and see which one pass Apple review.
+
+** Focus on OKRs
+
+   Company OKRs already given, and it's quite risky for those 3
+   targets. In order to accomplish it, try every possible change to
+   achieve the goal.
+
+** Technical debt
+
+   How to know it's a debt? When it becomes painful. Technial debt is
+   not bad because it saves time. Have specific benefit for solving
+   technical debt such as saves time, releases pain, etc.
+
+** Thinking
+
+   Go wrong is normal, fix error in a faster pace.
