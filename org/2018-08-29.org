@@ -36,3 +36,11 @@
 ** Thinking
 
    Go wrong is normal, fix error in a faster pace.
+
+()* Monitor eth nodes
+
+** References
+
+   [[https://github.com/cubedro/eth-netstats][eth-netstats]]
+
+   [[https://www.ethernodes.org/network/1][ethernodes]]
