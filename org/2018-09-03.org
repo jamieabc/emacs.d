@@ -1,0 +1,2 @@
+* OKR: no crashed node
+** JSON-RPC
