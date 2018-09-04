@@ -1095,14 +1095,27 @@
 ;;; vue
 
 ;;; org
+(require-package 'org-plus-contrib)
 (require-package 'org-bullets)
 (require-package 'org-beautify-theme)
 (require 'org-crypt)
+(require-package 'ob-go)
+(require-package 'ob-http)
 (add-hook 'org-mode-hook #'org-bullets-mode)
 (add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
 (add-hook 'org-mode-hook (lambda () (setq auto-save-default nil)))
 (add-hook 'org-mode-hook (lambda () (setq-default org-hide-leading-stars t)))
+;;; for ob-http settings
+;; (add-hook 'org-mode-hook (lambda () (org-babel-do-load-languages
+;;                                 'org-babel-load-languages
+;;                                 '((emacs-lisp . t)
+;;                                   (C . t)
+;;                                   (shell . t)
+;;                                   (org . t)
+;;                                   (http . t)
+;;                                   (go . t))
+;;                                 )))
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
@@ -1168,7 +1181,6 @@
              '("html" "#+BEGIN_SRC browser\n?\n#+END_SRC" "<src lang=\"browser\">\n?\n</src>"))
 ;; add <html for typescript expansion
 
-(require-package 'ob-go)
 ;; add <go for typescript expansion
 (add-to-list 'org-structure-template-alist
              '("go" "#+BEGIN_SRC go\n?\n#+END_SRC" "<src lang=\"go\">\n?\n</src>"))
@@ -1178,6 +1190,12 @@
 (add-to-list 'org-structure-template-alist
              '("sh" "#+BEGIN_SRC shell\n?\n#+END_SRC" "<src lang=\"shell\">\n?\n</src>"))
 ;; add <sh for typescript expansion
+
+;; add <http for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("http" "#+BEGIN_SRC http\n?\n#+END_SRC" "<src lang=\"http\">\n?\n</src>"))
+;; add <http for typescript expansion
+
 
 ;;; org
 
