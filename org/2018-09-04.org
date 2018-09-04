@@ -1,0 +1,68 @@
+* Go
+** Function receiver
+
+   Some function declares with parenthesis ahead of function name, e.g.
+
+   #+BEGIN_SRC go
+   func (m Mutatable) StayTheSame()
+   func (m *Mutatable) Mutate()
+   #+END_SRC
+
+   Parenthesis before function name means a `method receiver`. In the
+   example, function `StayTheSame` and `Mutate` are not standalone function,
+   these 2 functions will be operated on the object `Mutable`.
+
+   [[https://golang.org/ref/spec#Method_sets][reference]]
+
+   Example:
+
+   #+BEGIN_SRC go
+     type Mutatable struct {
+         a int
+         b int
+     }
+
+     func (m Mutatable) StayTheSame() {
+         m.a = 5
+         m.b = 7
+     }
+
+     func (m *Mutatable) Mutate() {
+         m.a = 5
+         m.b = 7
+     }
+
+     func main() {
+         m := &Mutatable{0, 0}
+         fmt.Println(m)
+         m.StayTheSame()
+         fmt.Println(m)
+         m.Mutate()
+         fmt.Println(m)
+     }
+   #+END_SRC
+
+   The result is:
+   &{0 0}
+   &{0 0}
+   &{5 7}
+* Bitmarkd
+** Json rpc
+
+   Connect to bitmarkd:
+
+   #+BEGIN_SRC shell
+   openssl s_client -connect 127.0.0.1:2130
+   #+END_SRC
+
+   Send data:
+
+   #+BEGIN_SRC
+   {"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}
+   #+END_SRC
+
+   Send by piping:
+
+   #+BEGIN_SRC shell
+   (echo -e '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 1) | openssl s_client -connect 127.0.0.1:2130 -quiet
+   #+END_SRC
