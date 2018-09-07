@@ -1,0 +1,61 @@
+* Postgresql
+** Create user
+
+   #+BEGIN_SRC sql
+   create user user_name;
+   select usename from pg_user;
+   #+END_SRC
+
+** Grant permission
+
+   #+BEGIN_SRC sql
+   alter user user_name with superuser;
+   #+END_SRC
+* Product
+
+  Do things don't scale. When haiching ask using facebook to acquire
+  user, sean says don't use Facebook. He asked questions about
+  do you know how to run app with millions of users? If yes, do what
+  it should; if not, do things that don't scale.
+
+  Only face to face user interview will make us know user feedback. If
+  someone (e.g. consultant) never use this app, then should not count
+  for his advise. It may takes 100 interviews to get 1 really great
+  feedback, but that's how it should.
+
+  Sean also mension about an example, when you go to a restaurant and
+  says that some dish is not good. When chef goes out and asks how to
+  improve, I might not know how to improve it, I just know it's not
+  good. So it will take a lot of time/effort to get that great
+  feedback, that feedback will get us more uses, but we just don't
+  know how/when it will come out.
+* Updaterd
+** Fork
+
+   Need to set block_hash to
+   "0000000000000000000000000000000000000000000000000000000000000000"
+   for first top N block records.
+
+   Also, need to delete one record from block table. Because from
+   code, the condtion to check if it enters fork at `connector.go: #294`
+
+   #+BEGIN_SRC go
+     if conn.highestBlockNumber > height {
+         if conn.highestBlockNumber-height >= 2 {
+             conn.state = cStateForkDetect
+         } else {
+             conn.samples += 1
+             if conn.samples > samplelingLimit {
+                 conn.state = cStateForkDetect
+             }
+         }
+     }
+   #+END_SRC
+
+   #+BEGIN_SRC sql
+   update block set block_hash = '0000000000000000000000000000000000000000000000000000000000000000' where block_number + 100 > (select block_number from block order by block_number desc limit 1);
+
+   delete from block where block_number = (select block_number from block order by block_number desc limit 1);
+
+   delete from block where block_number = (select block_number from block order by block_number desc limit 1);
+   #+END_SRC

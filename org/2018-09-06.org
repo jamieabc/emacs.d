@@ -1,0 +1,32 @@
+* Postgresql
+** Create new user (role)
+
+   #+BEGIN_SRC shell
+   createuser --pwprompt user_name
+   #+END_SRC
+
+** Create new database
+
+   #+BEGIN_SRC shell
+   createdb -O user_name db_name
+   #+END_SRC
+
+** Socket file
+
+   located at: //private/tmp//.s.PGSQL.5432
+
+* Updaterd
+
+** Generate key file
+
+   #+BEGIN_SRC shell
+   updaterd --config-file=updaterd.conf generate-identity
+   #+END_SRC
+
+** Generate updaterd table
+
+   file located at `share/install-schema`
+
+   #+BEGIN_SRC shell
+   sudo ./install-schema -u /Users/Aaron/Documents/Project/Bitmark/go-programs/updaterd/updaterd.conf --create
+   #+END_SRC
