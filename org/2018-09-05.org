@@ -1,0 +1,4 @@
+* Go
+** Random Generator
+
+   Use `rand.Intn` to generate random number inside a specific range
