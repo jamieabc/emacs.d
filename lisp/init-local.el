@@ -1045,12 +1045,13 @@
 ;;; go
 (require-package 'go-mode)
 (require-package 'go-snippets)
-(require-package 'go-guru)
 (require-package 'go-autocomplete)
 (require-package 'go-dlv)
+(require-package 'exec-path-from-shell)
 
 ;;; get GOPATH
 (when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
 
 (defun my-go-mode-hook ()
