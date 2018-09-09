@@ -1,15 +1,61 @@
 * Postgresql
 ** Create user
 
+   #+BEGIN_SRC shell
+   createuser user_name --pwprompt
+   #+END_SRC
+
    #+BEGIN_SRC sql
    create user user_name;
-   select usename from pg_user;
+   \du
    #+END_SRC
 
 ** Grant permission
 
    #+BEGIN_SRC sql
    alter user user_name with superuser;
+   #+END_SRC
+
+** Set password
+
+   #+BEGIN_SRC sql
+   \password user_name;
+   #+END_SRC
+
+** Create database
+
+   [[http://www.postgresqltutorial.com/postgresql-create-database/][reference]]
+
+   #+BEGIN_SRC sql
+   create database db_name owner=user_name;
+   #+END_SRC
+
+   #+BEGIN_SRC shell
+   createdb -O user_name db_name
+   #+END_SRC
+
+** Drop database
+
+   #+BEGIN_SRC sql
+   drop database dbname;
+   #+END_SRC
+
+** Drop user
+
+   #+BEGIN_SRC sql
+   drop user user_name;
+   #+END_SRC
+
+** Show table
+
+   #+BEGIN_SRC sql
+   \dt
+   #+END_SRC
+
+** Show databases
+
+   #+BEGIN_SRC sql
+   \l
    #+END_SRC
 * Product
 
@@ -58,4 +104,18 @@
    delete from block where block_number = (select block_number from block order by block_number desc limit 1);
 
    delete from block where block_number = (select block_number from block order by block_number desc limit 1);
+   #+END_SRC
+* Go
+** Ubuntu
+
+   #+BEGIN_SRC shell
+   wget -q https://storage.googleapis.com/golang/getgo/installer_linux
+
+   chmod +x installer_linux
+
+   ./installer_linux
+
+   source /root/.bash_profile
+
+   mkdir ~/go
    #+END_SRC

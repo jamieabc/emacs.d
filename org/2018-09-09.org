@@ -1,0 +1,43 @@
+* Bitmarkd
+** Install go
+** Install packages
+
+   #+BEGIN_SRC shell
+   apt install libghc-argon2-dev autoconf libtool pkg-config uuid-dev postgresql postgresql-contrib jq
+   #+END_SRC
+
+** Compile necessray libraries
+*** Libucl
+
+    #+BEGIN_SRC shell
+    git clone https://github.com/vstakhov/libucl.git
+    ./autogen.sh
+    ./configure --enable-utils
+    make
+    make install
+    #+END_SRC
+*** Libzmq
+
+    #+BEGIN_SRC shell
+    git clone https://github.com/zeromq/libzmq
+    ./autogen.sh
+    ./configure
+    make
+    make install
+    #+END_SRC
+* Updaterd
+** Set postgresql authentication
+
+   #+BEGIN_SRC shell
+   vim /etc/postgresql/10/main/pg_hba.conf
+   #+END_SRC
+
+   change the line of
+   'local   all             all                                  peer' into
+   'local   all             all                                  md5'
+
+   restart service:
+
+   #+BEGIN_SRC shell
+   sudo service postgresql restart
+   #+END_SRC
