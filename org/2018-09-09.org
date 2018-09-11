@@ -1,5 +1,16 @@
 * Bitmarkd
 ** Install go
+
+   [[https://linuxconfig.org/install-go-on-ubuntu-18-04-bionic-beaver-linux][reference]]
+
+   #+BEGIN_SRC shell
+   sudo apt install wget git
+   wget -q https://storage.googleapis.com/golang/getgo/installer_linux
+   chmod +x installer_linux
+   ./installer_linux
+   source ~/.bash_profile
+   mkdir ~/go/src/
+   #+END_SRC
 ** Install packages
 
    #+BEGIN_SRC shell
@@ -11,6 +22,7 @@
 
     #+BEGIN_SRC shell
     git clone https://github.com/vstakhov/libucl.git
+    cd libucl
     ./autogen.sh
     ./configure --enable-utils
     make
@@ -20,10 +32,12 @@
 
     #+BEGIN_SRC shell
     git clone https://github.com/zeromq/libzmq
+    cd libzmq
     ./autogen.sh
     ./configure
     make
     make install
+    ldconfig
     #+END_SRC
 * Updaterd
 ** Set postgresql authentication
