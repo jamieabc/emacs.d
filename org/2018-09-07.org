@@ -119,3 +119,9 @@
 
    mkdir ~/go
    #+END_SRC
+
+** List all supported os/architecture
+
+   #+BEGIN_SRC shell
+   go tool dist list -json
+   #+END_SRC
