@@ -102,8 +102,6 @@
    update block set block_hash = '0000000000000000000000000000000000000000000000000000000000000000' where block_number + 100 > (select block_number from block order by block_number desc limit 1);
 
    delete from block where block_number = (select block_number from block order by block_number desc limit 1);
-
-   delete from block where block_number = (select block_number from block order by block_number desc limit 1);
    #+END_SRC
 * Go
 ** Ubuntu
