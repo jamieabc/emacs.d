@@ -1,0 +1,41 @@
+* bitmark-cli
+** Generate config file
+
+   Create a new file, take `bitmark-cli.conf` as an example
+
+   #+BEGIN_SRC shell
+   network=testnet
+   connect="localhost:2130"
+   #+END_SRC
+** Get a tx status
+
+   #+BEGIN_SRC shell
+   bitmark-cli -c ./bitmark-cli.conf status --txid 4ee88f5e1489b6650b0cce52329b5c70e674078710117f3739ccb8292d207027
+   #+END_SRC
+** Currently used commands
+
+   under directory `rpccalls`. Maybe there are other commands that
+   might cause bitmarkd to crash?
+
+*** Assets.Get
+*** BlockOwner.Transfer
+*** Node.Info
+*** Bitmarks.Create
+*** Bitmarks.Proof
+*** BItmark.Provenance
+*** Transaction.Status
+*** Bitmark.Transfer
+* Office Hour
+** Make App for people, not for expert
+** Some people are collecting health data
+** Seans feels like dying everyday when coming into company, sees no new users
+** Take App and watch people use it. Take notes
+
+   It's not efficient to ask people how to improve, because most users
+   won't have good feedback.
+
+   #+BEGIN_QUOTE
+   “If I had asked people what they wanted, they would have said
+   faster horses.”
+                                                    - Henry Ford
+   #+END_QUOTE

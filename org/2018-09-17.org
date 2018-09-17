@@ -1,0 +1,107 @@
+* Golang
+** Local variable on heap or stack
+
+   [[https://blog.gtwang.org/wp-content/uploads/2017/03/memory-layout-of-c-program-diagram-20170301.png][Overview of C memory structure]]
+
+   [[https://stackoverflow.com/a/13715281][Reference to answer]]
+
+   Go performs pointer escape analysis. If the pointer escapes the
+   local stack, which it does in the following case:
+
+   #+BEGIN_SRC go
+     type point struct {
+         x, y int
+     }
+
+     func newPoint() *point {
+         return &point{10, 20}
+     }
+   #+END_SRC
+
+   The object will be allocated on the heap. If it doesn't escape the
+   local function, the compiler is free to allocate memory space on
+   stack. (Depends on whether the pointer escape analysis can prove
+   that the pointer stays local to this function).
+
+*** Global
+    Stores global/static variable.
+
+*** Stack
+    Stores local variable, function/method parameter, function/method
+    return address.
+
+    These variables only exists in function/method execution, which is predictable.
+
+    Stack is in FIFO, and system will recycle automatically data
+    inside stack.
+
+*** Heap
+    Stores dynamic data (malloc, calloc, new, etc.)
+
+** Slice & Array
+
+   slice declares with size parameter
+
+   #+BEGIN_SRC go
+   []int{1, 2, 3, 4, 5}
+   #+END_SRC
+
+   array declares with size parameter
+
+   #+BEGIN_SRC go
+   [...]int{1, 2, 3, 4}
+   [3]int{2, 3, 4}
+   #+END_SRC
+
+** reflect
+
+   Allows a program to manipulate objects with arbitrary types. The
+   typical use is to take a value with static type interface{} and
+   extract its dynamic type information by calling TypeOf, which
+   returns a Type.
+
+   To get `values` and `types` from a struct:
+
+   #+BEGIN_SRC go
+     x := struct {
+         Foo string
+         Bar int
+     }{"foo", 2}
+
+     v := reflect.ValueOf(&x).Elem()
+     typeOfX := v.Type()
+
+     for i := 0; i < v.NumField(); i++ {
+         f := v.Field(i)
+         fmt.Printf("%d: %s %s = %v\n", i, typeOfX.Field(i).Name, f.Type(), f.Interface())
+     }
+   #+END_SRC
+
+** Type assertion
+
+   [[https://tour.golang.org/methods/15][reference]]
+
+   A type assertion provides access to an interface value's underlying
+   concrete value.
+
+   #+BEGIN_SRC go
+   t := i.(T)
+   #+END_SRC
+
+   Above statement asserts that the interface value `i` holds the
+   concrete type `T` and assigns the underlying `T` value to the variable
+   `t`.
+
+   If `i` does not hold a `T`, the stateme will trigger a panice.
+
+   To test whether an interface value holds a specific type, a type
+   assertion can return two values: the underlying value and a boolean
+   value that reports whether the assertion succeeded.
+
+   #+BEGIN_SRC go
+   t, ok := i.(T)
+   #+END_SRC
+
+** Generate go code form curl
+
+   [[https://mholt.github.io/curl-to-go/][reference]]

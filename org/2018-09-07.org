@@ -104,21 +104,17 @@
    delete from block where block_number = (select block_number from block order by block_number desc limit 1);
    #+END_SRC
 * Go
-** Ubuntu
+** Ubuntu installation
 
    #+BEGIN_SRC shell
    wget -q https://storage.googleapis.com/golang/getgo/installer_linux
-
    chmod +x installer_linux
-
    ./installer_linux
-
    source /root/.bash_profile
-
    mkdir ~/go
    #+END_SRC
 
-** List all supported os/architecture
+** List supported os/architecture
 
    #+BEGIN_SRC shell
    go tool dist list -json

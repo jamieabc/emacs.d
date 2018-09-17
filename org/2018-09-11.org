@@ -1,0 +1,14 @@
+* Script to parse data
+** Forget Ruby syntax
+*** Regular expression
+
+    Forget about how to get group from regexp
+
+*** Logic not clear
+
+    It took about 30 minutes to figure out how to subtract data, the
+    current time minus previous time
+
+*** Write to excel
+
+    Take about 30 minutest to figure out gem `fast_excel` syntax.
