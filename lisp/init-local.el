@@ -1107,16 +1107,7 @@
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
 (add-hook 'org-mode-hook (lambda () (setq auto-save-default nil)))
 (add-hook 'org-mode-hook (lambda () (setq-default org-hide-leading-stars t)))
-;;; for ob-http settings
-;; (add-hook 'org-mode-hook (lambda () (org-babel-do-load-languages
-;;                                 'org-babel-load-languages
-;;                                 '((emacs-lisp . t)
-;;                                   (C . t)
-;;                                   (shell . t)
-;;                                   (org . t)
-;;                                   (http . t)
-;;                                   (go . t))
-;;                                 )))
+(add-hook 'org-mode-hook (lambda () (setq visual-line-mode t)))
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
@@ -1196,8 +1187,6 @@
 (add-to-list 'org-structure-template-alist
              '("http" "#+BEGIN_SRC http\n?\n#+END_SRC" "<src lang=\"http\">\n?\n</src>"))
 ;; add <http for typescript expansion
-
-
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
