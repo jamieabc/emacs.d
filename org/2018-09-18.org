@@ -1,0 +1,14 @@
+* Go
+** Interface
+
+   Think it as API interface, that different service/object
+   communicate with. If some animal looks like a cat, acts like a cat,
+   sounds like a cat, then it's a cat. (method signature)
+
+   Every object that provides all necessary method, then it's can be
+   viewed as an implementation of specific interface.
+
+   Interface has nothing to do with data, so it needs additional settings.
+** Struct
+
+   Sturct has no method inside.

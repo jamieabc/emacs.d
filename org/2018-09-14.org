@@ -18,13 +18,17 @@
    might cause bitmarkd to crash?
 
 *** Assets.Get
-*** BlockOwner.Transfer
-*** Node.Info
+*** Bitmark.Provenance
+*** Bitmark.Transfer
 *** Bitmarks.Create
 *** Bitmarks.Proof
-*** BItmark.Provenance
+*** BlockOwner.Transfer
+*** Node.Info
+
+    #+BEGIN_SRC shell
+    curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Node.Info"}'
+    #+END_SRC
 *** Transaction.Status
-*** Bitmark.Transfer
 * Office Hour
 ** Make App for people, not for expert
 ** Some people are collecting health data
