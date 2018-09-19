@@ -1,0 +1,110 @@
+* Go
+** String
+
+   String is the set of all strings of 8-bit bytes, conventionally but
+   not necessarily representing UTF-8-encoded text. A string may be
+   empty, but not nil. Values of string type are immutable.
+
+   #+BEGIN_SRC go
+     type stringStruct struct {
+         str unsafe.Pointer
+         len int
+     }
+
+     func gostringnocopy(str *byte) string {
+         ss := stringStruct{str: unsafe.Pointer(str), len: findnull(str)}
+         s := *(*string)(unsafe.Pointer(&ss))
+         return s
+     }
+   #+END_SRC
+
+   From above code, string is a struct with pointer `str` to byte
+   array address.
+
+** Byte
+
+   byte is the alias of `uint8`
+
+   #+BEGIN_SRC go
+     type slice struct {
+         array unsafe.Pointer
+         len   int
+         cap   int
+     }
+   #+END_SRC
+
+   `array` is a pointer
+
+** Difference between string & byte
+
+*** Mutation
+
+    string pointer pointed content is not mutable, so everytime
+    changes a string, needs to allocate new memory space.
+
+    byte can change content directly.
+
+** Conversion
+
+*** string to []byte
+
+    #+BEGIN_SRC go
+      func string2byte(buf *tmpBuf, s string) []byte {
+          var b []byte
+          if buf != nil && len(s) <= len(buf) {
+              ,*buf = tmpBuf{}
+              b = buf[:len(s)]
+          } else {
+              b = rawbyteslice(len(s))
+          }
+          copy(b, s)
+          return b
+      }
+
+      func rawstring(size int) (s string, b []byte) {
+          p := mallocgc(uintptr(size), nil, false)
+
+          stringStructOf(&s).str = p
+          stringStructOf(&s).len = size
+
+          ,*(*slice)(unsafe.Pointer(&b)) = slice{p, size, size}
+
+          return
+      }
+    #+END_SRC
+
+*** []byte to string
+
+    #+BEGIN_SRC go
+      func slicebytetostring(buf *tmpBuf, b []byte) string {
+          l := len(b)
+          if l == 0 {
+              // Turns out to be a relatively common case.
+              // Consider that you want to parse out data between parens in "foo()bar",
+              // you find the indices and convert the subslice to string.
+              return ""
+          }
+          if raceenabled && l > 0 {
+              racereadrangepc(unsafe.Pointer(&b[0]),
+                  uintptr(l),
+                  getcallerpc(unsafe.Pointer(&buf)),
+                  funcPC(slicebytetostring))
+          }
+          if msanenabled && l > 0 {
+              msanread(unsafe.Pointer(&b[0]), uintptr(l))
+          }
+          s, c := rawstringtmp(buf, l)
+          copy(c, b)
+          return s
+      }
+
+      func rawstringtmp(buf *tmpBuf, l int) (s string, b []byte) {
+          if buf != nil && l <= len(buf) {
+              b = buf[:l]
+              s = slicebytetostringtmp(b)
+          } else {
+              s, b = rawstring(l)
+          }
+          return
+      }
+    #+END_SRC

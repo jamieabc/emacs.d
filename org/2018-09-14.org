@@ -10,25 +10,66 @@
 ** Get a tx status
 
    #+BEGIN_SRC shell
-   bitmark-cli -c ./bitmark-cli.conf status --txid 4ee88f5e1489b6650b0cce52329b5c70e674078710117f3739ccb8292d207027
+     bitmark-cli -c ./bitmark-cli.conf status --txid 4ee88f5e1489b6650b0cce52329b5c70e674078710117f3739ccb8292d207027
    #+END_SRC
 ** Currently used commands
 
    under directory `rpccalls`. Maybe there are other commands that
    might cause bitmarkd to crash?
 
+   All command detail information is listed under `bitmarkd/rpc`. For
+   example, the method name of  `Bitmark.Provenance` is listed under
+   `bitmarkd/rpc/bitmark.go` function `Provenancec`.
+
 *** Assets.Get
+
+    #+BEGIN_SRC shell
+      curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Assets.Get", "params": [{"fingerprints": ["015b9c9fb3e993bf64500977844104fc0b70ef5ca99141e9f56e2e837ce668fbe787643c34a0d51a32a82408eb36a6e93f7badbc5af50de29d9401b5affe564440", "e12571eff187f9a88e8a516c639fc51ef6ff9472fd39fd326cec33e266ae9ce74863f428f1e153f724b19b4b1d26df586f1ea3b794a5ca617b37129d315e3918"]}]}'
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | assets":[{"record":"AssetData | confirmed:true | 8ec4bac1f5e18ce60be20c21a124ef6c64b4348874e9a3becfc54cbf656955ef088b5973390029beaea87f580c8811b3310ceb0d6fcfdd818c8c0202b59ac366 | name":"Vien test devnet - My Son | 015b9c9fb3e993bf64500977844104fc0b70ef5ca99141e9f56e2e837ce668fbe787643c34a0d51a32a82408eb36a6e93f7badbc5af50de29d9401b5affe564440 | description\u0000/home/vienlt/Downloads/Images/Hoi An - Da Nang/my-son1.jpg | eZu31NH6WNfxSRzXggidvcBMC5QE16WW659bPyJgoKpcBjMqjL | 15d18f22ed148963093b870de48c2c01c8b77611b75319bbce46fb6b6b4299ec6db7c4b739fe11d9af0b92dcfdffcfb65e7797e09de1c7ffad1feb9f0dad4b0d | record":" | confirmed:false | data:null}]} | error:null} |
+
 *** Bitmark.Provenance
+
+    #+BEGIN_SRC shell
+      curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | data":[{"record":"BitmarkTransferUnratified | isOwner:true | 2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861 | inBlock:8607 | link":"264066cbef4f06a1bfc29db18706149faf3b89b44483647a7a2bc394880e0689 | escrow:null | eujeF5ZBDV3qJyKeHxNqnmJsrc9iN7eHJGECsRuSXvLmnNjsWX | f0d7cc086339b3bec094dec8967056634e3e439adcc0de29197ac76a5e414202463629633f565efcf3019e2d81bd9ecc232f4690181b09ca4349ae804ba25706 | record":"BitmarkIssue | isOwner:false | 264066cbef4f06a1bfc29db18706149faf3b89b44483647a7a2bc394880e0689 | inBlock:8604 | assetId":"0e0b4e3bd771811d35a23707ba6197aa1dd5937439a221eaf8e7909309e7b31b6c0e06a1001c261a099abf04c560199db898bc154cf128aa9efa5efd36030c64 | ec6yMcJATX6gjNwvqp8rbc4jNEasoUgbfBBGGyV5NvoJ54NXva | nonce:3832310271139778 | 3998698b1a02218ce4fb59b986aa4eb3381ee3c630d2701cc0cb80a1f0d432e7a9e3d949dd8d6542d868748cb293a8a67724ac6605bc0e83af0f16e9f313f301 | record":"AssetData | isOwner:false | inBlock:0 | 0e0b4e3bd771811d35a23707ba6197aa1dd5937439a221eaf8e7909309e7b31b6c0e06a1001c261a099abf04c560199db898bc154cf128aa9efa5efd36030c64 | name":"name | 0123724b8bcc0daa72268694a1c70174802ae6d195df2ddcf0f16f6cbee7860a77e00aa3a0a7f9417addb7c2f92d695d7bc170bae4b8bc8c3df9c33a085f27675c | author\u0000test | ec6yMcJATX6gjNwvqp8rbc4jNEasoUgbfBBGGyV5NvoJ54NXva | 4a7db697f3d23b982c29a8bdbe93f009043f2bced23b4c0fba1f528eeb7a4dee8d3d5a93f81c77a4d0ca289de07602b8f50ee2e207b9c1b487c46743f545730b | error:null} |
+
 *** Bitmark.Transfer
 *** Bitmarks.Create
 *** Bitmarks.Proof
+
+    #+BEGIN_SRC shell
+      curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Bitmarks.Proof","params":[{"payId":"e219ffe8021190ea472baa147b05b2fbfb79818ab6eb267a037b7744f3b89a5966723180e1367ce7e172369d7432a658","nonce":"c114fa516a98c3de"}]}'
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | status":"NotFound | error:null} |
+
 *** BlockOwner.Transfer
 *** Node.Info
 
     #+BEGIN_SRC shell
-    curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Node.Info"}'
+      curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Node.Info"}'
     #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | result:null           | jsonrpc: request body missing params |
+    | code   | internal server error |                                      |
+
 *** Transaction.Status
+
+    #+BEGIN_SRC shell
+      curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Transaction.Status", "params": [{"txId": "2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | status":"Confirmed | error:null} |
+
 * Office Hour
 ** Make App for people, not for expert
 ** Some people are collecting health data
