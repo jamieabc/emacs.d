@@ -1107,7 +1107,6 @@
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
 (add-hook 'org-mode-hook (lambda () (setq auto-save-default nil)))
 (add-hook 'org-mode-hook (lambda () (setq-default org-hide-leading-stars t)))
-(add-hook 'org-mode-hook (lambda () (setq visual-line-mode t)))
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
