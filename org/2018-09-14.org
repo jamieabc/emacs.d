@@ -41,6 +41,10 @@
 
 *** Bitmark.Transfer
 *** Bitmarks.Create
+
+    #+BEGIN_SRC shell
+      curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Bitmarks.Create","params":[{"assets":[{"name":"3c50d70e0fe78819e7755687003483523852ee6ecc59fe40a4e70e89496c4d45313c6d76141bc322ba56ad3f7cd9c906b951791208281ddba3ebb5e7ad83436c","owner":"e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog","nonce":4,"signature":"6ecf1e6d965e4364321596b4675950554b3b8f1b40be3deb64306ddf72fef09f3c6bcebd6375925a51b984f56ec751a54c88f0dab56b3f69708a7b634c428a0a"}],"issues":[{"assetId":"3c50d70e0fe78819e7755687003483523852ee6ecc59fe40a4e70e89496c4d45313c6d76141bc322ba56ad3f7cd9c906b951791208281ddba3ebb5e7ad83436c","owner":"e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog","nonce":4,"signature":"6ecf1e6d965e4364321596b4675950554b3b8f1b40be3deb64306ddf72fef09f3c6bcebd6375925a51b984f56ec751a54c88f0dab56b3f69708a7b634c428a0a"}]}]}'
+    #+END_SRC
 *** Bitmarks.Proof
 
     #+BEGIN_SRC shell
