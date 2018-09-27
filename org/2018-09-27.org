@@ -1,0 +1,11 @@
+* Bitmark-node
+** Setup environment
+
+   #+BEGIN_SRC shell
+   export NETWORK=testing
+   export PUBLIC_IP=172.16.22.191
+   #+END_SRC
+** Setup bitmarkd
+
+   based on `NETWORK` settings, put bitmarkd config into
+   `bitmarkd/${NETWORK}/`, copy settings from bitmarkd directory
