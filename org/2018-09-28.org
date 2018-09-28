@@ -1,0 +1,36 @@
+* AWS
+** List flow logs
+
+   [[https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-flow-logs.html][reference]]
+
+   #+BEGIN_SRC shell
+   aws ec2 describe-flow-logs
+   #+END_SRC
+** List elastic network ID
+
+   [[https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-network-interfaces.html][reference]]
+
+   #+BEGIN_SRC shell
+   aws ec2 describe-network-interfaces --filters "Name=vpc-id,Values=vpc-88d1caec" "Name=status,Values=in-use"
+   #+END_SRC
+* Kubernates
+** Terminology
+
+   Pod - group of one/more containers, may die and never re-survive again
+
+   Service - an abstraction which defines a logical set of pods and a
+   policy by which to access them
+
+   Namespace - virtual cluster backed by the same physical cluster
+** Get service / pod
+
+   #+BEGIN_SRC shell
+   kubectl get service --all-namespaces
+   kubectl get pod --namesapce=ingress-nginx
+   kubectl get ingress --namespace=mobile
+   #+END_SRC
+** Get log
+
+   #+BEGIN_SRC shell
+   kubectl logs -f nginx-ingress-controller-75d75cb747-tm5h6 --namespace=ingress-nginx
+   #+END_SRC
