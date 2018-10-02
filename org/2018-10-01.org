@@ -1,0 +1,23 @@
+* Evaluate smart contarct storage space
+** Setup environment
+
+   Install libraries
+
+   #+BEGIN_SRC shell
+   brew install rocksdb
+
+   brew tap paritytech/paritytech
+   brew install parity
+   #+END_SRC
+** Parity sync
+
+   Use ethereum test chain ropsten
+
+   #+BEGIN_SRC shell
+   parity --chain ropsten --jsonrpc-apis personal,eth,signer,traces
+   #+END_SRC
+** Database path
+
+   [[https://ethereum.stackexchange.com/questions/6471/where-are-my-keys-and-chain-data-located-if-i-am-using-parity][reference]]
+
+   located at //Users/Aaron/Library/Application Support/io.parity.ethereum/chains/test/db/ae90623718e47d66/overlayrecent/db/
