@@ -1,0 +1,33 @@
+* Geth
+** Setup environment
+*** Sync data
+
+    [[https://github.com/ethereum/ropsten][reference]]
+
+    #+BEGIN_SRC shell
+    brew tap ethereum/ethereum
+    brew install ethereum
+
+    geth --testnet --syncmode "fast" --bootnodes "enode://6332792c4a00e3e4ee0926ed89e0d27ef985424d97b6a45bf0f23e51f0dcb5e66b875777506458aea7af6f9e4ffb69f43f3778ee73c81ed9d34c51c4b16b0b0f@52.232.243.152:30303,enode://94c15d1b9e2fe7ce56e458b9a3b672ef11894ddedd0c6f247e0f1d3487f52b66208fb4aeb8179fce6e3a749ea93ed147c37976d67af557508d199d9594c35f09@192.81.208.223:30303" --rpc --rpcapi db,eth,net,web3,personal --rpccorsdomain '*' --cache=1024 --rpcport 8545 --rpcaddr 0.0.0.0
+    #+END_SRC
+
+    default db path is `~/Library/Ethereum/testnet/geth/chaindata/`
+
+    remove db
+
+    #+BEGIN_SRC shell
+    geth --testnet removedb
+    #+END_SRC
+*** Get tx info
+
+    Install node library
+
+    #+BEGIN_SRC shell
+    npm i --save-dev web3 merkle-patricia-tree levelup leveldown rlp assert ethereumjs-util ethereumjs-account
+    #+END_SRC
+
+    #+BEGIN_SRC js
+    const Web3 = require('web3')
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
+    web3.eth.getBlock(1).then(console.log)
+    #+END_SRC
