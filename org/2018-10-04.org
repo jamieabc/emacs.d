@@ -1,0 +1,62 @@
+* Geth
+** Setup Ubuntu 18.04 environment
+
+   #+BEGIN_SRC shell
+     sudo apt install software-properties-common
+     sudo add-apt-repository -y ppa:ethereum/ethereum
+     sudo apt update
+     sudo apt install -y ethereum build-essential golang
+   #+END_SRC
+* Flatpak
+** Installation
+
+   System packages
+
+   #+BEGIN_SRC shell
+     sudo apt install -y flatpak flatpak-builder
+   #+END_SRC
+
+   Setup remote
+
+   #+BEGIN_SRC shell
+     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo --user
+   #+END_SRC
+
+   Install packages from flatpak
+
+   #+BEGIN_SRC shell
+     flatpak install flathub org.freedesktop.Platform//1.6 org.freedesktop.Sdk//1.6
+   #+END_SRC
+
+   Remove flatpak library
+
+   #+BEGIN_SRC shell
+     flatpak remote-delete flathub
+   #+END_SRC
+** Build
+
+   Build example flatpak from [[http://docs.flatpak.org/en/latest/first-build.html][reference]]
+
+   `build` is the target directory for generated content.
+   `org.flatpak.Hello.json` is package id
+
+   #+BEGIN_SRC shell
+     flatpak-builder ./build org.flatpak.Hello.json
+   #+END_SRC
+** Test
+
+   #+BEGIN_SRC shell
+     flatpak-builder --run build-dir org.flatpak.Hello.json hello.sh
+   #+END_SRC
+* Automation
+** Write git hooks
+*** unit test
+*** code quality check
+** CI
+*** Pipeline
+*** coverage trend chart
+** Integration (API test)
+*** documentation
+*** formal verification
+** E2E test
+** Code review

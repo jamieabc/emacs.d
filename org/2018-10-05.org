@@ -1,0 +1,74 @@
+* Flatpak
+** Build go
+
+   [[https://github.com/flathub/org.freedesktop.Sdk.Extension.golang/blob/master/org.freedesktop.Sdk.Extension.golang.json][reference]]
+** Build haskell
+
+   [[https://medium.com/@lettier/how-to-flatpak-a-haskell-app-into-flathub-86ef6d69e94d][reference]]
+
+** metadata
+
+   #+BEGIN_SRC js
+     {
+       "app-id": "com.bitmark.bitmarkd",
+       "runtime": "org.freedesktop.Platform",
+       "sdk": "org.freedesktop.Sdk",
+       "runtime-version": "1.6",
+       "cleanup": [
+         "/usr/lib/sdk/golang"
+       ],
+       "command": "ls /app/",
+       "modules": [
+         {
+           "name": "golang",
+           "buildsystem": "simple",
+           "sources": [
+             {
+               "type": "archive",
+               "url": "https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz",
+               "sha256": "2871270d8ff0c8c69f161aaae42f9f28739855ff5c5204752a8d92a1c9f63993"
+             }
+           ],
+           "build-commands": [
+             "install -d /app",
+             "cp -rpv * /app"
+           ]
+         },
+         {
+           "name": "scripts",
+           "sources": [
+             {
+               "type": "script",
+               "commands": [
+                 "export GOROOT=/app",
+                 "export PATH=$PATH:$GOROOT/bin"
+               ],
+               "dest-filename": "enable.sh"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "cp enable.sh /app"
+           ]
+         },
+         {
+           "name": "bitmarkd",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://github.com/bitmark-inc/bitmarkd/archive/master.zip",
+               "sha256": "a8871ff020b85b9e47062ca48298cbc5e46fe7534561b10bd3e80ee450175e2f"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "source /app/enable.sh",
+             "unzip master.zip",
+             "cd bitmarkd-master/command/bitmarkd",
+             "go build",
+             "cp -rpv command/bitmarkd/bitmarkd /app"
+           ]
+         }
+       ]
+     }
+   #+END_SRC
