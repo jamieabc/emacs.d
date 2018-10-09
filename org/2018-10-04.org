@@ -25,7 +25,7 @@
    Install packages from flatpak
 
    #+BEGIN_SRC shell
-     flatpak install flathub org.freedesktop.Platform//1.6 org.freedesktop.Sdk//1.6
+     flatpak install flathub org.freedesktop.Platform//1.6 org.freedesktop.Sdk//1.6 --user
    #+END_SRC
 
    Remove flatpak library
