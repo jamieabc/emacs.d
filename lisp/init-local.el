@@ -1186,6 +1186,12 @@
 (add-to-list 'org-structure-template-alist
              '("http" "#+BEGIN_SRC http\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
 ;; add <http for typescript expansion
+
+;; add <groovy for typescript expansion
+(add-to-list 'org-structure-template-alist
+             '("groovy" "#+BEGIN_SRC groovy\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
+;; add <groovy for typescript expansion
+
 ;;; org
 
 ;;; convert date of 03/04/1997 to 1997.04.03
