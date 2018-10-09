@@ -6,6 +6,9 @@
 
    [[https://medium.com/@lettier/how-to-flatpak-a-haskell-app-into-flathub-86ef6d69e94d][reference]]
 
+   Flatpak has sandbox environment, network is only accessable by
+   flatpak-builder, so it will cause some trouble when downloading go packages.
+
 ** metadata
 
    #+BEGIN_SRC js
