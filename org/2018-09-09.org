@@ -13,20 +13,22 @@
    #+END_SRC
 ** Install packages
 
+   argon2 can be found [[https://github.com/P-H-C/phc-winner-argon2][here]]
+
    #+BEGIN_SRC shell
-   apt install libghc-argon2-dev autoconf libtool pkg-config uuid-dev postgresql postgresql-contrib jq
+     apt install libghc-argon2-dev autoconf libtool pkg-config uuid-dev postgresql postgresql-contrib jq
    #+END_SRC
 
 ** Compile necessray libraries
 *** Libucl
 
     #+BEGIN_SRC shell
-    git clone https://github.com/vstakhov/libucl.git
-    cd libucl
-    ./autogen.sh
-    ./configure --enable-utils
-    make
-    make install
+      git clone https://github.com/vstakhov/libucl.git
+      cd libucl
+      ./autogen.sh
+      ./configure --enable-utils
+      make
+      make install
     #+END_SRC
 *** Libzmq
 
