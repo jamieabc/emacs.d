@@ -1187,12 +1187,16 @@
              '("http" "#+BEGIN_SRC http\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
 ;; add <http for typescript expansion
 
-;; add <groovy for typescript expansion
+;; add <gvy for typescript expansion
 (add-to-list 'org-structure-template-alist
-             '("groovy" "#+BEGIN_SRC groovy\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <groovy for typescript expansion
+             '("gvy" "#+BEGIN_SRC groovy\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
+;; add <gvy for typescript expansion
 
 ;;; org
+
+;;; groovy
+(require-package 'groovy-mode)
+;;; groovy
 
 ;;; convert date of 03/04/1997 to 1997.04.03
 (defun my-convert-date ()
