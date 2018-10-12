@@ -1,0 +1,7 @@
+* Get github content
+
+  user following command to get actual download link
+
+  #+BEGIN_SRC shell
+    curl --head https://github.com/bitmark-inc/bitmarkd/archive/master.zip
+  #+END_SRC

@@ -27,19 +27,18 @@
 
                  stage('Checkout') {
                      echo 'Checking out from repository'
-                     // git branch: 'master', url: 'https://github.com/bitmark-inc/bitmarkd'
-                     // sh 'go get -d -v github.com/bitmark-inc/bitmarkd'
                      sh 'cd ${WORKSPACE} && mkdir -p \$repo && cd \$repo && git clone https://github.com/bitmark-inc/bitmarkd.git'
                  }
 
-                 stage('Pre Test') {
+                 stage('Install packages') {
                      echo 'Pulling dependencies'
-                     sh 'go version'
+                     sh 'cd ${WORKSPACE}/\$repo/bitmarkd && go get -t -d -v ./...'
                  }
 
                  stage('Test') {
-                     filename = 'coverage.out'
-                     sh 'cd ${WORKSPACE}/\$repo/bitmarkd && go get -t -d -v ./... && go test -cover -coverprofile=${filename} -covermode=count $(go list ./... | grep -v /vendor/) || ~/go/bin/gocov convert ${filename}  | ~/go/bin/gocov-xml > coverage.xml'
+                     sh 'cd ${WORKSPACE}/\$repo/bitmarkd && go test -cover -coverprofile=coverage.out $(go list ./... | grep -v /vendor/) || true'
+                     sh "${HOME}/go/bin/gocov convert ${REPO}/bitmarkd/coverage.out  | ~/go/bin/gocov-xml > coverage.xml"
+                     cobertura('coberturaReportFile': 'coverage.xml')
                  }
              }
          }

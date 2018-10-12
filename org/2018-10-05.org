@@ -38,6 +38,42 @@
            ]
          },
          {
+           "name": "libargon2",
+           "sources": [
+             {
+               "type": "archive",
+               "url": "https://github.com/P-H-C/phc-winner-argon2/archive/master.zip",
+               "sha256": "f4f17bbec23730d39bd96f438c31118d294f60543d1ea61cce3159e7e11ab808"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "make",
+             "make install PREFIX=/app",
+             "mkdir -p /app/lib/pkgconfig",
+             "sed -i -- s/usr/app/g libargon2.pc",
+             "sed -i -- s/@HOST_MULTIARCH@//g libargon2.pc",
+             "cp libargon2.pc /app/lib/pkgconfig"
+           ]
+         },
+         {
+           "name": "libucl",
+           "sources": [
+             {
+               "type": "archive",
+               "url": "https://github.com/vstakhov/libucl/archive/master.zip",
+               "sha256": "d7f09634000f3cc0be0bd2480afeaae650baa1a7d2901fb82ca93fbe48bf25c9"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "./autogen.sh",
+             "./configure --enable-utils --prefix=/app",
+             "make",
+             "make install"
+           ]
+         },
+         {
            "name": "scripts",
            "sources": [
              {
@@ -55,21 +91,244 @@
            ]
          },
          {
-           "name": "bitmarkd",
+           "name": "certgen",
            "sources": [
              {
                "type": "file",
-               "url": "https://github.com/bitmark-inc/bitmarkd/archive/master.zip",
-               "sha256": "a8871ff020b85b9e47062ca48298cbc5e46fe7534561b10bd3e80ee450175e2f"
+               "url": "https://codeload.github.com/bitmark-inc/certgen/tar.gz/v1.0",
+               "sha256": "ed0fa1d610cc9784ed05c808c04164745a56e9e36b63e33a74f3ac57863caa83"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "source /app/enable.sh",
-             "unzip master.zip",
-             "cd bitmarkd-master/command/bitmarkd",
-             "go build",
-             "cp -rpv command/bitmarkd/bitmarkd /app"
+             "tar zxf v1.0",
+             "cd certgen-1.0 && go install -v"
+           ]
+         },
+         {
+           "name": "exitwithstatus",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/exitwithstatus/tar.gz/v1.1",
+               "sha256": "4a012a59942f4f190f7e970854ab496ebc550e2330f2553b503bcdbf49b517e4"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v1.1",
+             "cd exitwithstatus-1.1 && go install -v"
+           ]
+         },
+         {
+           "name": "getoptions",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/getoptions/tar.gz/v1.1",
+               "sha256": "16c64d26a5a50d3600599bc7960a09a4406ba2a1e59b20e1c3a6d5a93a76543d"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v1.1",
+             "cd getoptions-1.1 && go install -v"
+           ]
+         },
+         {
+           "name": "go-argon2",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/go-argon2/tar.gz/v1.3",
+               "sha256": "96fdb43bfadc1c8e32f0dbd1d31b15f8385c83b670c9955db6e563faa96bc600"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "ls /app/lib",
+             "tar zxf v1.3",
+             "cd go-argon2-1.3 && go install -v"
+           ]
+         },
+         {
+           "name": "go-libucl",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/go-libucl/tar.gz/v1.2",
+               "sha256": "01e96f57558f40e2369d61b15801548e6bf45c347d8ac2ba5137bfb5ef28dbe2"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v1.2",
+             "cd go-libucl-1.2 && go install -v"
+           ]
+         },
+         {
+           "name": "seelog",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/cihub/seelog/tar.gz/f561c5e",
+               "sha256": "0972fc2ee4ca965f90ab75d168ae39a2577eb97cb391e64d5d8d991123176863"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf f561c5e",
+             "cd seelog-f561c5e && go install -v ..."
+           ]
+         },
+         {
+           "name": "logger",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/logger/tar.gz/v3.4",
+               "sha256": "231d9e754eca1f76dffc7aecb0dde29c7247aecba851f67ae237fcb755a2c655"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v3.4",
+             "cd logger-3.4 && go install -v ..."
+           ]
+         },
+         {
+           "name": "listener",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/listener/tar.gz/v1.3",
+               "sha256": "8a3b77e035ba44949134a1cb9459e75eb62d75be15b9d469bf53b7dde3a68454"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v1.3",
+             "cd listener-1.3 && go install -v ..."
+           ]
+         },
+         {
+           "name": "crypto",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/golang/crypto/tar.gz/e363607",
+               "sha256": "e32166defb1f0f47bfe9ceca4aadfb9508599cda40d9f058aa00eee9e4e00547"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf e363607",
+             "cd crypto-e363607 && go install -v ..."
+           ]
+         },
+         {
+           "name": "snappy",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/golang/snappy/tar.gz/2e65f85",
+               "sha256": "dbbc74e9fbea19d803a6984314286acfb3ba554a693f5bce0c8073e18a180d99"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf 2e65f85",
+             "cd snappy-2e65f85 && go install -v ..."
+           ]
+         },
+         {
+           "name": "sys",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/golang/sys/tar.gz/4497e2d",
+               "sha256": "a187139c2c457ea5ea374307b11a32e0ce9d9a639476ba9df63623752955d07e"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf 4497e2d",
+             "cd sys-4497e2d && go install -v ..."
+           ]
+         },
+         {
+           "name": "zmq4",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/pebbe/zmq4/tar.gz/3515f4e",
+               "sha256": "b811b91b96067056fcecafe701da3209866395ef176c712b219a6af8e68d5292"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf 3515f4e",
+             "cd zmq4-3515f4e && go install -v ..."
+           ]
+         },
+         {
+           "name": "goleveldb",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/syndtr/goleveldb/tar.gz/ae2bd5e",
+               "sha256": "b41f6356fdfbb5b9aaf0a797c393d1642d8bc273065335fbadd52c5539f69105"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf ae2bd5e",
+             "cd goleveldb-ae2bd5e && go install -v ..."
+           ]
+         },
+         {
+           "name": "cli",
+           "sources": [
+             {
+
+               "type": "file",
+               "url": "https://codeload.github.com/urfave/cli/tar.gz/934abfb",
+               "sha256": "ce5299d4ca7dfab21777d7fa7064c20c3a4cee07c7b14512c3254dbd2227482b"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf 934abfb",
+             "cd cli-934abfb && go install -v ..."
+           ]
+         },
+         {
+           "name": "bitmarkd",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/bitmarkd/tar.gz/v8.2",
+               "sha256": "3213155b15ed988f9c0e66fc811551e9d84a64309b7b7b1141fb85ef7e856c0c"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v8.2",
+             "mkdir -p ./src/github.com/bitmark-inc && mv bitmarkd-8.2 ./src/github.com/bitmark-inc/bitmarkd",
+             "go env",
+             "cd ./src/github.com/bitmark-inc/bitmarkd && go install -v ...&& go build github.com/bitmark-inc/bitmarkd/command/bitmarkd",
+             "ls /app"
            ]
          }
        ]
