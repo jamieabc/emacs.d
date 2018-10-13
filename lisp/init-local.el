@@ -1292,5 +1292,10 @@
 (require-package 'swift-mode)
 ;;; swift
 
+;;; wakatime
+(require-package 'wakatime-mode)
+(global-wakatime-mode)
+;;; wakatime
+
 (provide 'init-local)
 ;;; init-local.el ends here
