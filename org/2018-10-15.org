@@ -1,0 +1,70 @@
+* Flatpak
+** Local build
+
+   build report into `repo` assigned by `--repo`
+
+   #+BEGIN_SRC shell
+     flatpak-builder --repo=repo --force-clean build-bitmarkd com.bitmark.bitmarkd.json
+   #+END_SRC
+** Local install
+
+   `repo` is the directory of build from previous command
+
+   #+BEGIN_SRC shell
+     flatpak --user remote-add --no-gpg-verify test repo
+     flatpak --user install test com.bitmark.bitmarkd
+   #+END_SRC
+** Local run
+
+   #+BEGIN_SRC shell
+     flatpak run com.bitmark.bitmarkd
+     flatpak-builder --run flatpak/build-bitmarkd flatpak/com.bitmark.bitmarkd.json
+   #+END_SRC
+
+   passing argument [[https://github.com/flatpak/flatpak/issues/1058][here]]
+
+** Uninstall
+
+   #+BEGIN_SRC shell
+     flatpak uninstall com.bitmark.bitmarkd
+   #+END_SRC
+
+** Mount host file
+
+   Add to manifest file key `finish-args` with content argument of
+   `--filesystem=`
+
+   host file mount [[https://github.com/flatpak/flatpak/issues/2107][reference]]
+
+   sandbox permisson [[http://docs.flatpak.org/en/latest/sandbox-permissions.html][reference1]] and [[http://docs.flatpak.org/en/latest/sandbox-permissions-reference.html][reference2]]
+
+** bitmarkd config
+
+   change followings:
+
+   data_directory = "${CURDIR}"
+
+** recorderd config
+
+   change followings:
+
+   data_directory = "${CURDIR}"
+
+** Use version for download
+
+   Chris reminds that when downloading files, it's better to specify
+   github download link with version, e.g.
+
+   `https://codeload.github.com/vstakhov/libucl/zip/master` =>
+   `https://codeload.github.com/vstakhov/libucl/tar.gz/0.8.1`
+
+   because the `master` may be changed after each update, but version
+   will not, reduce further maintain effort
+
+* Get actual download path from github
+
+  Use `curl --head`
+
+  #+BEGIN_SRC shell
+    curl --head https://github.com/vstakhov/libucl/archive/master.zip
+  #+END_SRC
