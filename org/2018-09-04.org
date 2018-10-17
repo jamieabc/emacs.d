@@ -57,20 +57,20 @@
 
    Send data:
 
-   #+BEGIN_SRC
-   {"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}
+   #+BEGIN_SRC js
+     {"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}
    #+END_SRC
 
    Send by piping:
 
    #+BEGIN_SRC shell
-   (echo -e '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 1; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+     (echo -e '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 1; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
    #+END_SRC
 
    Send by https:
 
    #+BEGIN_SRC shell
-   curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'
+     curl -k https://127.0.0.1:2131/bitmarkd/rpc -X POST -d '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'
    #+END_SRC
 ** Grenerate key file
 

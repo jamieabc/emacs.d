@@ -3,3 +3,7 @@
   Bitcon Improvement Proposal, used for hardware wallet
 
   available wordlist can be found at [[https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md][here]]
+
+* Vue auto complete
+
+  [[https://github.com/pascallin/vue-autocomplete-input/blob/dev/src/components/AutoCompleteInput.vue][reference]]

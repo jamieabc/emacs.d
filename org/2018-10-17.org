@@ -1,0 +1,14 @@
+* Go
+** Rune
+
+   Type of int32, it's same as unicode code point. It uses single
+   quote (') to represent it's value.
+
+** Map
+
+   Datatype that is same as object in javascript, hash in ruby. Syntax
+   of map is `map[key-type]value-type`
+
+** fmt type
+
+   [[https://golang.org/pkg/fmt/(lllljjjjjjjjj][reference]]
