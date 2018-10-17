@@ -1,0 +1,5 @@
+* Bip39
+
+  Bitcon Improvement Proposal, used for hardware wallet
+
+  available wordlist can be found at [[https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md][here]]
