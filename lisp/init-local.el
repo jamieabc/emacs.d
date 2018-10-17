@@ -1090,9 +1090,20 @@
 (add-hook 'go-mode-hook #'my-go-mode-hook)
 ;;; go
 
+;;; language server
+(require-package 'lsp-mode)
+(require-package 'lsp-ui)
+(require-package 'company-lsp)
+;;; language server
+
 ;;; vue
 (require-package 'vue-mode)
 (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
+(defun my-vue-hook ()
+  "Vue hook."
+  (require 'lsp-vue)
+  (lsp-vue-mmm-enable))
+(add-hook 'vue-mode-hook #'my-vue-hook)
 ;;; vue
 
 ;;; org
