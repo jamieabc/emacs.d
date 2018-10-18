@@ -1103,6 +1103,7 @@
 (defun my-vue-hook ()
   "Vue hook."
   (require 'lsp-vue)
+  (require 'lsp-ui)
   (lsp-vue-mmm-enable))
 (add-hook 'vue-mode-hook #'my-vue-hook)
 ;;; vue
