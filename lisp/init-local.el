@@ -1093,6 +1093,7 @@
 ;;; language server
 (require-package 'lsp-mode)
 (require-package 'lsp-ui)
+(require-package 'lsp-vue)
 (require-package 'company-lsp)
 ;;; language server
 
