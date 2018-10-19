@@ -1,0 +1,324 @@
+* RPC flow
+  All following paragraphs are describing ~bitmarkd~ version ~8.2~
+  commit ~b013d5e~
+** Initialization
+   When ~bitmarkd~ starts, it does some initialization processes including rpc.
+
+   rpc is setup in the ~command/bitmarkd/main.go#294:
+   rpc.Initialise~. In this method, both rpc and https are
+   initialized. This package has global data structure as following:
+
+   #+BEGIN_SRC go
+     type rpcData struct {
+         sync.RWMutex // to allow locking
+
+         log *logger.L // logger
+
+         listener *listener.MultiListener
+
+         httpServer *httpHandler
+
+         // set once during initialise
+         initialised bool
+     }
+   #+END_SRC
+
+   The ~RWMutex~ states for read/write data locking.
+
+   The rpc listeners are type of ~MultiListener~ include ~channels~:
+
+   #+BEGIN_SRC go
+     type MultiListener struct {
+         state            int32
+         log              *logger.L
+         tlsConfiguration *tls.Config
+         callback         Callback
+         limiter          *Limiter
+         listeners        []*channel
+     }
+   #+END_SRC
+
+   From ~rpc/setup.go#113: initialiseRPC~ it specifies the limit of rpc
+   connection count by ~maximum_connections~ in configuration file.
+
+   ~rpc/setup.go#138: NewMultiListener~ specifies that each rpc
+   connected by tcp protocol, and it also specifies the callback
+   function in its last parameters. The ~Callback~ is a function at
+   ~rpc/server.go#28: Callback~.
+
+   #+BEGIN_SRC go
+     codec := jsonrpc.NewServerCodec(conn)
+     defer codec.Close()
+     server.ServeCodec(codec)
+   #+END_SRC
+
+   When running ~server.ServeCodec~, it will use go native package
+   ~rpc/server.go#461: ServeCodec~, it parses request by
+   ~rpc/server.go#587: readRequestHeader~, service name and method name
+   is determiined by last dot.
+
+   #+BEGIN_SRC go
+     dot := strings.LastIndex(req.ServiceMethod, ".")
+     serviceName := req.ServiceMethod[:dot]
+     methodName := req.ServiceMethod[dot+1:]
+   #+END_SRC
+
+   ~rpc/setup.go#165: createRPCServer~ registers all available rpc
+   methods at ~rpc/setup.go#293~
+
+   #+BEGIN_SRC go
+     server.Register(assets)
+     server.Register(bitmark)
+     server.Register(bitmarks)
+     server.Register(owner)
+     server.Register(node)
+     server.Register(transaction)
+     server.Register(blockOwner)
+   #+END_SRC
+
+   rpc server starts to listen by code ~rpc/setup.go#172:
+   globalData.listener.Start~, the actual start of rpc is at
+   ~listener/multiListener.go#118: StartListening~.
+
+   #+BEGIN_SRC go
+     address, err := net.ResolveTCPAddr(tcpVersion, listenAddress)
+     // ...
+     listeningSocket, err := net.ListenTCP(tcpVersion, address)
+     // ...
+     go server(&listener)
+   #+END_SRC
+
+   Last line starts a goroutine to run ~server~,the source code at
+   ~listener/listener.go#157: server~.
+
+** RPC protocol
+
+   go natively support ~json-rpc~ version 1.0, the protocol can be
+   referenced from [[https://www.jsonrpc.org/specification_v1][here]]
+
+   Simple ~json-rpc~ includes ~id~, ~method~, and ~params~. ~method~ is the
+   function wants to be executed, ~params~ is the arguments to that function.
+** Environment (optional)
+
+   If anyone wants to try for the rpc connection, ~bitmarkd~ needs to be
+   started in advance. Following command uses simple shell script
+   using ~openssl~ to communicate.
+
+   Also, it assumes ~bitmarkd~ is listening local port ~2130~.
+
+   #+BEGIN_SRC shell
+     (echo -e '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+   #+END_SRC
+
+** Available methods
+
+   All methods are named as ~Pakcage-name.method-name~, for example,
+   ~Assets.Get~ stands for method ~Get~ in file ~assets.go~.
+
+*** Assets.Get
+
+    This method is in file ~rpc/assets.go#81: Get~. It is to get asset information.
+
+    Input format ~AssetGetArguments~ has an array of strings to
+    represent asset fingerprints (~fingerprints~).
+
+    #+BEGIN_SRC go
+      type AssetGetArguments struct {
+          Fingerprints []string `json:"fingerprints"`
+      }
+    #+END_SRC
+
+    Example rpc shell comand as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id"
+:"1","method":"Assets.Get","params":[{fingerprints": ["01c7499e5d27880da75a3747340aa1cb2f11fa023f7aa1eb10acbf28e447aefd366759092de7a31fdfe89fcb88ecc3c90c0e067484184f41a8e3043e8aa4732f00", "01f9c2eed799128d331c0e60b07d99bffa299b100eea7bb4a410d8f2ee2a04218623f2dbd1a53f0fe08f9cda131ecff213889cbd2cf5c8e53100581ff00f6270c1"]}]}'; sleep 1; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | assets":[{"record":"AssetData | confirmed:true | ef0abf8cca13317ee3b679ab26d855010d871b785cc45ee7a3a7fc02fbcc2bac52c2057cd8a59f44554e0e30258ec0574fe30aa3dc6c453ad4d95d7123558c99 | name":"bachlx-test-001 | 01c7499e5d27880da75a3747340aa1cb2f11fa023f7aa1eb10acbf28e447aefd366759092de7a31fdfe89fcb88ecc3c90c0e067484184f41a8e3043e8aa4732f00 | description\u0000 via Instagram http://ift.tt/2fA6tly | fSPqh5rwxz3AwYapRyusjgTznEcf98mQfsPpXjS8JZpx55VHya | 2d8a6fbd87a8f403f386118d0bef38c8157d4c9cb3f48e9ac2c51d8bc4425cbe5d92f02719d70c5e7a348047c90fddc2362806f6f53e8210c6ea649255a0d20f | record":"AssetData | confirmed:true | d11464f24d14f97dde4522731428a5befc733e7db6faa60063995ebf217d7785cca90a2474389e95f5ad5df3e7267e12cf6540072f3cb38700b49ad8f0f9d7f4 | name":"bachlx test ifttt 002 | 01f9c2eed799128d331c0e60b07d99bffa299b100eea7bb4a410d8f2ee2a04218623f2dbd1a53f0fe08f9cda131ecff213889cbd2cf5c8e53100581ff00f6270c1 | description\u0000 via Instagram http://ift.tt/2dYdc8g | fSPqh5rwxz3AwYapRyusjgTznEcf98mQfsPpXjS8JZpx55VHya | 34d6de5333df20f36482b05c0e20ce7b8d3f47985590f96af9574ba2eab48529faf63c260d40512891437f09d324646d382f47ff381d298788c6bab2ca37fe05 | error:null} |
+
+*** Bitmark.Provenance
+
+    This method is in file ~rpc/bitmark.go#120: Provenance~. It is to
+    get provenance of a bitmark.
+
+    Input format ~ProvenanceArguments~ includes a string to
+    represent transaction id (~txId~), and the number of maximum records
+    to return (~count~)
+
+    #+BEGIN_SRC go
+      type ProvenanceArguments struct {
+          TxId  merkle.Digest `json:"txId"`
+          Count int           `json:"count"`
+      }
+    #+END_SRC
+
+    Example rpc shell command as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | data":[{"record":"BitmarkTransferUnratified | isOwner:true | 2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861 | inBlock:8607 | link":"264066cbef4f06a1bfc29db18706149faf3b89b44483647a7a2bc394880e0689 | escrow:null | eujeF5ZBDV3qJyKeHxNqnmJsrc9iN7eHJGECsRuSXvLmnNjsWX | f0d7cc086339b3bec094dec8967056634e3e439adcc0de29197ac76a5e414202463629633f565efcf3019e2d81bd9ecc232f4690181b09ca4349ae804ba25706 | record":"BitmarkIssue | isOwner:false | 264066cbef4f06a1bfc29db18706149faf3b89b44483647a7a2bc394880e0689 | inBlock:8604 | assetId":"0e0b4e3bd771811d35a23707ba6197aa1dd5937439a221eaf8e7909309e7b31b6c0e06a1001c261a099abf04c560199db898bc154cf128aa9efa5efd36030c64 | ec6yMcJATX6gjNwvqp8rbc4jNEasoUgbfBBGGyV5NvoJ54NXva | nonce:3832310271139778 | 3998698b1a02218ce4fb59b986aa4eb3381ee3c630d2701cc0cb80a1f0d432e7a9e3d949dd8d6542d868748cb293a8a67724ac6605bc0e83af0f16e9f313f301 | record":"AssetData | isOwner:false | inBlock:0 | 0e0b4e3bd771811d35a23707ba6197aa1dd5937439a221eaf8e7909309e7b31b6c0e06a1001c261a099abf04c560199db898bc154cf128aa9efa5efd36030c64 | name":"name | 0123724b8bcc0daa72268694a1c70174802ae6d195df2ddcf0f16f6cbee7860a77e00aa3a0a7f9417addb7c2f92d695d7bc170bae4b8bc8c3df9c33a085f27675c | author\u0000test | ec6yMcJATX6gjNwvqp8rbc4jNEasoUgbfBBGGyV5NvoJ54NXva | 4a7db697f3d23b982c29a8bdbe93f009043f2bced23b4c0fba1f528eeb7a4dee8d3d5a93f81c77a4d0ca289de07602b8f50ee2e207b9c1b487c46743f545730b | error:null} |
+
+*** Bitmark.Transfer
+
+    This method is in file ~rpc/bitmark.go#36: Transfer~. It is used to
+    transfer bitmark.
+
+    Input format ~transactionrecord.BitmarkTransferCountersigned~
+    includes previous record (~link~), options escrow payment address
+    (~escrow~), accoutn owner (~owner~), hex string of account signature (~signature~),
+    and hex string of counter-signature (~countersignature~).
+
+    #+BEGIN_SRC go
+      type BitmarkTransferCountersigned struct {
+          Link             merkle.Digest     `json:"link"`             // previous record
+          Escrow           *Payment          `json:"escrow"`           // optional escrow payment address
+          Owner            *account.Account  `json:"owner"`            // base58: the "destination" owner
+          Signature        account.Signature `json:"signature"`        // hex: corresponds to owner in linked record
+          Countersignature account.Signature `json:"countersignature"` // hex: corresponds to owner in this record
+      }
+    #+END_SRC
+
+    Example rpc shell command as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id":"1","method":"Bitmark.Transfer","params":[{"link":"1bebd06c8ecb8b11ea93e93c9d38b7f6d7dfdf015530819015172cf51c7f33f7", "owner": "eZpG6Wi9SQvpDatEP7QGrx6nvzwd6s6R8DgMKgDbDY1R5bjzb9", "signature": "a3e456a31a4a64962a32bcbf6549d14134deeb5d87285a04c648355eb9e59d938f8ab440d2b50c781baf2c1a5a2112c2167301bb128c8f850a9d54f3b27c5a08"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | txId":"661a688c376639f1569df385a0c34539d274aead7668727945fc0dad3b106a94 | 73245a2992a6f30a7f51d15f9ea13f8b5bb369f8984b9fd9ef3dbf3c265e32642c4fe71e38ad325b7dd3086657438774 | BTC":[{"currency":"BTC | n2dez99cZD2cprstqZaDdapCeAEceu14NA | 20000 | currency":"LTC | mmXoBM4WQ9jDzu8dCs2GAkCkt9tCJq44kC | 200000 | error:null} |
+
+*** Bitmarks.Create
+
+    This method is in file ~rpc/bitmarks.go#57: Create~. It is used to
+    create bitmark.
+
+    Input format ~CreateArguments~ includes array of asset data (~assets~)
+    and array of issues (~issues~)
+
+    #+BEGIN_SRC go
+      type CreateArguments struct {
+          Assets []*transactionrecord.AssetData    `json:"assets"`
+          Issues []*transactionrecord.BitmarkIssue `json:"issues"`
+      }
+
+      type AssetData struct {
+          Name        string            `json:"name"`        // utf-8
+          Fingerprint string            `json:"fingerprint"` // utf-8
+          Metadata    string            `json:"metadata"`    // utf-8
+          Registrant  *account.Account  `json:"registrant"`  // base58
+          Signature   account.Signature `json:"signature"`   // hex
+      }
+
+      type BitmarkIssue struct {
+          AssetId   AssetIdentifier   `json:"assetId"`   // link to asset record
+          Owner     *account.Account  `json:"owner"`     // base58: the "destination" owner
+          Nonce     uint64            `json:"nonce"`     // to allow for multiple issues at the same time
+          Signature account.Signature `json:"signature"` // hex: corresponds to owner in linked record
+      }
+    #+END_SRC
+
+    The ~Metadata~ data has two fields for each record, ~key~ and ~value~,
+    separated by ~\u0000~, e.g. ~k1\u0000v1\u0000k2\u0000v2~ means ~key~ k1 has
+    ~value~ v1.
+
+    Example rpc shell command as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id":"1","method":"Bitmarks.Create","params":[{"assets": [{"name": "asset", "fingerprint": "01840006653e9ac9e95117a15c915caab81662918e925de9e004f774ff82d7079a40d4d27b1b372657c61d46d470304c88c788b3a4527ad074d1dccbee5dbaa99a", "metadata": "k1\u0000v1\u0000k2\u0000v2", "registrant": "e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog", "signature": "dc9ad2f4948d5f5defaf9043098cd2f3c245b092f0d0c2fc9744fab1835cfb1ad533ee0ff2a72d1cdd7a69f8ba6e95013fc517d5d4a16ca1b0036b1f3055270c"}], "issues": [{"assetId": "3c50d70e0fe78819e7755687003483523852ee6ecc59fe40a4e70e89496c4d45313c6d76141bc322ba56ad3f7cd9c906b951791208281ddba3ebb5e7ad83436c", "owner": "e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog", "nonce": 4, "signature": "6ecf1e6d965e4364321596b4675950554b3b8f1b40be3deb64306ddf72fef09f3c6bcebd6375925a51b984f56ec751a54c88f0dab56b3f69708a7b634c428a0a"}]}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | result:null | invalid signature |
+
+*** Bitmarks.Proof
+
+    This method is in the file ~rpc/bitmarks.go#147: Proof~. It is used
+    to validate payment.
+
+    Input format ~ProofArguments~ includes payment id (~payId~) and
+    nonce (~nonce~).
+
+    #+BEGIN_SRC go
+      type ProofArguments struct {
+          PayId pay.PayId `json:"payId"`
+          Nonce string    `json:"nonce"`
+      }
+    #+END_SRC
+
+    Example rpc shell command as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id":"1","method":"Bitmarks.Proof","params":[{"payId":"2ad3ba0b28fe98716bb8d87169a952eebfc4aff96b4f9eb7de7d4c71c7acee79", "nonce": "c114fa516a98c3de"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | status":"NotFound | error:null} |
+
+*** BlockOwner.Transfer
+
+    This method is in the file ~rpc/blockowner.go#72: Transfer~. It is
+    used to transfer blocks.
+
+    Input format ~transactionrecord.BlockOwnerTransfer~ includes some
+    block owner information as follows:
+
+    #+BEGIN_SRC go
+      type BlockOwnerTransfer struct {
+          Link             merkle.Digest     `json:"link"`             // previous record
+          Escrow           *Payment          `json:"escrow"`           // optional escrow payment address
+          Version          uint64            `json:"version"`          // reflects combination of supported currencies
+          Payments         currency.Map      `json:"payments"`         // require length and contents depend on version
+          Owner            *account.Account  `json:"owner"`            // base58
+          Signature        account.Signature `json:"signature,"`       // hex
+          Countersignature account.Signature `json:"countersignature"` // hex: corresponds to owner in this record
+      }
+    #+END_SRC
+
+    Example rpc shell command as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id":"1","method":"BlockOwner.Transfer","params":[{"link":"1bebd06c8ecb8b11ea93e93c9d38b7f6d7dfdf015530819015172cf51c7f33f7", "version": 5, "payments": ["1": "BTC"], "owner": "eZpG6Wi9SQvpDatEP7QGrx6nvzwd6s6R8DgMKgDbDY1R5bjzb9", "signature": "a3e456a31a4a64962a32bcbf6549d14134deeb5d87285a04c648355eb9e59d938f8ab440d2b50c781baf2c1a5a2112c2167301bb128c8f850a9d54f3b27c5a08"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+*** Node.Info
+
+    This method is in file ~rpc/node.go#77: Info~. It is used to get
+    node info.
+
+    There no need to have any parameter for this method.
+
+    Example rpc shell command as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id":"1","method":"Node.Info","params":[{}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | chain":"testing | Resynchronise | blocks:10007 | rpcs:1 | peers:0 | pending | verified:0} | difficulty:1 | zero | 2m35.451122s | 9f5f6122d09c18bef1c9b96e773cf0b784198b70e4c3becbe4951d642ee4484c | error:null} |
+
+*** Transaction.Status
+
+    This method is in file ~rpc/transaction.go#32: Status~. It is used
+    to get transaction status.
+
+    Input format ~TransactionArguments~ includes string (~txId~)
+
+    #+BEGIN_SRC go
+      type TransactionArguments struct {
+          TxId merkle.Digest `json:"txId"`
+      }
+    #+END_SRC
+
+    Example rpc shell command as follows:
+
+    #+BEGIN_SRC shell
+      (echo -e '{"id":"1","method":"Transaction.Status","params":[{"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+    #+END_SRC
+
+    #+RESULTS:
+    | id":"1 | status":"Confirmed | error:null} |
