@@ -372,7 +372,7 @@
 
 ;; git difftool
 (defun gdt ()
-  "start difftool"
+  "Start difftool."
   (interactive)
   (shell-command "git difftool")
   )
@@ -455,6 +455,7 @@
 ;;; find file in project
 (require-package 'find-file-in-project)
 (defun my-setup-find-file-in-project ()
+  "Find file in project."
   (interactive)
   ;; interested filetypes
   (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "sass" "*.xml"
@@ -767,7 +768,7 @@
 
 ;;; editing
 (defun insert-i18n-text-at-region (begin end)
-  "Convert region text into i18n format."
+  "Convert region text into i18n format from BEGIN to END."
   (interactive "r")
   (if (use-region-p)
       (progn (save-excursion
@@ -779,7 +780,7 @@
              (goto-char (+ begin 9)))))
 
 (defun remove-i18n-text-at-region (begin end)
-  "Remove i18n format."
+  "Remove i18n format from BEGIN to END."
   (interactive "r")
   (if (use-region-p)
       (progn (save-excursion
@@ -804,7 +805,7 @@
 
 ;;; copy file path & name to clipboard
 (defun copy-file-name-or-path-to-clipboard (path)
-  "Copy the current buffer file name and path to clipboard."
+  "Copy the current buffer file name and PATH to clipboard."
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
                     (buffer-file-name))))
@@ -895,7 +896,7 @@
 
 ;;; switch to previous buffer
 (defun switch-to-previous-buffer ()
-  "Switch to previously open buffer. Repeated invocations toggle between the two most recently open buffers."
+  "Switch to previously open buffer.  Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 ;;; switch to previous buffer
