@@ -46,6 +46,389 @@
      }
    #+END_SRC
 
+   In ~peer/setup.go: Initialise~, it reads private/public key file,
+   registers to ~announce~ which will broadcast events (~setAnnounce~), initialize
+   objects to process request/response.
+
+*** RPC Response Listener
+
+    ~listener~ is an object includes logger, ipv4/ipv6 sockets,
+    receiver/sender, ipv4/ipv6 monitors. Detail data can be found as
+    below:
+
+    #+BEGIN_SRC go
+      type listener struct {
+          log         *logger.L
+          chain       string
+          version     string      // server version
+          push        *zmq.Socket // signal send
+          pull        *zmq.Socket // signal receive
+          socket4     *zmq.Socket // IPv4 traffic
+          socket6     *zmq.Socket // IPv6 traffic
+          monitor4    *zmq.Socket // IPv4 socket monitor
+          monitor6    *zmq.Socket // IPv6 socket monitor
+          connections uint64      // total incoming connections
+      }
+    #+END_SRC
+
+    It is initialized at ~peer/setup.go#109: globalData.lstn.initialise~.
+
+    Initialization process as below:
+    - creates logger
+
+    - creates sender (push) and receiver (pull) for each socket
+
+      at ~peer/listener.go#71: zmqutil.NewSignalPair(listenerSignal)~
+
+      Be aware that ~listenerSignal =
+      "inproc://bitmark-listener-signal"~ is defined by zeroMQ, ~inproc~
+      can be referenced [[http://api.zeromq.org/4-1:zmq-bind#toc2][here]], it denotes local in-process
+      (inter-thread) communication transport.
+
+    - allocates ipv4/ipv6 sockets
+
+      at ~peer/listener.go#77: zmqutil.NewBind~
+
+    - sets monitors of ipv4/ipv6 each
+
+      at ~peer/listener.go#84: zmqutil.NewMonitor~
+
+*** RPC Request Connector
+
+    ~connector~ is an object includes logger, client lists, connection
+    state, longest block height, etc.
+
+    #+BEGIN_SRC go
+      type connector struct {
+          log *logger.L
+
+          preferIPv6 bool
+
+          staticClients []*upstream.Upstream
+
+          dynamicClients list.List
+
+          state connectorState
+
+          theClient        *upstream.Upstream // client used for fetching blocks
+          startBlockNumber uint64             // block number where local chain forks
+          height           uint64             // block number on best node
+          samples          int                // counter to detect missed block broadcast
+      }
+
+      type Upstream struct {
+          sync.RWMutex
+          log         *logger.L
+          client      *zmqutil.Client
+          registered  bool
+          blockHeight uint64
+          shutdown    chan<- struct{}
+      }
+    #+END_SRC
+
+    It is initialized at ~peer/connector.go#65: initialise~.
+
+    Initialization process as below:
+    - creates logger
+    - parse ip address and port
+
+      at ~peer/connector.go#87: util.NewConnection~
+
+    - create upstream client
+
+      inside ~peer/connector.go#107: upstream.New~ creates another go
+      routine for function ~upstreamRunner~ which will wait for incoming messages.
+
+    - connect to server
+
+      at ~peer/connector.go#117: client.Connect~
+
+*** Start to process incoming/outgoing messages
+
+    It is started by go routine at ~peer/setup.go#128:
+    background.Start~. With in this function, it invokes each object's
+    method of ~Run~.
+
+    #+BEGIN_SRC go
+      go func(p Process, shutdown <-chan struct{}, finished chan<- struct{}) {
+                  // pass the shutdown to the Run loop for shutdown signalling
+                  p.Run(args, shutdown)
+                  // flag for the stop routine to wait for shutdown
+                  close(finished)
+              }(p, shutdown, finished)
+    #+END_SRC
+
+    Listener ~Run~ method defined at ~peer/listner.go#101: Run~, for different
+    incoming message/event invokes different function:
+
+    #+BEGIN_SRC go
+      for {
+          sockets, _ := poller.Poll(-1)
+          for _, socket := range sockets {
+              switch s := socket.Socket; s {
+              case lstn.socket4:
+                  lstn.process(lstn.socket4)
+              case lstn.socket6:
+                  lstn.process(lstn.socket6)
+              case lstn.pull:
+                  s.RecvMessageBytes(0)
+                  break loop
+              case lstn.monitor4:
+                  lstn.handleEvent(lstn.monitor4)
+              case lstn.monitor6:
+                  lstn.handleEvent(lstn.monitor6)
+              }
+          }
+      }
+    #+END_SRC
+
+    Connector ~Run~ method defined at ~peer/connector.go#182: Run~, for
+    different outgoing message invokes different function:
+
+    #+BEGIN_SRC go
+      for {
+          // wait for shutdown
+          log.Debug("waiting…")
+
+          select {
+          case <-shutdown:
+              break loop
+          case item := <-queue:
+              c, _ := util.PackedConnection(item.Parameters[1]).Unpack()
+              conn.log.Debugf("received control: %s  public key: %x  connect: %x %q", item.Command, item.Parameters[0], item.Parameters[1], c)
+              //connectToUpstream(conn.log, conn.clients, conn.dynamicStart, item.Command, item.Parameters[0], item.Parameters[1])
+              conn.connectUpstream(item.Command, item.Parameters[0], item.Parameters[1])
+
+          case <-time.After(cycleInterval):
+              conn.process()
+          }
+      }
+    #+END_SRC
+
+** Listener Peer Processing
+
+   It is defined at ~peer/listener.go#157: process~. When receiving every
+   peer message, it check data validation. After parsing message by
+   zeroMQ library, an array of strings will be returnes.
+
+   First item in array will be chain type.
+
+   #+BEGIN_SRC go
+     theChain := string(data[0])
+   #+END_SRC
+
+   Second item in array will be operation type, third item in arary
+   will be parameters (if any).
+
+   #+BEGIN_SRC go
+     fn := string(data[1])
+     parameters := data[2:]
+   #+END_SRC
+
+*** Server information ("I")
+
+    Returns server information with following format.
+
+    #+BEGIN_SRC go
+      serverInfo{
+          Version: lstn.version,
+          Chain:   mode.ChainName(),
+          Normal:  mode.Is(mode.Normal),
+          Height:  block.GetHeight(),
+      }
+      result, err = json.Marshal(info)
+    #+END_SRC
+
+    ~result~ is converted into json format.
+
+*** Get block number ("N")
+
+    Returns block height.
+
+    #+BEGIN_SRC go
+      blockNumber := block.GetHeight()
+      result = make([]byte, 8)
+      binary.BigEndian.PutUint64(result, blockNumber)
+    #+END_SRC
+
+    ~result~ is format into big-endian.
+
+*** Get packed block ("B")
+
+    Returns block number specified by parameter. Return error if first parameter
+    length is not 8 bytes (64 bits).
+
+    #+BEGIN_SRC go
+      if 1 != len(parameters) {
+          err = fault.ErrMissingParameters
+      } else if 8 == len(parameters[0]) {
+          result = storage.Pool.Blocks.Get(parameters[0])
+          if nil == result {
+              err = fault.ErrBlockNotFound
+          }
+      } else {
+          err = fault.ErrBlockNotFound
+      }
+    #+END_SRC
+
+*** Get block hash ("H")
+
+    Return block hash specified by parameters. Return error if first
+    parameter length is not 8 bytes (64 bits).
+
+    #+BEGIN_SRC go
+      if 1 != len(parameters) {
+          err = fault.ErrMissingParameters
+      } else if 8 == len(parameters[0]) {
+          number := binary.BigEndian.Uint64(parameters[0])
+          d, e := block.DigestForBlock(number)
+          if nil == e {
+              result = d[:]
+          } else {
+              err = e
+          }
+      } else {
+          err = fault.ErrBlockNotFound
+      }
+    #+END_SRC
+
+*** Register to another server ("R")
+
+    In order to register as new peer, some information are necessary
+    to provide including chain type, public key, listener ip/port,
+    timestamp. Before all operation, all data will be checked valid or not.
+
+    #+BEGIN_SRC go
+      var binTs [8]byte
+      binary.BigEndian.PutUint64(binTs[:], uint64(ts.Unix()))
+
+      _, err = socket.Send(fn, zmq.SNDMORE)
+      logger.PanicIfError("Listener", err)
+      _, err = socket.Send(chain, zmq.SNDMORE)
+      logger.PanicIfError("Listener", err)
+      _, err = socket.SendBytes(publicKey, zmq.SNDMORE)
+      logger.PanicIfError("Listener", err)
+      _, err = socket.SendBytes(listeners, zmq.SNDMORE)
+      logger.PanicIfError("Listener", err)
+      _, err = socket.SendBytes(binTs[:], 0)
+      logger.PanicIfError("Listener", err)
+    #+END_SRC
+
+*** Default
+
+    Default operation will be subscription, which means process
+    received data. The function is defined at ~peer/process.go#23:
+    processSubscription~.
+
+    Different data type will be passed, zero or more parameters may be
+    transfered.
+
+    #+BEGIN_SRC go
+      func processSubscription(log *logger.L, command string, arguments [][]byte) {
+
+          dataLength := len(arguments)
+          switch string(command) { ... }
+          ...
+      }
+    #+END_SRC
+
+    Exact ~command~ will be as follows:
+
+**** Block ("block")
+
+     Process block informatino.
+
+     #+BEGIN_SRC go
+       if dataLength < 1 {
+           log.Warnf("block with too few data: %d items", dataLength)
+           return
+       }
+       log.Infof("received block: %x", arguments[0])
+       if !mode.Is(mode.Normal) {
+           err := fault.ErrNotAvailableDuringSynchronise
+           log.Warnf("failed assets: error: %s", err)
+       } else {
+           messagebus.Bus.Blockstore.Send("remote", arguments[0])
+       }
+     #+END_SRC
+
+**** Asset ("assets")
+
+     Process asset information and cache it. Detail asset information is unpacked
+     by ~peer/process.go#129: processAssets~.
+
+     #+BEGIN_SRC go
+       transaction, n, err := transactionrecord.Packed(packed).Unpack(mode.IsTesting())
+       ...
+       switch tx := transaction.(type) {
+       case *transactionrecord.AssetData:
+           _, packedAsset, err := asset.Cache(tx)
+           if nil != err {
+               return err
+           }
+           if nil != packedAsset {
+               ok = true
+           }
+     #+END_SRC
+
+     Incoming asset record is cached at ~asset/asset.go#81: Cache~. The reason asset is
+     cached because asset record should always comes with an issue, so asset
+     cannot come single alone.
+
+     Asset record will first checked from cache pool.
+
+     #+BEGIN_SRC go
+       switch tx := transaction.(type) {
+       case *transactionrecord.AssetData:
+           if tx.Name == asset.Name &&
+               tx.Fingerprint == asset.Fingerprint &&
+               tx.Metadata == asset.Metadata &&
+               tx.Registrant.String() == asset.Registrant.String() {
+
+               r.state = pendingState // extend timeout
+               packedAsset = nil      // already seen
+           } else {
+               dataWouldChange = true
+           }
+       }
+     #+END_SRC
+
+     After that, asset record will be put into a queue
+
+     #+BEGIN_SRC go
+       globalData.expiry.queue <- assetId
+     #+END_SRC
+
+     Asset object is initialized at ~asset/asset.go#53: Initialise~,
+     which will invoke a background job to run:
+
+     #+BEGIN_SRC go
+       globalData.background = background.Start(processes, globalData.log)
+     #+END_SRC
+
+     The background job will call ~Run~ located at ~asset/expiry.go#22:
+     Run~. It setup default timeout to 72 hours at ~constants/constants.go~.
+
+**** Issue ("issues")
+
+     Incomfing issue record is processed by ~peer/process.go#169:
+     processIssues~. The actual processing function is at
+     ~reservoir/issues.go#48: StoreIssues~.
+
+     #+BEGIN_SRC go
+
+     #+END_SRC
+
+**** Transfer ("transfer")
+
+**** Proof ("proof")
+
+**** RPC ("rpc")
+
+**** Peer ("peer")
+
+** Connector Peer Processing
+
 * Go Type Assertion
 
   Convert from interface into another type.

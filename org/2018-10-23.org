@@ -1,0 +1,10 @@
+* Term
+** Canonical Form
+
+   A unique representation for every object, e.g. a positive integer
+   in decimal representation is a finite sequence of digits that does
+   not begin with zero.
+
+** Normal Form
+
+   A form, w/o the requirement of uniqueness
