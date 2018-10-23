@@ -36,152 +36,59 @@
   (local-set-key (kbd "b") 'redmine-get-branch)
   )
 
-(defun lredmine ()
-  "List redmine custom query taipier f2e teams."
-  (interactive)
-  (if (get-buffer "redmine")
-      (kill-buffer "redmine"))
-  (with-current-buffer
-      (get-buffer-create "redmine")
-    (insert (shell-command-to-string "redmine l -q 60")))
-  (switch-to-buffer "redmine")
-  (setq truncate-lines t)
-  (delete-trailing-whitespace)
-  (setq buffer-read-only t)
-  (local-set-key (kbd "o") 'redmine-open-issue)
-  (local-set-key (kbd "d") 'redmine-develop-issue)
-  (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'lredmine)
-  (local-set-key (kbd "s") 'redmine-add-subtask)
-  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
-  (local-set-key (kbd "c") 'redmine-add-task)
-  (local-set-key (kbd "q") 'redmine-kill-buffer)
-  (local-set-key (kbd "C") 'redmine-close-issue)
-  )
-
-(defun credmine ()
-  "Redmine custom query my not closed tasks/bugs."
-  (interactive)
-  (if (get-buffer "redmine")
-      (kill-buffer "redmine"))
-  (with-current-buffer
-      (get-buffer-create "redmine")
-    (insert (shell-command-to-string "redmine l -q 210")))
-  (switch-to-buffer "redmine")
-  (setq truncate-lines t)
-  (delete-trailing-whitespace)
-  (setq buffer-read-only t)
-  (local-set-key (kbd "o") 'redmine-open-issue)
-  (local-set-key (kbd "d") 'redmine-develop-issue)
-  (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'credmine)
-  (local-set-key (kbd "s") 'redmine-add-subtask)
-  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
-  (local-set-key (kbd "c") 'redmine-add-task)
-  (local-set-key (kbd "q") 'redmine-kill-buffer)
-  (local-set-key (kbd "C") 'redmine-close-issue)
-  )
-
-(defun jredmine ()
-  "List jira redmine issues."
-  (interactive)
-  (if (get-buffer "redmine")
-      (kill-buffer "redmine"))
-  (with-current-buffer
-      (get-buffer-create "redmine")
-    (insert (shell-command-to-string "redmine l -q 214")))
-  (switch-to-buffer "redmine")
-  (setq truncate-lines t)
-  (delete-trailing-whitespace)
-  (setq buffer-read-only t)
-  (local-set-key (kbd "o") 'redmine-open-issue)
-  (local-set-key (kbd "d") 'redmine-develop-issue)
-  (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'jredmine)
-  (local-set-key (kbd "s") 'redmine-add-subtask)
-  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
-  (local-set-key (kbd "c") 'redmine-add-task)
-  (local-set-key (kbd "q") 'redmine-kill-buffer)
-  (local-set-key (kbd "C") 'redmine-close-issue)
-  )
-
-(defun bredmine ()
-  "List beta redmine tickets."
-  (interactive)
-  (if (get-buffer "redmine")
-      (kill-buffer "redmine"))
-  (with-current-buffer
-      (get-buffer-create "redmine")
-    (insert (shell-command-to-string "redmine l -q 211")))
-  (switch-to-buffer "redmine")
-  (setq truncate-lines t)
-  (delete-trailing-whitespace)
-  (setq buffer-read-only t)
-  (local-set-key (kbd "o") 'redmine-open-issue)
-  (local-set-key (kbd "d") 'redmine-develop-issue)
-  (local-set-key (kbd "r") 'redmine-resolve-issue)
-  (local-set-key (kbd "g") 'bredmine)
-  (local-set-key (kbd "s") 'redmine-add-subtask)
-  (local-set-key (kbd "v") 'redmine-add-verify-subtask)
-  (local-set-key (kbd "c") 'redmine-add-task)
-  (local-set-key (kbd "q") 'redmine-kill-buffer)
-  (local-set-key (kbd "C") 'redmine-close-issue)
-  (local-set-key (kbd "b") 'redmine-get-branch)
-  )
-
 (defun redmine-kill-buffer ()
-  "Delete redmine buffer"
+  "Delete redmine buffer."
   (interactive)
   (kill-buffer "redmine")
   )
 
 (defun redmine-add-subtask (subject)
-  "Create subtask under current ticket"
+  "Create subtask under current ticket."
   (interactive "sPlease enter subject:")
   (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
   )
 
 (defun redmine-add-verify-subtask ()
-  "Create verify subtask under current ticket"
+  "Create verify subtask under current ticket."
   (interactive)
   ;; (interactive "sPlease enter subject: please verify ")
   (shell-command (format "redmine ci -a 72 -t Task -p %s 1 'please verify %s'" (get-ticket-number) (get-ticket-number)))
   )
 
 (defun redmine-add-task (subject)
-  "Create redmine task"
+  "Create redmine task."
   (shell-command (format "redmine ci -a 72 -t Task 1 '%s'" subject))
   )
 
 (defun redmine-open-issue ()
-  "Open redmine issue"
+  "Open redmine issue."
   (interactive)
   (shell-command (format "redmine open %s" (get-ticket-number)))
   )
 
 (defun redmine-develop-issue (yes-or-no)
-  "Develop redmine issue"
+  "Develop redmine issue."
   (interactive "sDevelop this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
   )
 
 (defun redmine-resolve-issue (yes-or-no)
-  "Resolve redmine issue"
+  "Resolve redmine issue."
   (interactive "sResolve this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
   )
 
 (defun redmine-close-issue (yes-or-no)
-  "Close redmine issue"
+  "Close redmine issue."
   (interactive "sClose this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Closed %s" (get-ticket-number))))
   )
 
 (defun redmine-get-branch ()
-  "Get branch naming from ticket"
+  "Get branch naming from ticket."
   (interactive)
   (shell-command (format "i -b %s" (get-ticket-number)))
   )
