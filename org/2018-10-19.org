@@ -107,7 +107,7 @@
    Also, it assumes ~bitmarkd~ is listening local port ~2130~.
 
    #+BEGIN_SRC shell
-     (echo -e '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+     (echo '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
    #+END_SRC
 
 ** Available methods
@@ -131,8 +131,7 @@
     Example rpc shell comand as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id"
-:"1","method":"Assets.Get","params":[{fingerprints": ["01c7499e5d27880da75a3747340aa1cb2f11fa023f7aa1eb10acbf28e447aefd366759092de7a31fdfe89fcb88ecc3c90c0e067484184f41a8e3043e8aa4732f00", "01f9c2eed799128d331c0e60b07d99bffa299b100eea7bb4a410d8f2ee2a04218623f2dbd1a53f0fe08f9cda131ecff213889cbd2cf5c8e53100581ff00f6270c1"]}]}'; sleep 1; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo '{"id":"1","method":"Assets.Get","params":[{fingerprints": ["01c7499e5d27880da75a3747340aa1cb2f11fa023f7aa1eb10acbf28e447aefd366759092de7a31fdfe89fcb88ecc3c90c0e067484184f41a8e3043e8aa4732f00", "01f9c2eed799128d331c0e60b07d99bffa299b100eea7bb4a410d8f2ee2a04218623f2dbd1a53f0fe08f9cda131ecff213889cbd2cf5c8e53100581ff00f6270c1"]}]}'; sleep 1; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
     #+RESULTS:
@@ -157,7 +156,7 @@
     Example rpc shell command as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo  '{"id":"1","method":"Bitmark.Provenance","params":[{"count":20,"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
     #+RESULTS:
@@ -186,7 +185,7 @@
     Example rpc shell command as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id":"1","method":"Bitmark.Transfer","params":[{"link":"1bebd06c8ecb8b11ea93e93c9d38b7f6d7dfdf015530819015172cf51c7f33f7", "owner": "eZpG6Wi9SQvpDatEP7QGrx6nvzwd6s6R8DgMKgDbDY1R5bjzb9", "signature": "a3e456a31a4a64962a32bcbf6549d14134deeb5d87285a04c648355eb9e59d938f8ab440d2b50c781baf2c1a5a2112c2167301bb128c8f850a9d54f3b27c5a08"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo  '{"id":"1","method":"Bitmark.Transfer","params":[{"link":"1bebd06c8ecb8b11ea93e93c9d38b7f6d7dfdf015530819015172cf51c7f33f7", "owner": "eZpG6Wi9SQvpDatEP7QGrx6nvzwd6s6R8DgMKgDbDY1R5bjzb9", "signature": "a3e456a31a4a64962a32bcbf6549d14134deeb5d87285a04c648355eb9e59d938f8ab440d2b50c781baf2c1a5a2112c2167301bb128c8f850a9d54f3b27c5a08"}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
     #+RESULTS:
@@ -229,7 +228,7 @@
     Example rpc shell command as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id":"1","method":"Bitmarks.Create","params":[{"assets": [{"name": "asset", "fingerprint": "01840006653e9ac9e95117a15c915caab81662918e925de9e004f774ff82d7079a40d4d27b1b372657c61d46d470304c88c788b3a4527ad074d1dccbee5dbaa99a", "metadata": "k1\u0000v1\u0000k2\u0000v2", "registrant": "e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog", "signature": "dc9ad2f4948d5f5defaf9043098cd2f3c245b092f0d0c2fc9744fab1835cfb1ad533ee0ff2a72d1cdd7a69f8ba6e95013fc517d5d4a16ca1b0036b1f3055270c"}], "issues": [{"assetId": "3c50d70e0fe78819e7755687003483523852ee6ecc59fe40a4e70e89496c4d45313c6d76141bc322ba56ad3f7cd9c906b951791208281ddba3ebb5e7ad83436c", "owner": "e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog", "nonce": 4, "signature": "6ecf1e6d965e4364321596b4675950554b3b8f1b40be3deb64306ddf72fef09f3c6bcebd6375925a51b984f56ec751a54c88f0dab56b3f69708a7b634c428a0a"}]}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo  '{"id":"1","method":"Bitmarks.Create","params":[{"assets": [{"name": "asset", "fingerprint": "01840006653e9ac9e95117a15c915caab81662918e925de9e004f774ff82d7079a40d4d27b1b372657c61d46d470304c88c788b3a4527ad074d1dccbee5dbaa99a", "metadata": "k1\u0000v1\u0000k2\u0000v2", "registrant": "e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog", "signature": "dc9ad2f4948d5f5defaf9043098cd2f3c245b092f0d0c2fc9744fab1835cfb1ad533ee0ff2a72d1cdd7a69f8ba6e95013fc517d5d4a16ca1b0036b1f3055270c"}], "issues": [{"assetId": "3c50d70e0fe78819e7755687003483523852ee6ecc59fe40a4e70e89496c4d45313c6d76141bc322ba56ad3f7cd9c906b951791208281ddba3ebb5e7ad83436c", "owner": "e1pFRPqPhY2gpgJTpCiwXDnVeouY9EjHY6STtKwdN6Z4bp4sog", "nonce": 4, "signature": "6ecf1e6d965e4364321596b4675950554b3b8f1b40be3deb64306ddf72fef09f3c6bcebd6375925a51b984f56ec751a54c88f0dab56b3f69708a7b634c428a0a"}]}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
     #+RESULTS:
@@ -253,7 +252,7 @@
     Example rpc shell command as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id":"1","method":"Bitmarks.Proof","params":[{"payId":"2ad3ba0b28fe98716bb8d87169a952eebfc4aff96b4f9eb7de7d4c71c7acee79", "nonce": "c114fa516a98c3de"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo  '{"id":"1","method":"Bitmarks.Proof","params":[{"payId":"2ad3ba0b28fe98716bb8d87169a952eebfc4aff96b4f9eb7de7d4c71c7acee79", "nonce": "c114fa516a98c3de"}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
     #+RESULTS:
@@ -282,7 +281,7 @@
     Example rpc shell command as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id":"1","method":"BlockOwner.Transfer","params":[{"link":"1bebd06c8ecb8b11ea93e93c9d38b7f6d7dfdf015530819015172cf51c7f33f7", "version": 5, "payments": ["1": "BTC"], "owner": "eZpG6Wi9SQvpDatEP7QGrx6nvzwd6s6R8DgMKgDbDY1R5bjzb9", "signature": "a3e456a31a4a64962a32bcbf6549d14134deeb5d87285a04c648355eb9e59d938f8ab440d2b50c781baf2c1a5a2112c2167301bb128c8f850a9d54f3b27c5a08"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo  '{"id":"1","method":"BlockOwner.Transfer","params":[{"link":"1bebd06c8ecb8b11ea93e93c9d38b7f6d7dfdf015530819015172cf51c7f33f7", "version": 5, "payments": ["1": "BTC"], "owner": "eZpG6Wi9SQvpDatEP7QGrx6nvzwd6s6R8DgMKgDbDY1R5bjzb9", "signature": "a3e456a31a4a64962a32bcbf6549d14134deeb5d87285a04c648355eb9e59d938f8ab440d2b50c781baf2c1a5a2112c2167301bb128c8f850a9d54f3b27c5a08"}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
 *** Node.Info
@@ -295,7 +294,7 @@
     Example rpc shell command as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id":"1","method":"Node.Info","params":[{}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo  '{"id":"1","method":"Node.Info","params":[{}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
     #+RESULTS:
@@ -317,7 +316,7 @@
     Example rpc shell command as follows:
 
     #+BEGIN_SRC shell
-      (echo -e '{"id":"1","method":"Transaction.Status","params":[{"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo ^c) | openssl s_client -connect 127.0.0.1:2130 -quiet
+      (echo  '{"id":"1","method":"Transaction.Status","params":[{"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
 
     #+RESULTS:

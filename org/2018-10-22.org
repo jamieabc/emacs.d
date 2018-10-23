@@ -1,0 +1,60 @@
+* Bitmarkd Peer
+
+  Following paragraphs are described based on ~v8.2~ commit ~b013d5e~.
+
+** Initialization
+
+   From ~bitmarkd/main.go#278: peer.Initialise~ starts the flow.
+
+   peer package contains ~peerData~ with read/write lock ~sync.RWMutex~,
+   rpc listeners ~lstn~, rpc clients ~conn~, etc.
+
+   #+BEGIN_SRC go
+     type peerData struct {
+         sync.RWMutex // to allow locking
+
+         log *logger.L // logger
+
+         lstn listener  // for RPC responses
+         conn connector // for RPC requests
+
+         connectorClients []*upstream.Upstream
+
+         publicKey []byte
+
+         clientCount int
+         blockHeight uint64
+
+         // for background
+         background *background.T
+
+         // set once during initialise
+         initialised bool
+     }
+
+     type listener struct {
+         log         *logger.L
+         chain       string
+         version     string      // server version
+         push        *zmq.Socket // signal send
+         pull        *zmq.Socket // signal receive
+         socket4     *zmq.Socket // IPv4 traffic
+         socket6     *zmq.Socket // IPv6 traffic
+         monitor4    *zmq.Socket // IPv4 socket monitor
+         monitor6    *zmq.Socket // IPv6 socket monitor
+         connections uint64      // total incoming connections
+     }
+   #+END_SRC
+
+* Go Type Assertion
+
+  Convert from interface into another type.
+
+  #+BEGIN_SRC go
+  i.(T)
+  #+END_SRC
+
+  convert ~i~ into ~T~, asserts that i is not nil, and all values in ~i~ is
+  of type ~T~.
+
+  [[https://stackoverflow.com/questions/16442053/type-cast-vs-type-assertion-on-concrete-struct][reference]]

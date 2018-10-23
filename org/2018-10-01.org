@@ -14,7 +14,7 @@
    Use ethereum test chain ropsten
 
    #+BEGIN_SRC shell
-   parity --chain ropsten --jsonrpc-apis personal,eth,signer,traces
+     parity --chain ropsten --jsonrpc-apis personal,eth,signer,traces
    #+END_SRC
 ** Database path
 
