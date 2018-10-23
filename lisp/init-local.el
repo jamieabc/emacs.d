@@ -761,9 +761,9 @@
 ;;; symbol-overly: highlight symbol
 (require-package 'symbol-overlay)
 (after-load 'symbol-overlay
-  (define-key symbol-overlay-mode-map (kbd "M-I") 'symbol-overlay-put)
-  (define-key symbol-overlay-mode-map (kbd "<f8>") 'symbol-overlay-remove-all)
-  (define-key symbol-overlay-mode-map (kbd "M-W") 'symbol-overlay-save-symbol)
+  (define-key symbol-overlay-mode-map (kbd "M-I") #'symbol-overlay-put)
+  (define-key symbol-overlay-mode-map (kbd "<f8>") #'symbol-overlay-remove-all)
+  (define-key symbol-overlay-mode-map (kbd "M-W") #'symbol-overlay-save-symbol)
   )
 
 ;;; editing
@@ -1028,6 +1028,7 @@
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
 (add-hook 'org-mode-hook (lambda () (setq auto-save-default nil)))
 (add-hook 'org-mode-hook (lambda () (setq-default org-hide-leading-stars t)))
+(add-hook 'org-mode-hook #'symbol-overlay-mode)
 
 ;;; encryption
 (org-crypt-use-before-save-magic)       ;encrypt before save to disk
@@ -1038,7 +1039,6 @@
 (custom-set-variables
  '(org-directory "~/.emacs.d/org/"))
 ;;; encryption
-
 
 ;;; open org directory
 (defun org-dir-dired ()
