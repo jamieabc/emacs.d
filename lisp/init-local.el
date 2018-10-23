@@ -1218,5 +1218,10 @@
 (global-wakatime-mode)
 ;;; wakatime
 
+;;; open url
+(global-set-key (kbd "C-c C-u") #'browse-url-at-point)
+;;; open url
+
+
 (provide 'init-local)
 ;;; init-local.el ends here
