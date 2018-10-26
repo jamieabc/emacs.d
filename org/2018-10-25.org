@@ -1,0 +1,39 @@
+* Go
+** Type switch
+
+   [[https://golang.org/doc/effective_go.html?h=type+assertion#type_switch][reference]]
+
+   Can be used to discover the dynamic type of an interface
+   variable. Such a type switch uses the syntax of a type assertion
+   with the keyword ~type~ inside the parenthesis.
+
+   #+BEGIN_SRC go
+     var t interface{}
+     t = functionOfSomeType()
+     t := t.(type)
+   #+END_SRC()
+** Type assersion
+
+   [[https://golang.org/doc/effective_go.html?h=type+assertion][reference]]
+
+   Takes an interface value and extracts from it a value of the
+   specified explicit type. The syntax borrows from the clause opening
+   a type switch, but with an explicit type rather than the ~type~
+   keyword.
+
+   #+BEGIN_SRC go
+     value.(typeName)
+
+     str := value.(string)
+   #+END_SRC
+
+   Convert from interface into another concrete type.
+
+   #+BEGIN_SRC go
+     i.(T)
+   #+END_SRC
+
+   convert ~i~ into ~T~, asserts that i is not nil, and all values in ~i~ is
+   of type ~T~.
+
+   [[https://stackoverflow.com/questions/16442053/type-cast-vs-type-assertion-on-concrete-struct][reference]]

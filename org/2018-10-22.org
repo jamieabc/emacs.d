@@ -4,10 +4,10 @@
 
 ** Initialization
 
-   From ~bitmarkd/main.go#278: peer.Initialise~ starts the flow.
+   Flow starts at ~bitmarkd/main.go#278: peer.Initialise~.
 
-   peer package contains ~peerData~ with read/write lock ~sync.RWMutex~,
-   rpc listeners ~lstn~, rpc clients ~conn~, etc.
+   peer package contains ~peerData~ with read/write lock (~sync.RWMutex~),
+   rpc listeners (~lstn~), rpc clients (~conn~), etc.
 
    #+BEGIN_SRC go
      type peerData struct {
@@ -71,32 +71,35 @@
       }
     #+END_SRC
 
-    It is initialized at ~peer/setup.go#109: globalData.lstn.initialise~.
+    ~listener~ is initialized at ~peer/setup.go#109: globalData.lstn.initialise~.
 
     Initialization process as below:
-    - creates logger
+**** creates logger
 
-    - creates sender (push) and receiver (pull) for each socket
+**** creates sender (push) and receiver (pull) for each socket
 
-      at ~peer/listener.go#71: zmqutil.NewSignalPair(listenerSignal)~
+     At ~peer/listener.go#71: zmqutil.NewSignalPair(listenerSignal)~.
 
-      Be aware that ~listenerSignal =
-      "inproc://bitmark-listener-signal"~ is defined by zeroMQ, ~inproc~
-      can be referenced [[http://api.zeromq.org/4-1:zmq-bind#toc2][here]], it denotes local in-process
-      (inter-thread) communication transport.
+     Be aware that ~listenerSignal =
+     "inproc://bitmark-listener-signal"~ is defined by zeroMQ, ~inproc~
+     can be referenced [[http://api.zeromq.org/4-1:zmq-bind#toc2][here]], it denotes local in-process
+     (inter-thread) communication transport.
 
-    - allocates ipv4/ipv6 sockets
+**** allocates ipv4/ipv6 sockets
 
-      at ~peer/listener.go#77: zmqutil.NewBind~
+     At ~peer/listener.go#77: zmqutil.NewBind~
 
-    - sets monitors of ipv4/ipv6 each
+**** sets monitors of ipv4/ipv6 each
 
-      at ~peer/listener.go#84: zmqutil.NewMonitor~
+     At ~peer/listener.go#84: zmqutil.NewMonitor~.
 
 *** RPC Request Connector
 
     ~connector~ is an object includes logger, client lists, connection
-    state, longest block height, etc.
+    state, other node's largest block height, etc.
+
+    connector state is an integer value to represents finite state
+    machine state.
 
     #+BEGIN_SRC go
       type connector struct {
@@ -129,19 +132,20 @@
     It is initialized at ~peer/connector.go#65: initialise~.
 
     Initialization process as below:
-    - creates logger
-    - parse ip address and port
 
-      at ~peer/connector.go#87: util.NewConnection~
+**** create logger
+**** parse ip address and port
 
-    - create upstream client
+     At ~peer/connector.go#87: util.NewConnection~
 
-      inside ~peer/connector.go#107: upstream.New~ creates another go
-      routine for function ~upstreamRunner~ which will wait for incoming messages.
+**** create upstream client
 
-    - connect to server
+     Inside ~peer/connector.go#107: upstream.New~ creates another go
+     routine for function ~upstreamRunner~ which will wait for incoming messages.
 
-      at ~peer/connector.go#117: client.Connect~
+**** connect to server
+
+     At ~peer/connector.go#117: client.Connect~
 
 *** Start to process incoming/outgoing messages
 
@@ -158,10 +162,12 @@
               }(p, shutdown, finished)
     #+END_SRC
 
-    Listener ~Run~ method defined at ~peer/listner.go#101: Run~, for different
-    incoming message/event invokes different function:
+**** Listener
 
-    #+BEGIN_SRC go
+     ~listener~ ~Run~ method is defined at ~peer/listner.go#101: Run~, for different
+     incoming message/event invokes different function:
+
+     #+BEGIN_SRC go
       for {
           sockets, _ := poller.Poll(-1)
           for _, socket := range sockets {
@@ -180,45 +186,71 @@
               }
           }
       }
-    #+END_SRC
+     #+END_SRC
 
-    Connector ~Run~ method defined at ~peer/connector.go#182: Run~, for
-    different outgoing message invokes different function:
+     The format of ipv4/ipv6 incoming message as follows:
 
-    #+BEGIN_SRC go
-      for {
-          // wait for shutdown
-          log.Debug("waiting…")
+     The format of receive message bytes as follows:
 
-          select {
-          case <-shutdown:
-              break loop
-          case item := <-queue:
-              c, _ := util.PackedConnection(item.Parameters[1]).Unpack()
-              conn.log.Debugf("received control: %s  public key: %x  connect: %x %q", item.Command, item.Parameters[0], item.Parameters[1], c)
-              //connectToUpstream(conn.log, conn.clients, conn.dynamicStart, item.Command, item.Parameters[0], item.Parameters[1])
-              conn.connectUpstream(item.Command, item.Parameters[0], item.Parameters[1])
+     The format of event as follows:
 
-          case <-time.After(cycleInterval):
-              conn.process()
-          }
-      }
-    #+END_SRC
+**** Connector
 
-** Listener Peer Processing
+     ~connector~ ~Run~ method is defined at ~peer/connector.go#182: Run~, for
+     different outgoing message invokes different function:
+
+     #+BEGIN_SRC go
+       for {
+           // wait for shutdown
+           log.Debug("waiting…")
+
+           select {
+           case <-shutdown:
+               break loop
+           case item := <-queue:
+               c, _ := util.PackedConnection(item.Parameters[1]).Unpack()
+               conn.log.Debugf("received control: %s  public key: %x  connect: %x %q", item.Command, item.Parameters[0], item.Parameters[1], c)
+               //connectToUpstream(conn.log, conn.clients, conn.dynamicStart, item.Command, item.Parameters[0], item.Parameters[1])
+               conn.connectUpstream(item.Command, item.Parameters[0], item.Parameters[1])
+
+           case <-time.After(cycleInterval):
+               conn.process()
+           }
+       }
+     #+END_SRC
+
+** Format of message
+
+   Typicall command will be as follow, parameters are append at last
+   of message with each 8 bytes long
+
+  | Command | Chain Mode | Parameters   |
+  |---------+------------+--------------|
+  | 1 byte  | 8 bytes    | 8 bytes each |
+
+  e.g. When register to another node, the command will be sent as
+  follows:
+
+  #+BEGIN_SRC
+    0x52 => "R"
+    0x74657374696e67 => "testing"
+    9f5f6122d09c18bef1c9b96e773cf0b784198b70e4c3becbe4951d642ee4484c => parameters depend by each command
+  #+END_SRC
+
+** Process Listener message
 
    It is defined at ~peer/listener.go#157: process~. When receiving every
-   peer message, it check data validation. After parsing message by
-   zeroMQ library, an array of strings will be returnes.
+   peer message, checks data validation. After decode message sent by
+   zeroMQ, an array of strings will be returned.
 
-   First item in array will be chain type.
+   First string in array will be chain type.
 
    #+BEGIN_SRC go
      theChain := string(data[0])
    #+END_SRC
 
-   Second item in array will be operation type, third item in arary
-   will be parameters (if any).
+   Second string in array will be operation action, third string in arary
+   will be parameters (if exists).
 
    #+BEGIN_SRC go
      fn := string(data[1])
@@ -251,7 +283,7 @@
       binary.BigEndian.PutUint64(result, blockNumber)
     #+END_SRC
 
-    ~result~ is format into big-endian.
+    ~result~ is format into big-endian 64 bits.
 
 *** Get packed block ("B")
 
@@ -292,11 +324,12 @@
       }
     #+END_SRC
 
-*** Register to another server ("R")
+*** Register to another node ("R")
 
     In order to register as new peer, some information are necessary
     to provide including chain type, public key, listener ip/port,
-    timestamp. Before all operation, all data will be checked valid or not.
+    timestamp. Before continuing the flow , all data will be checked
+    if it's valid or not.
 
     #+BEGIN_SRC go
       var binTs [8]byte
@@ -314,11 +347,10 @@
       logger.PanicIfError("Listener", err)
     #+END_SRC
 
-*** Default
+*** Default action
 
-    Default operation will be subscription, which means process
-    received data. The function is defined at ~peer/process.go#23:
-    processSubscription~.
+    Default operation is do process received data. The function is
+    defined at ~peer/process.go#23: processSubscription~.
 
     Different data type will be passed, zero or more parameters may be
     transfered.
@@ -332,11 +364,11 @@
       }
     #+END_SRC
 
-    Exact ~command~ will be as follows:
+    Exact ~command~ listed as follows:
 
 **** Block ("block")
 
-     Process block informatino.
+     Send block information in parameter.
 
      #+BEGIN_SRC go
        if dataLength < 1 {
@@ -354,8 +386,9 @@
 
 **** Asset ("assets")
 
-     Process asset information and cache it. Detail asset information is unpacked
-     by ~peer/process.go#129: processAssets~.
+     Unpack message and cache it if message is an asset record. Detail
+     asset information is unpacked by ~peer/process.go#129:
+     processAssets~.
 
      #+BEGIN_SRC go
        transaction, n, err := transactionrecord.Packed(packed).Unpack(mode.IsTesting())
@@ -373,9 +406,9 @@
 
      Incoming asset record is cached at ~asset/asset.go#81: Cache~. The reason asset is
      cached because asset record should always comes with an issue, so asset
-     cannot come single alone.
+     cannot come alone.
 
-     Asset record will first checked from cache pool.
+     Asset record will be checked if already existed in cache pool.
 
      #+BEGIN_SRC go
        switch tx := transaction.(type) {
@@ -393,51 +426,456 @@
        }
      #+END_SRC
 
-     After that, asset record will be put into a queue
+     After that, asset record will be put into a queue.
 
      #+BEGIN_SRC go
        globalData.expiry.queue <- assetId
      #+END_SRC
 
-     Asset object is initialized at ~asset/asset.go#53: Initialise~,
-     which will invoke a background job to run:
+     ~asset~ object is initialized at ~asset/asset.go#53: Initialise~,
+     which will invoke a background job to process the queue just put:
 
      #+BEGIN_SRC go
        globalData.background = background.Start(processes, globalData.log)
      #+END_SRC
 
      The background job will call ~Run~ located at ~asset/expiry.go#22:
-     Run~. It setup default timeout to 72 hours at ~constants/constants.go~.
+     Run~. It setup default timeout to 72 hours at
+     ~constants/constants.go~. An asset record is cached for 72 hours
+     for user to pay fee for miner.
 
 **** Issue ("issues")
 
-     Incomfing issue record is processed by ~peer/process.go#169:
-     processIssues~. The actual processing function is at
-     ~reservoir/issues.go#48: StoreIssues~.
+     Incoming issue command is processed by ~peer/process.go#169:
+     processIssues~. After some data checkings, extract all issues
+     inside parameter.
 
      #+BEGIN_SRC go
+       issues := make([]*transactionrecord.BitmarkIssue, 0, 100)
+       for 0 != len(packedIssues) {
+           transaction, n, err := packedIssues.Unpack(mode.IsTesting())
+           if nil != err {
+               return err
+           }
 
+           switch tx := transaction.(type) {
+           case *transactionrecord.BitmarkIssue:
+               issues = append(issues, tx)
+               issueCount += 1
+           default:
+               return fault.ErrTransactionIsNotAnIssue
+           }
+           packedIssues = packedIssues[n:]
+       }
      #+END_SRC
+
+     Actual issue processing logic is at ~reservoir/issues.go#48: StoreIssues~.
+
+***** Verify issue
+
+      Make sure issues waiting for process has not exceed limits of
+      ~maximumIssues~ (100).
+
+      For all issues, check if asset record already exist because issue
+      must go with asset record.
+
+      #+BEGIN_SRC go
+       packedIssue, err := issue.Pack(issue.Owner)
+       if nil != err {
+           return nil, false, err
+       }
+
+       if !asset.Exists(issue.AssetId) {
+           return nil, false, fault.ErrAssetNotFound
+       }
+      #+END_SRC
+
+      ~asset.Exists~ check asset info from both confirmed/cached list.
+
+      After checking, create ~txId~.
+
+      #+BEGIN_SRC go
+       txId := packedIssue.MakeLink()
+      #+END_SRC
+
+      From database table, issue record is placed inside ~transaction~
+      table, that's why naming of cache pool is ~UnverifiedTxIndex~.
+
+      If an issue is alread existed in the ~UnverfiedTxIndex~ pool, mark
+      it as duplicate and do other checking.
+
+      #+BEGIN_SRC go
+        if _, ok := cache.Pool.UnverifiedTxIndex.Get(txId.String()); ok {
+            // if duplicate, activate pay id check
+            duplicate = true
+        }
+      #+END_SRC
+
+      If an issue is already verifed, return error because it shouldn't happen.
+
+      #+BEGIN_SRC go
+        if _, ok := cache.Pool.VerifiedTx.Get(txId.String()); ok {
+            return nil, false, fault.ErrTransactionAlreadyExists
+        }
+      #+END_SRC
+
+      If an issue is already confirmed, return error because it
+      shouldn't happen.
+
+      #+BEGIN_SRC go
+        if storage.Pool.Transactions.Has(txId[:]) {
+            return nil, false, fault.ErrTransactionAlreadyExists
+        }
+      #+END_SRC
+
+***** Compute payment info
+
+      Generate payid, nonce, etc. Payment id is generated at
+      ~pay/payid.go#20: NewPayId~. Nonce is generated at
+      ~reservoir/paynonce.go#23: NewPayNonce~. Difficulty is generated
+      at ~reservoir/difficulty.go#35: ScaledDifficulty~.
+
+      #+BEGIN_SRC go
+        payId := pay.NewPayId(separated)
+        nonce := NewPayNonce()
+        difficulty := ScaledDifficulty(count)
+
+        result := &IssueInfo{
+            Id:         payId,
+            Nonce:      nonce,
+            Difficulty: difficulty,
+            TxIds:      txIds,
+            Packed:     bytes.Join(separated, []byte{}),
+            Payments:   nil,
+        }
+      #+END_SRC
+
+      If payment id is already generated, do nothing.
+
+      #+BEGIN_SRC go
+        if _, ok := cache.Pool.UnverifiedTxEntries.Get(payId.String()); ok {
+            globalData.log.Debugf("duplicate pay id: %s", payId)
+            return result, true, nil
+        }
+      #+END_SRC
+
+***** Check for duplicated issue
+
+      If a duplicate issue is detected but cannot found any duplicated
+      payment info, return error.
+
+      #+BEGIN_SRC go
+        if duplicate {
+            globalData.log.Debugf("overlapping pay id: %s", payId)
+            return nil, false, fault.ErrTransactionAlreadyExists
+        }
+      #+END_SRC
+
+***** Determine payment & block number for the issue
+
+      If an issue record passed all previous checking, then it's time
+      to find the block where asset record being placed. ~GetNB~ stands for
+      get block number (NB).
+
+      #+BEGIN_SRC go
+        assetBlockNumber := uint64(0)
+        scan_for_one_asset:
+        for _, issue := range issues {
+            bn, t := storage.Pool.Assets.GetNB(issue.AssetId[:])
+            if nil == t || 0 == bn {
+                assetBlockNumber = 0     // cannot determine a single payment block
+                break scan_for_one_asset // because of unconfirmed asset
+            } else if 0 == assetBlockNumber {
+                assetBlockNumber = bn // block number of asset
+            } else if assetBlockNumber != bn {
+                assetBlockNumber = 0     // cannot determin a single payment block
+                break scan_for_one_asset // because of multiple assets
+            }
+        }
+      #+END_SRC
+
+      Get payment record from block.
+
+      #+BEGIN_SRC go
+        if assetBlockNumber > genesis.BlockNumber { // avoid genesis block
+
+            blockNumberKey := make([]byte, 8)
+            binary.BigEndian.PutUint64(blockNumberKey, assetBlockNumber)
+
+            p := getPayment(blockNumberKey)
+            if nil == p { // would be an internal database error
+                globalData.log.Errorf("missing payment for asset id: %s", issues[0].AssetId)
+                return nil, false, fault.ErrAssetNotFound
+            }
+
+            result.Payments = make([]transactionrecord.PaymentAlternative, 0, len(p))
+            // multiply fees for each currency
+            for _, r := range p {
+                total := r.Amount * uint64(len(txIds))
+                pa := transactionrecord.PaymentAlternative{
+                    &transactionrecord.Payment{
+                        Currency: r.Currency,
+                        Address:  r.Address,
+                        Amount:   total,
+                    },
+                }
+                result.Payments = append(result.Payments, pa)
+            }
+        }
+      #+END_SRC
+
+***** Store issue into pool
+
+      Generate issue data.
+
+      #+BEGIN_SRC go
+        entry := &unverifiedItem{
+            itemData: &itemData{
+                txIds:        txIds,
+                links:        nil,
+                assetIds:     uniqueAssetIds,
+                transactions: separated,
+                nonce:        nil,
+            },
+            //nonce:      nonce, // ***** FIX THIS: this value seems not used
+            difficulty: difficulty,
+            payments:   result.Payments,
+        }
+      #+END_SRC
+
+      If payment for an issue is already recieved, store payment and
+      remove data from ~OrphanPayment~.
+
+      #+BEGIN_SRC go
+        if val, ok := cache.Pool.OrphanPayment.Get(payId.String()); ok {
+            detail := val.(*PaymentDetail)
+
+            if acceptablePayment(detail, result.Payments) {
+
+                for i, txId := range txIds {
+                    cache.Pool.VerifiedTx.Put(
+                        txId.String(),
+                        &verifiedItem{
+                            itemData:    entry.itemData,
+                            transaction: separated[i],
+                            index:       i,
+                        },
+                    )
+                }
+                cache.Pool.OrphanPayment.Delete(payId.String())
+                return result, false, nil
+            }
+        }
+      #+END_SRC
+
+      If no payment found, put issues into cache pool.
+
+      #+BEGIN_SRC go
+        for _, txId := range txIds {
+            cache.Pool.UnverifiedTxIndex.Put(txId.String(), payId)
+        }
+        cache.Pool.UnverifiedTxEntries.Put(payId.String(), entry)
+      #+END_SRC
 
 **** Transfer ("transfer")
 
+     Incoming transfer command is processed by ~peer/process.go#215:
+     processTransfer~. After some data checkings, store transfer record
+     into pool by method ~reservoir/transfer.go#27: StoreTransfer~.
+
+***** Verify transfer record
+
+      At ~resovoir/transfer.go#127: verifyTransfer~.
+
+      Check if any previous transaction exists.
+
+      #+BEGIN_SRC go
+        __, previousPacked := storage.Pool.Transactions.GetNB(newTransfer.GetLink().Bytes())
+        if nil == previousPacked {
+            return nil, false, fault.ErrLinkToInvalidOrUnconfirmedTransaction
+        }
+
+        previousTransaction, _, err := transactionrecord.Packed(previousPacked).Unpack(mode.IsTesting())
+        if nil != err {
+            return nil, false, err
+        }
+      #+END_SRC
+
+      A new transfer record can happen on if previous transfer is in
+      following types: issue, transfer, counter-signed transfer, old
+      base data, block foundataion, block owner transfer
+
+***** Generate transfer info
+
+      A transfer info includes payment info, which is generated by
+      previous transfer record.
+
+      #+BEGIN_SRC go
+        packedTransfer := verifyResult.packedTransfer
+        payId := pay.NewPayId([][]byte{packedTransfer})
+
+        txId := verifyResult.txId
+        link := transfer.GetLink()
+        if txId == link {
+            // reject any transaction that links to itself
+            // this should never occur, but protect against this situation
+            return nil, false, fault.ErrTransactionLinksToSelf
+        }
+
+        previousTransfer := verifyResult.previousTransfer
+        ownerData := verifyResult.ownerData
+
+        payments := getPayments(ownerData, previousTransfer)
+
+        result := &TransferInfo{
+            Id:       payId,
+            TxId:     txId,
+            Packed:   packedTransfer,
+            Payments: payments,
+        }
+      #+END_SRC
+
+***** Already existed payment
+
+      If a payment id is already existed in the cache pool, just
+      return that payment info.
+
+      #+BEGIN_SRC go
+        if val, ok := cache.Pool.UnverifiedTxEntries.Get(payId.String()); ok {
+            entry := val.(*unverifiedItem)
+            if nil != entry.payments {
+                result.Payments = entry.payments
+            } else {
+                // this would mean that reservoir data is corrupt
+                logger.Panicf("StoreTransfer: failed to get current payment data for: %s  payid: %s", txId, payId)
+            }
+            return result, true, nil
+        }
+      #+END_SRC
+
+      If duplicated transfer already exist but not found unverified
+      record, return error.
+
+      Remove payment record from ~OrphanPayment~ is already recieved.
+
+***** Wait for payment info
+
+      For a payment that has not verifyed, put record into cache pool.
+
+      #+BEGIN_SRC go
+        cache.Pool.PendingTransfer.Put(link.String(), txId)
+        cache.Pool.UnverifiedTxIndex.Put(txId.String(), payId)
+        cache.Pool.UnverifiedTxEntries.Put(
+            payId.String(),
+            &unverifiedItem{
+                itemData: transferredItem,
+                payments: payments,
+            },
+        )
+      #+END_SRC
+
 **** Proof ("proof")
+
+     Incoming proof command is processed by ~peer/process.go#247:
+     processProof~. After some data checkings, if the record is a velid
+     proof block, return nil, otherwise return error.
+
+     #+BEGIN_SRC go
+       var payId pay.PayId
+       nonceLength := len(packed) - len(payId) // could be negative
+       if nonceLength < payment.MinimumNonceLength || nonceLength > payment.MaximumNonceLength {
+           return fault.ErrInvalidNonce
+       }
+       copy(payId[:], packed[:len(payId)])
+       nonce := packed[len(payId):]
+       status := reservoir.TryProof(payId, nonce)
+       if reservoir.TrackingAccepted != status {
+           // pay id already processed or was invalid
+           return fault.ErrPayIdAlreadyUsed
+       }
+       return nil
+     #+END_SRC
 
 **** RPC ("rpc")
 
+     Incoming rpc command adds server to rpc list.
+
+     #+BEGIN_SRC go
+       if announce.AddRPC(arguments[0], arguments[1], timestamp) {
+           messagebus.Bus.Broadcast.Send("rpc", arguments[0:3]...)
+       }
+     #+END_SRC
+
 **** Peer ("peer")
+
+     Incoming peer command adds server to peer list.
+
+     #+BEGIN_SRC go
+       if announce.AddPeer(arguments[0], arguments[1], timestamp) {
+           messagebus.Bus.Broadcast.Send("peer", arguments[0:3]...)
+       }
+     #+END_SRC
+
+**** Heart beat ("heart")
+
+     Do nothing.
 
 ** Connector Peer Processing
 
-* Go Type Assertion
+   Connector behavior can be viewed as a finite state machine, the
+   implementation is using for loop to execute.
 
-  Convert from interface into another type.
+   #+BEGIN_SRC go
+     for conn.runStateMachine() {
+     }
+   #+END_SRC
 
-  #+BEGIN_SRC go
-  i.(T)
-  #+END_SRC
+   Each state is integer value defined at ~peer/connector.go#38~.
 
-  convert ~i~ into ~T~, asserts that i is not nil, and all values in ~i~ is
-  of type ~T~.
+   #+BEGIN_SRC go
+     const (
+         cStateConnecting   connectorState = iota // register to nodes and make outgoing connections
+         cStateHighestBlock connectorState = iota // locate node(s) with highest block number
+         cStateForkDetect   connectorState = iota // read block hashes to check for possible fork
+         cStateFetchBlocks  connectorState = iota // fetch blocks from current or fork point
+         cStateRebuild      connectorState = iota // rebuild database from fork point (config setting to force total rebuild)
+         cStateSampling     connectorState = iota // signal resync complete and sample nodes to see if out of sync occurs
+     )
+   #+END_SRC
 
-  [[https://stackoverflow.com/questions/16442053/type-cast-vs-type-assertion-on-concrete-struct][reference]]
+   ~peer/connector.go#224: runStateMachine~. returns ~true~ or ~false~ used to
+   decide if state machine should stop or not.
+
+   Connector states are described as follows:
+
+*** Conneting
+
+    Check if every clint is connected and update client count. Stops
+    loop if minimum clients are connected (3).
+
+*** Hightest block
+
+    Get highest block from all clients. Go to next state
+    ~cStateForkDetect~ if there another node with larger block
+    height. Otherwise, stop loop.
+
+*** Fork detected
+
+    If other node has larger block height, go to rebuild state.
+
+    If current block height is larger than any other node's larget block
+    height, find the latest common block. If current block height gets
+    60 more blocks thatn latest common block, go to highest block
+    state, otherwise, remove old blocks.
+
+*** Fetch block
+
+    Fetch new blocks from other nodes.
+
+*** Rebuild
+
+    Return to normal operation.
+
+*** Sampling
+
+    Check peers and block height to detect fork.
