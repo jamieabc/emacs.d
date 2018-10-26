@@ -349,7 +349,7 @@
 
 *** Default action
 
-    Default operation is do process received data. The function is
+    Default operation is to process received data. The function is
     defined at ~peer/process.go#23: processSubscription~.
 
     Different data type will be passed, zero or more parameters may be
