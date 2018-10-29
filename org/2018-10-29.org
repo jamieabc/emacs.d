@@ -1,0 +1,38 @@
+* Go
+** Variadic parameters
+
+   [[https://stackoverflow.com/questions/23723955/how-can-i-pass-a-slice-as-a-variadic-input][reference1]], [[https://gobyexample.com/variadic-functions][reference2]], [[https://blog.learngoprogramming.com/golang-variadic-funcs-how-to-patterns-369408f19085][reference3]]
+
+   #+BEGIN_QUOTE
+     If f is variadic with final parameter type ...T, then within the
+   function the argument is equivalent to a parameter of type []T. At
+   each call of f, the argument passed to the final parameter is a new
+   slice of type []T whose successive elements are the actual
+   arguments, which all must be assignable to the type T.
+   #+END_QUOTE
+
+   for example,
+
+   #+BEGIN_SRC go
+     package main
+
+     import "fmt"
+
+     func echo(strings ...string) {
+         for _, s := range strings {
+             fmt.Println(s)
+         }
+     }
+
+     func main() {
+         strings := []string{"a", "b", "c"}
+         echo(strings...) // Treat input to function as variadic
+     }
+   #+END_SRC
+
+   Variadic functions can be called in the usual way with individual
+   arguments. If you already have multiple args in a slice, apply them
+   to a variadic function using func(slice...) like this.
+* Stress Test
+** K6
+** Vegeta
