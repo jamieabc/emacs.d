@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: "github.com/bitmark-inc/"
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: ;imb
+# --
+"github.com/bitmark-inc/${0:package}"
