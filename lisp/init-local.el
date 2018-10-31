@@ -766,37 +766,12 @@
   (define-key symbol-overlay-mode-map (kbd "M-W") #'symbol-overlay-save-symbol)
   )
 
-;;; editing
-(defun insert-i18n-text-at-region (begin end)
-  "Convert region text into i18n format from BEGIN to END."
-  (interactive "r")
-  (if (use-region-p)
-      (progn (save-excursion
-               (goto-char end)
-               (insert "')}")
-               (goto-char begin)
-               (insert "{i18n.t(':::")
-               )
-             (goto-char (+ begin 9)))))
-
-(defun remove-i18n-text-at-region (begin end)
-  "Remove i18n format from BEGIN to END."
-  (interactive "r")
-  (if (use-region-p)
-      (progn (save-excursion
-               (let* ((str (buffer-substring begin end))
-                      (target (replace-regexp-in-string "i18n.t([[:ascii:][:nonascii:]]*\\([\"']\\).*::\\(.*\\)[\"'][[:ascii:][:nonascii:]]*)" "\\1\\2\\1" str)))
-                 (delete-region begin end)
-                 (insert target))
-               ))))
-;;; editing
-
 ;;; editorconfig
 ;; (require-package 'editoconfig)
 ;; (editorconfig-mode 1)
 ;;; editorconfig
 
-;; ;; ;; aligns annotation to the right hand side
+;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
 ;;; hackernews
