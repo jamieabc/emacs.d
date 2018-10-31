@@ -1,0 +1,32 @@
+* Payment
+
+  Discovery monitors BTC/LTC blockchain, once it founds Bitmark
+  payment record, it notifies Bitmarkd at ~discovery/bitcoin.go#158: processNewTx~
+
+  #+BEGIN_SRC go
+    if isBitcoinPaymentTX(&tx) {
+        b.log.Infof("payment tx id: %s", tx.TxID)
+        data, _ := json.Marshal(tx)
+        b.pub.SendMessage(b.name, data)
+    }
+  #+END_SRC
+
+  Bitmarkd starts payment at ~bitmarkd/main.go#263:
+  payment.Initialise~. Through background task of
+  ~payment/bitcoin.go#166: process~, an infinite loop is invoked for
+  fetching BTC blocks. Once BTC block being verified to contain
+  Bitmark payment information inside method ~payment/bitcoin.go#226:
+  inspectBitcoinTx~, being called ~reservoir/setup.go#217: SetTransferVerified~
+
+  #+BEGIN_SRC go
+    func SetTransferVerified(payId pay.PayId, detail *PaymentDetail) {
+        globalData.log.Infof("txid: %s  payid: %s", detail.TxID, payId)
+
+        if !setVerified(payId, detail, nil) {
+            globalData.log.Debugf("orphan payment: txid: %s  payid: %s", detail.TxID, payId)
+            cache.Pool.OrphanPayment.Put(payId.String(), detail)
+        }
+    }
+  #+END_SRC
+
+  Here is the log of showing payment/tx id.
