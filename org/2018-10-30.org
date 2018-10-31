@@ -1,0 +1,32 @@
+* Issue Flow
+** User  send request
+
+   Webapp and Totemic use ~Trade Service~, other sytems use ~Core API~ to
+   send request.
+
+   #+BEGIN_SRC
+     Trade Service
+                    => Bitmarkd & Payment Service
+     Core API
+   #+END_SRC
+
+** Pay fee
+
+   ~Core API~ sends request to ~Payment Service~, it is used for paying
+   fee for miner to put data onto blockchain.
+
+   #+BEGIN_SRC
+     CoreAPI => Payment service
+   #+END_SRC
+
+** Save to db
+
+   ~Discovery~ listens BTC/LTC blockchain, once payment informatn is
+   found (fee is paid), it notifies ~Bitmarkd~.
+
+   #+BEGIN_SRC
+     Discovery => Bitmarkd => Updaterd => database
+   #+END_SRC
+
+   ~Updaterd~ ask ~Bitmarkd~, once there's any new data (issue, asset, tx,
+   etc.), save it to database.
