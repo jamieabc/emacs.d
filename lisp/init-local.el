@@ -3,6 +3,11 @@
           (lambda () (dolist (dir '("/usr/local/bin" "~/golang/bin"))
                   (add-to-list 'exec-path dir))))
 
+;;; nvm
+(require-package 'nvm)
+(nvm-use "v8.11.3")
+;;; nvm
+
 ;;;  redmine related functions
 (defun get-ticket-number ()
   "Get ticket number from each line."
