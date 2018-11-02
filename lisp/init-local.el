@@ -932,6 +932,7 @@
 (require-package 'go-mode)
 (require-package 'go-snippets)
 (require-package 'go-autocomplete)
+(require-package 'auto-complete-config)
 (require-package 'go-dlv)
 (require-package 'exec-path-from-shell)
 
@@ -942,16 +943,19 @@
 
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
+  (require-package 'auto-complete-config)
   (require-package 'go-guru)
   (require-package 'go-snippets)
   (require-package 'company-go)
 
+  (ac-config-default)
+
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
 
-  (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
+  (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
-  (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
+  (setq gofmt-command "goimports")                ; gofmt to invokes goimports
 
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
