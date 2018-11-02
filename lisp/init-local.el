@@ -243,8 +243,9 @@
 ;;; avy
 
 ;;; ag
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(setq counsel-ag-base-command "ag -S --nocolor --nogroup %s")
+(if (eq system-type 'darwin)
+    (setq-default counsel-ag-base-command "/usr/local/bin/ag --vimgrep --nocolor --nogroup %s"))
+(global-set-key (kbd "M-?") 'counsel-ag)
 ;;; ag
 
 ;;; convert word between snake-case or camel-case
@@ -845,9 +846,9 @@
 ;;; emacs line
 
 ;;; projectile
-(require-package 'projectile)
-(require-package 'counsel-projectile)
-(global-set-key (kbd "M-?") 'counsel-projectile-ag)
+;; (require-package 'projectile)
+;; (require-package 'counsel-projectile)
+;; (global-set-key (kbd "M-?") 'counsel-projectile-ag)
 ;;; projectile
 
 ;;; cucumber
