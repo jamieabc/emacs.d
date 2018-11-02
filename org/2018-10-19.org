@@ -256,7 +256,7 @@
     #+END_SRC
 
     #+RESULTS:
-    | id":"1 | status":"NotFound | error:null} |
+    | id":"1 | result:null | invalid nonce |
 
 *** BlockOwner.Transfer
 
@@ -318,6 +318,11 @@
     #+BEGIN_SRC shell
       (echo  '{"id":"1","method":"Transaction.Status","params":[{"txId":"2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861"}]}'; sleep 0.5; echo Q) | openssl s_client -connect 127.0.0.1:2130 -quiet
     #+END_SRC
+
+    #+BEGIN_SRC shell
+      (echo  '{"id":"1","method":"Transaction.Status","params":[{"txId":"6a948f4e21841c873cf910cffc520fd03805709fbdec57d93ad1fc9496b18869"}]}'; sleep 0.5; echo Q) | openssl s_client -connect ec2-52-194-238-206.ap-northeast-1.compute.amazonaws.com:2130 -quiet
+    #+END_SRC
+
 
     #+RESULTS:
     | id":"1 | status":"Confirmed | error:null} |
