@@ -1,5 +1,7 @@
-;;; add executable path
-(add-to-list 'exec-path "/usr/local/bin")
+ ;;; add executable path
+(add-hook 'after-init-hook
+          (lambda () (dolist (dir '("/usr/local/bin" "~/golang/bin"))
+                  (add-to-list 'exec-path dir))))
 
 ;;;  redmine related functions
 (defun get-ticket-number ()
