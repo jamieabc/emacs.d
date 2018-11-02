@@ -932,7 +932,6 @@
 (require-package 'go-mode)
 (require-package 'go-snippets)
 (require-package 'go-autocomplete)
-(require-package 'auto-complete-config)
 (require-package 'go-dlv)
 (require-package 'exec-path-from-shell)
 
@@ -943,12 +942,9 @@
 
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
-  (require-package 'auto-complete-config)
   (require-package 'go-guru)
   (require-package 'go-snippets)
   (require-package 'company-go)
-
-  (ac-config-default)
 
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
