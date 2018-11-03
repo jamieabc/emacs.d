@@ -10,7 +10,7 @@
    constant.
 
    As an exception to the rule that a symbol's name serves as its
-   printed representation, ‘##’ is the printed representation for an
-   symbol whose name is an empty string. Furthermore, ‘#:foo’ is the
+   printed representation, ~##~ is the printed representation for an
+   symbol whose name is an empty string. Furthermore, ~#:foo~ is the
    printed representation for an uninterned symbol whose name is
    foo. (Normally, the Lisp reader interns all symbols; see Creating Symbols.)
