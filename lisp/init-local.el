@@ -813,7 +813,7 @@
 ;;;
 
 ;;; remove trailing whitespace
-(add-to-list 'before-save-hook #'delete-trailing-whitespace)
+(add-to-list 'before-save-hook 'delete-trailing-whitespace)
 ;;; remove trailing whitespace
 
 ;;; company
@@ -948,9 +948,9 @@
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
 
-  (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
-
   (setq gofmt-command "goimports")                ; gofmt to invokes goimports
+
+  (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
