@@ -1,7 +1,6 @@
  ;;; add executable path
-(add-hook 'after-init-hook
-          (lambda () (dolist (dir '("/usr/local/bin" "~/golang/bin"))
-                  (add-to-list 'exec-path dir))))
+(dolist (path '("/usr/local/bin" "~/golang/bin"))
+  (add-to-list 'exec-path path))
 
 ;;; nvm
 (require-package 'nvm)
@@ -936,23 +935,21 @@
 ;;; go
 (require-package 'go-mode)
 (require-package 'go-snippets)
-(require-package 'go-autocomplete)
 (require-package 'go-dlv)
-(require-package 'exec-path-from-shell)
-
-;;; get GOPATH
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "GOPATH"))
+(require-package 'go-guru)
+(require-package 'company-go)
+(require-package 'go-autocomplete)
 
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
-  (require-package 'go-guru)
-  (require-package 'go-snippets)
-  (require-package 'company-go)
+  ;;; get GOPATH
+  (setenv "GOPATH" (concat (getenv "HOME") "/golang"))
+  (setenv "GOROOT" "/usr/local/opt/go/libexec")
 
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
+
+  (auto-complete-mode 1)
 
   (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
@@ -979,6 +976,8 @@
 
 ;; Connect go-mode-hook with the function we just defined
 (add-hook 'go-mode-hook #'my-go-mode-hook)
+(with-eval-after-load 'go-mode
+  (require #'go-autocomplete))
 ;;; go
 
 ;;; language server
