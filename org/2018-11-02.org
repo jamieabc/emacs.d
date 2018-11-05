@@ -1,0 +1,19 @@
+* GO
+** Convert map
+
+   When map return with `interface{}`, it has no type defined; there
+   needs to have an convert.
+
+   #+BEGIN_SRC go
+     func test() map[string]interface{} {
+         return map[string]interface{}{
+             "a": 1,
+             "b": 2,
+         }
+     }
+
+     func convert() {
+         t := test()
+         val := t["a"].(int)
+     }
+   #+END_SRC
