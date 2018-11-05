@@ -973,8 +973,6 @@
 
 ;; Connect go-mode-hook with the function we just defined
 (add-hook 'go-mode-hook #'my-go-mode-hook)
-(with-eval-after-load 'go-mode
-  (require #'go-autocomplete))
 ;;; go
 
 ;;; language server
