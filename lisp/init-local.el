@@ -938,7 +938,6 @@
 (require-package 'go-dlv)
 (require-package 'go-guru)
 (require-package 'company-go)
-(require-package 'go-autocomplete)
 
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
@@ -948,8 +947,6 @@
 
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
-
-  (auto-complete-mode 1)
 
   (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
