@@ -1,0 +1,11 @@
+* Emacs
+** go
+
+   I found when jumping definition in go, the message shows "godef: no
+   declaration found". After some googling, the error comes from
+   missing environment variable of "GOPATH" & "GOROOT". After setting
+   these values, everything works normally.
+
+   Use ~M-:~ can type evaluation of lisp.
+   Use ~getenv~ to get emacs environemnt variables.
+   Use ~setenv~ for emacs environemnt variables.
