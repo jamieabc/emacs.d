@@ -1,5 +1,5 @@
  ;;; add executable path
-(dolist (path '("/usr/local/bin" "~/golang/bin"))
+(dolist (path '("/usr/local/bin" "/Users/Aaron/golang/bin"))
   (add-to-list 'exec-path path))
 
 ;;; nvm
@@ -941,9 +941,13 @@
 
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
-  ;;; get GOPATH
-  (setenv "GOPATH" (concat (getenv "HOME") "/golang"))
+  ;;; get go related environment variables
+  l(setenv "GOPATH" (concat (getenv "HOME") "/golang"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
+  (setenv "PATH"
+          (concat "/usr/local/bin" ":"
+                  (concat (getenv "HOME") "/golang/bin") ":"
+                  (getenv "PATH")))
 
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
