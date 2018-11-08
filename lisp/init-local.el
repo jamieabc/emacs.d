@@ -468,7 +468,7 @@
   (setq-local ffip-patterns '("*.rb" "*.js" "*.yml" "*.css" "*.scss" "sass" "*.xml"
                               "*.tmpl" "*.json" "*.md" "*.lock" "*.sh" "*.java"
                               "*.example" "*.txt" "*.el" "*.hdl" "*.tst" "*.cmp"
-                              "*.erb" "*.php" "*.m" "*"))
+                              "*.erb" "*.php" "*.m" "*.conf" "*"))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
   )
