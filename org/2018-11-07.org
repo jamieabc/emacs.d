@@ -1,0 +1,14 @@
+* Freebsd
+** Check library installed
+
+   #+BEGIN_SRC shell
+     pkg info
+   #+END_SRC
+* Bash
+** Daemon
+
+   the redirection reference at [[http://wiki.bash-hackers.org/howto/redirection_tutorial][here]]
+
+   #+BEGIN_SRC shell
+     nohup ./myscript 0<&- &>/dev/null &
+   #+END_SRC

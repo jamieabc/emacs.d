@@ -1,0 +1,12 @@
+* bitmark-cli
+
+  #+BEGIN_SRC shell
+    bitmark-cli -c cli.conf setup -i test -n local -x 127.0.0.1:2130
+    bitmark-cli -c cli.conf create -a test -m "a\u0000b" -f "1234"
+  #+END_SRC
+
+
+* bitmark-wallet
+
+  build
+  setup wallet conf

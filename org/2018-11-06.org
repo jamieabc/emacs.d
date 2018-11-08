@@ -1,0 +1,4 @@
+* Freebsd
+** BTC
+
+   [[pkg install autoconf automake boost-libs git gmake libevent libtool openssl pkgconf][reference]]
