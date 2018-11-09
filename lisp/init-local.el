@@ -942,7 +942,7 @@
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
   ;;; get go related environment variables
-  l(setenv "GOPATH" (concat (getenv "HOME") "/golang"))
+  (setenv "GOPATH" (concat (getenv "HOME") "/golang"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
   (setenv "PATH"
           (concat "/usr/local/bin" ":"
