@@ -858,6 +858,8 @@
 ;;; cucumber
 (require-package 'feature-mode)
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+(setq feature-step-search-path "features/**/*steps.rb")
+(setq feature-step-search-gems-path "gems/ruby/*/gems/*/**/*steps.rb")
 ;;; cucumber
 
 ;;; wgrep
