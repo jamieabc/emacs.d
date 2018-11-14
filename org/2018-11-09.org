@@ -1,0 +1,17 @@
+* Shell
+** Here document
+
+   [[https://stackoverflow.com/questions/32126653/how-does-end-work-in-bash-to-create-a-multi-line-comment-block][reference]]
+
+   The heredoc is for multi line
+
+   #+BEGIN_SRC shell
+     text=$(cat <<EOF
+     this
+     is
+     for
+     multi-line
+     statement
+     EOF
+     )
+   #+END_SRC
