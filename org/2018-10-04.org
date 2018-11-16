@@ -48,6 +48,21 @@
    #+BEGIN_SRC shell
      flatpak-builder --run build-dir org.flatpak.Hello.json hello.sh
    #+END_SRC
+** Build repository
+
+   #+BEGIN_SRC shell
+     flatpak-builder --repo=repo-bitmarkd build-bitmarkd com.bitmark.bitmarkd.json
+   #+END_SRC
+** Build single file
+
+  #+BEGIN_SRC shell
+    flatpak build-bundle repo-bitmarkd bitmarkd.flatpak com.bitmark.bitmarkd
+  #+END_SRC
+** Install single file
+
+   #+BEGIN_SRC shell
+     flatpak install bitmarkd.flatpak
+   #+END_SRC
 * Automation
 ** Write git hooks
 *** unit test

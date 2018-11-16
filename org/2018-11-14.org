@@ -1,0 +1,18 @@
+* Ruby ssl connect
+
+  #+BEGIN_SRC ruby
+    require 'socket'
+    gem 'openssl'
+    require 'openssl'
+
+    socket = TCPSocket.new('172.16.23.113', 2230)
+    ssl = OpenSSL::SSL::SSLSocket.new(socket)
+    ssl.sync_close = true
+    ssl.connect
+
+    ssl.puts '{"id":"1","method":"Assets.Get","params":[{"fingerprints": ["2018-11-14 06:19:40 UTC"]}]}'
+    ssl.gets
+  #+END_SRC
+
+  #+RESULTS:
+  : {"id":"1","result":{"assets":[{"record":"AssetData","confirmed":true,"id":"2221c1d64181e4ce5c4b85cdd5e93f48aff60b73a9157fb7940933034ef1d32e14d77938db505fbaf6672f7b8031a7a04a7355a28dc25f06bb1052e76a66cad6","data":{"name":"my first asset","fingerprint":"2018-11-14 06:19:40 UTC","metadata":"owner\u0000Bob","registrant":"eMCMGjYxKFVnJ62ZuzhGwediTXF7KxWWEzzPumTpwqBUk1BFJY","signature":"96c74d9f2834685007627a38639f3bdcb08a2d90595880bbb9dc627d1cdd68e57678f6ecc20614fee2d49afed4e593b0450f827deaf33412155dfd55d4044707"}}]},"error":null}
