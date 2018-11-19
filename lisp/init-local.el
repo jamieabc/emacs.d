@@ -1028,6 +1028,7 @@
 ;;; encryption
 
 ;;; open org directory
+(require-package 'ox-pandoc)
 (defun org-dir-dired ()
   "Open Dired for Org files in and under `org-directory`."
   (interactive)
