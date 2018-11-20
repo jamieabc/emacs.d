@@ -1,4 +1,7 @@
- ;;; add executable path
+;;;packages
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+;;; add executable path
 (dolist (path '("/usr/local/bin" "/Users/Aaron/golang/bin"))
   (add-to-list 'exec-path path))
 
