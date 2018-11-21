@@ -944,6 +944,7 @@
 (require-package 'go-dlv)
 (require-package 'go-guru)
 (require-package 'company-go)
+(require-package 'gotest)
 
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
@@ -975,8 +976,10 @@
   ;; Key bindings specific to go-mode
   (local-set-key (kbd "M-.") 'godef-jump)         ; Go to definition
   (local-set-key (kbd "M-*") 'pop-tag-mark)       ; Return from whence you came
-  (local-set-key (kbd "M-p") 'compile)            ; Invoke compiler
-  (local-set-key (kbd "M-P") 'recompile)          ; Redo most recent compile cmd
+  (local-set-key (kbd "s-p") 'compile)            ; Invoke compiler
+  (local-set-key (kbd "s-P") 'recompile)          ; Redo most recent compile cmd
+  (local-set-key (kbd "s-c p") #'go-test-current-project)
+  (local-set-key (kbd "s-c f") #'go-test-current-file)
   (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
   (local-set-key (kbd "M-[") 'previous-error)     ; Go to previous error or msg
   )
