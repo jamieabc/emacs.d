@@ -2,7 +2,7 @@
 ** Setup config
 
    #+BEGIN_SRC shell
-     bitmark-cli -c cli.conf -i test setup -d test -n local -x 127.0.0.1:2130
+     bitmark-cli -c cli.conf -p 12345678 -i test setup -t -c 127.0.0.1:2130 -d test
    #+END_SRC
 
 ** Create Issue

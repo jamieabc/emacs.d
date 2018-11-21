@@ -7,12 +7,12 @@
    Discovery is used to find payment info, currently bitmarkd only
    support crypto currenty of Bitcoin and Litecoin.
 
-   Overall flow as follows:
+   Overall flow as follows (arrow means service regristration direction):
 
                 pub
-            <----------
-   bitmarkd             discovery <----------- btc/ltc
-            ---------->               sub
+            ---------->
+   bitmarkd             discovery -----------> btc/ltc
+            <----------               sub
                 rep
 
    discovery receives crypto currency by channel ~sub~, notify ~bitmarkd~
@@ -49,8 +49,8 @@
 
       #+BEGIN_SRC shell
         bitcoin {
-            url = "http://127.0.0.1:18002"
-            sub_endpoint = "tcp://127.0.0.1:18009"
+            url = "http://127.0.0.1:18333"
+            sub_endpoint = "tcp://127.0.0.1:18332"
             cached_block_count = 500
         }
       #+END_SRC
@@ -61,8 +61,8 @@
 
       #+BEGIN_SRC shell
         litecoin {
-            url = "http://127.0.0.1:19002"
-            sub_endpoint = "tcp://127.0.0.1:19009"
+            url = "http://127.0.0.1:19335"
+            sub_endpoint = "tcp://127.0.0.1:19332"
             cached_block_count = 1000
         }
       #+END_SRC
@@ -184,7 +184,7 @@
 
      # RPC configuration
      rpcthreads = 5
-     rpcport = 18002
+     rpcport = 18332
      #rpcssl = 1
      rpcallowip = 127.0.0.1/0
      #rpcallowip=10.1.1.34/255.255.255.0
@@ -245,13 +245,13 @@
 
 
      # peer port
-     port = 19333
+     port = 19335
 
      # peer connections
 
      # RPC configuration
      rpcthreads = 5
-     rpcport = 19002
+     rpcport = 19332
      #rpcssl = 1
      rpcallowip = 127.0.0.1/0
      rpcallowip = [::1]
