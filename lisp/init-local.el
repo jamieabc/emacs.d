@@ -2,8 +2,13 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 ;;; add executable path
-(dolist (path '("/usr/local/bin" "/Users/Aaron/golang/bin"))
+(dolist (path '("/usr/local/bin" "/Users/Aaron/golang/bin" "/Library/TeX/texbin"))
   (add-to-list 'exec-path path))
+(setenv "PATH"
+        (concat "/usr/local/bin" ":"
+                (concat (getenv "HOME") "/golang/bin") ":"
+                "/Library/TeX/texbin" ":"
+                (getenv "PATH")))
 
 ;;; nvm
 (require-package 'nvm)
@@ -951,10 +956,7 @@
   ;;; get go related environment variables
   (setenv "GOPATH" (concat (getenv "HOME") "/golang"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
-  (setenv "PATH"
-          (concat "/usr/local/bin" ":"
-                  (concat (getenv "HOME") "/golang/bin") ":"
-                  (getenv "PATH")))
+
 
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
