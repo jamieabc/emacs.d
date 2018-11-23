@@ -1,0 +1,28 @@
+* Stress test tool - vegeta
+
+  [[https://github.com/tsenart/vegeta][github]]
+
+  #+BEGIN_SRC shell
+    vegeta attack -targets=targets.txt > result.bin
+    vegeta report -type=json result.bin > result.json
+    cat result.bin | vegeta plot > plot.html
+  #+END_SRC
+* Postgresql
+** Show databases
+
+   #+BEGIN_SRC sql
+     \l
+   #+END_SRC
+
+** Show search path
+
+   #+BEGIN_SRC sql
+     SHOW search_path;
+   #+END_SRC
+
+** Show schema
+
+   #+BEGIN_SRC sql
+     \d
+     \d+ asset
+   #+END_SRC

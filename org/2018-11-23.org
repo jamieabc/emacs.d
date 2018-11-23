@@ -1,0 +1,65 @@
+* Performance Measurement
+** Issue
+
+   1000 issues
+
+*** Time Period: 7 ~ 8 minutes
+
+    Start: 2018/11/22 17:32, start api issue
+
+    End:   2018/11/22 17:40, last database transaction modify time
+
+*** Block Details
+
+    | Block Number | Issues count | block record time   |
+    |        11589 |           22 | 2018-11-22 17:38:31 |
+    |        11588 |           47 | 2018-11-22 17:37:41 |
+    |        11587 |          230 | 2018-11-22 17:36:01 |
+    |        11586 |          394 | 2018-11-22 17:35:09 |
+    |        11585 |          306 | 2018-11-22 17:35:09 |
+    |        11584 |            1 | 2018-11-22 17:32:27 |
+
+** Transfer
+
+   100+ transfers
+
+   Monitor discovery log, find line matches ~[INFO] LTC:~, the last
+   column of this line is bitcoin/litecoin transaction ID, e.g.:
+
+   ~2018-11-22 06:38:23 [INFO] LTC: 332ebd6c4ea6f8040c3703d8880f2f83da680242d2b1304b14e3a340592d0900~
+
+   use this LTC tx ID on [[https://chain.so/tx/LTCTEST/4bbc8b7be3b63df32db9261f670680a3c56dc556e229b555249c2ebca9a63f36][LTC testnet]] to get transaction detail
+   information, on field ~OP_RETURN~ first 69 digits contain payment id
+   , then query database by column ~tx_payment_id~ to get ~tx_id~.
+
+*** Transaction Details
+
+    | LTC TX Hash                                                      | discovery time | TX pay ID                                                             | TX ID                                                            | TX database time |     Time |
+    |------------------------------------------------------------------+----------------+-----------------------------------------------------------------------+------------------------------------------------------------------+------------------+----------|
+    | 3304a3519f07c6a9fce520587a64e0ad3f75086f826a9fe4fe45a3cf8bc38cbd |       14:38:11 | bacd74e9d29ab219da484d50405f2f417be0fa117cfe0ca35aec54588ade7e8cab476 | a1c19a043b1f2e1fd0204479b18c333ae1a0e5e35142855bab219a24741b75ff |         14:40:20 | 00:02:09 |
+    | f8b1669814f46b342761734537578e4e76ac49ac101d4ef0b5323d002c0194da |       14:38:12 | 735a7ec5c439d35d8bade01dc543f210003eb957aa186f1278b1f73ef6ccc8c324c1c | 7132f710e9bf1963abafd27ee1ed2464b48ee94c490916319dec92c083e4e884 |         14:40:20 | 00:02:08 |
+    | 54c658408499d922bdeee34461a6ed40860515304da16227bac99a53f355fa27 |       14:38:13 | aa4d0f592f4714d66addba82e23418effafe36439de2e853ba948389d6d59a42cebae | 062aa9ef351c2b50d9efc89dfcc7336e0c2f1de0f52ddbbd828d5387e6db8e1b |         14:40:20 | 00:02:07 |
+    | 332ebd6c4ea6f8040c3703d8880f2f83da680242d2b1304b14e3a340592d0900 |       14:38:23 | 551c81c00ad92351701465191e5efbae86f8f78856d130fecc1d17b1b8c190ae2143f | 0f7873d2a55455f3ecb3f35c300aa67e42644ff9b3bfdd3a62a21dba1b21a565 |         14:40:20 | 00:01:57 |
+    | f183338190cce918bc6089f9c6ce60172adf3c1b3ae3a60925abb0a592fae2ef |       14:38:47 | f288da403f5d42544be3fd9e670e67923d7e52d82de4144616b00f54f54bf5e83120c | 24afd3013a834323abf1b13d56b60d3a4e7a37a503d9d939d2c5bda97328aefa |         14:40:20 | 00:01:33 |
+    | 25bb25551ca4bf72249587386dd158aa73adc63adcecb34f18b45873b048485a |       14:38:49 | 3981a6661e3efeae887c12da223a2e007d5b6a5b3ba9727cabef58ecdded1899a7696 | 541e5367f79d3aa4e9d1aad8b398c9d3a0b0a457f4f813d095ef918d5f250319 |         14:40:20 | 00:01:31 |
+    | e91e57859e6c6b06871ca853ee3954d7e8808cc6af64af00877e702a60627aa1 |       14:38:56 | aa4d0f592f4714d66addba82e23418effafe36439de2e853ba948389d6d59a42cebae | 062aa9ef351c2b50d9efc89dfcc7336e0c2f1de0f52ddbbd828d5387e6db8e1b |         14:40:20 | 00:01:24 |
+    | 886aec0121b0b21c66d59f93185a854eec94d290ba0ef2b3374cbbe6d723d494 |       14:38:58 | e4a255cba0e98f7a3c3ad9a4bde745a26a6b075714ffe42aeabb7992ff69a08a1f244 | ed5de62a555bda8f571c4545507311a61679bc595d9a3ff1886198909c7099df |         14:38:01 | 00:00:57 |
+    | 0abe4d585b71beb36ec1ff9c18b9d1e1590413820b25115173da254b4ce6dbf1 |       14:39:00 | e239f4d25a4197161b7882aaf061ef67028c5f7a7a34da009e496d4f75ad280e97e99 | d5c0ba673294d9ad59e6ae4b5a2ae8a545972573f5d7e8b1476d3dcc7f4b6bcd |         14:38:01 | 00:00:59 |
+    | 1d4661c47e2507f22b4fbcc7fc72343e39d433870cddcda7d1924d288732653d |       14:39:10 | f288da403f5d42544be3fd9e670e67923d7e52d82de4144616b00f54f54bf5e83120c | 24afd3013a834323abf1b13d56b60d3a4e7a37a503d9d939d2c5bda97328aefa |         14:40:20 | 00:01:10 |
+    | 52529b71f8bb39f72bbf4b4dd7a6d088792d6beaaf79e4fc467808750e448137 |       14:39:10 | 15d7f87cd174fd599c31994764e92ed841b04d3fdf95ade9645ebf0e1f0c716d05d22 | ebf5280ee985a15d4fcd531b7fc429927eb06691168c819c2eb78a089266a841 |         14:40:20 | 00:01:10 |
+    | cb9628927df1c7b771c2962cb81a9e7e09fabfc967e801901c89064b69cd3eb5 |       14:39:21 | 3981a6661e3efeae887c12da223a2e007d5b6a5b3ba9727cabef58ecdded1899a7696 | 541e5367f79d3aa4e9d1aad8b398c9d3a0b0a457f4f813d095ef918d5f250319 |         14:40:20 | 00:00:59 |
+    | 16b4f003f7349a3fa5a06a0dcdae5253264f564a90f7ead619e78fda5a258378 |       14:39:29 | e4a255cba0e98f7a3c3ad9a4bde745a26a6b075714ffe42aeabb7992ff69a08a1f244 | ed5de62a555bda8f571c4545507311a61679bc595d9a3ff1886198909c7099df |         14:38:01 | 00:01:28 |
+    | f33e89ab4b9c76c71ff9a6cf2d2f913593af86041298a22d22c81cedb68e582e |       14:39:33 | 16d8b500e1645ca1644012e3d0089ee71fe8e02c2e8a0d9866b3382b089f942214736 | 30c2ed2497f6e9fb5919e49ec790cb13d7786ab5ea3b4367c88ac487872f4581 |         14:40:20 | 00:00:47 |
+    | b7212a43ca80120bcf2b25a84f5a15b3b95f690969a6003953b0c093bbe8cb46 |       14:39:34 | e239f4d25a4197161b7882aaf061ef67028c5f7a7a34da009e496d4f75ad280e97e99 | d5c0ba673294d9ad59e6ae4b5a2ae8a545972573f5d7e8b1476d3dcc7f4b6bcd |         14:38:01 | 00:01:33 |
+    | 0fcdc7173b4a89e62961800c18bc4c03609441a7fb67f2ac17001f1c0cdc2dd4 |       14:39:38 | 735a7ec5c439d35d8bade01dc543f210003eb957aa186f1278b1f73ef6ccc8c324c1c | 7132f710e9bf1963abafd27ee1ed2464b48ee94c490916319dec92c083e4e884 |         14:40:20 | 00:00:42 |
+    | 26fc364ced16d02f82dd3dc394879682c504da8e8951faa8df1938f29eb01cbe |       14:39:38 | bacd74e9d29ab219da484d50405f2f417be0fa117cfe0ca35aec54588ade7e8cab476 | a1c19a043b1f2e1fd0204479b18c333ae1a0e5e35142855bab219a24741b75ff |         14:40:20 | 00:00:42 |
+    | a89a65979a34412bc025ed7b5edb6fa281d2b70ea006cda0dda8bcdc40a67f28 |       11:24:04 | 25daacfec242dfb08e13fae1bbeb9d7672293af0730fc835e5d5baae5d875e03337fc | 9e200de9cf1742812ea525011b6b843e0f83d25238469002a5d7f32cdec8f62b |         11:24:53 | 00:00:49 |
+    | d2b28b2e2703c5515d903e783ea58f9e8c92e82b113737c994d43aa52040f846 |       11:24:04 | 4f78497f639fa88c53aa24cca28a08834cb6f77066d8a929da08f0f5d1c36c4ecc188 | 781445ff57bf18be0d4136b8bb74befe1d57cdbca855ac22dd5ae2d452b52d3c |         11:26:12 | 00:02:08 |
+    | 564e5db66056b1e028bc43d805da87901475243fa422c16ba26ce1c6281109b5 |       11:28:11 | 47388df5b4d5684cc93901c9866632e8d590213ef0f1d352f161bec47f96c0421bb91 | 2e6da8b2f24039b99a6095a62a03551c3e62c4300f2142e94ac833246e0ad32c |         11:31:26 | 00:03:15 |
+    | 3e4f9cff5c79f2e2d1a98457cf528ed20acd50fcad2901353a50af52bdde26ed |       11:25:34 | a7681978f4335975d6a1e7b31d9ca2121e70eb91bd046f8d0fafee80ee2adb6d96a91 | 7cf6690edfe1a32a244780be8c3e387a8cfc2ff3b32247d1202eeab83f509a92 |         11:26:12 | 00:00:38 |
+    | 5a41f1f968690e279caafdf5f0bdf7ea84c857a197682d249af1b2cf708fd4e0 |       11:25:34 | 8c48d8415864a240b86d52b5c93d9a9e270875bead65d0a5104972024aa4617057082 | 81476ad854d921031733fdaa676097b608fe8b489d2bcaf6e2dedb41f648badf |         11:28:14 | 00:02:40 |
+    | 4bbc8b7be3b63df32db9261f670680a3c56dc556e229b555249c2ebca9a63f36 |       11:26:48 | 6c6cb4b71cd5d4cc6d26f6873b0b547d1ba126dd03789cdfa30fb834b5ad33663ff8d | ffbb8334c728838d402509aa2e2f6a124e692740a6f90f363e6df4e77e36df85 |         11:28:14 | 00:01:26 |
+    |------------------------------------------------------------------+----------------+-----------------------------------------------------------------------+------------------------------------------------------------------+------------------+----------|
+    | Mean                                                             |                |                                                                       |                                                                  |                  | 00:01:29 |
+    #+TBLFM: $6=$5-$2;T
+    #+TBLFM: @25$6=vmean (@2$6..@24$6);T

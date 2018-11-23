@@ -1,0 +1,5 @@
+* psql
+
+  #+BEGIN_SRC sql
+    psql -w -h 13.231.165.223 -p 31429 -U updaterd -d bitmark -c "select tx.tx_pay_id, x.tx_modified_at from transaction tx where tx.tx_owner = 'eorSBk7EYmA7oY5dr2baEY5oPtUpgC5SDArUzvNjD7qNX2hPRZ' AND tx.tx_pay_id IS NOT NULL;"
+  #+END_SRC
