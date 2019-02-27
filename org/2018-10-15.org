@@ -4,8 +4,17 @@
    build report into `repo` assigned by `--repo`
 
    #+BEGIN_SRC shell
-     flatpak-builder --repo=repo --force-clean build-bitmarkd com.bitmark.bitmarkd.json
+     flatpak-builder --repo=repo --force-clean build com.bitmark.bitmarkd.json
    #+END_SRC
+
+** Build Bundle
+
+   build whole flatpak into single bundled file
+
+   #+BEGIN_SRC shell
+     flatpak build-bundle repo bitmarkd.flatpak com.bitmark.bitmarkd
+   #+END_SRC
+
 ** Local install
 
    `repo` is the directory of build from previous command

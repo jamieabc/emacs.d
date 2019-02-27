@@ -1,0 +1,3 @@
+* Ethereum dev
+
+  Change block gas limit at ~genesis.go~, function ~DeveloperGenesisBlock~.

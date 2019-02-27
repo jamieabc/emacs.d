@@ -1,0 +1,40 @@
+* Raspberry Pi 3 Setup
+
+  [[https://www.raspberrypi.org/downloads/][Download List]]
+
+** Raspbian
+
+*** Prepare images
+
+     #+BEGIN_SRC shell
+       7z x file.zip
+       diskutil list
+       diskutil eraseDisk FAT32 RPI /dev/disk99
+       diskutil unmountDisk /dev/disk99
+       sudo dd bs=16m if=file.img of=/dev/disk99
+       diskutil unmountDisk /dev/disk99
+     #+END_SRC
+
+*** Setup
+
+    SSH
+
+    #+BEGIN_SRC shell
+      sudo raspi-config
+    #+END_SRC
+
+    Choose ~9 Advance Options~ => ~A4 SSH~ => ~Yes~
+
+    Default account: ~pi~
+    Default password: ~raspberry~
+
+** Ubuntu Mate
+
+*** Prepare images
+
+    #+BEGIN_SRC shell
+      diskutil list
+      diskutil eraseDisk FAT32 RPI /dev/disk99
+      diskutil unmountDisk /dev/disk99
+      sudo sh -c 'xzcat file.xz | sudo dd of=/dev/disk99 bs=16m'
+    #+END_SRC

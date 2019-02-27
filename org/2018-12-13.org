@@ -1,0 +1,21 @@
+* Shell
+  
+  [[https://unix.stackexchange.com/questions/41406/use-a-variable-reference-inside-another-variable][reference]]
+
+  Indirect variable reference is supported on bash version >= 2.0, there is a
+  easier way to write as follows:
+
+  #+BEGIN_SRC shell
+    foo=bar
+    var=foo
+    echo "${!var}"
+  #+END_SRC
+  
+  For bash version < 2.0, use ~eval~ to do indirect variable reference as
+  follows:
+
+  #+BEGIN_SRC shell
+    foo=bar
+    var=foo
+    eval "newvar=\${$var}"
+  #+END_SRC

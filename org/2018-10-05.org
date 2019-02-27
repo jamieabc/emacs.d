@@ -26,6 +26,7 @@
        ],
        "command": "run.sh",
        "finish-args": [
+         "--share=network",
          "--filesystem=~/bitmarkd-data:create"
        ],
        "modules": [
@@ -70,7 +71,7 @@
              {
                "type": "file",
                "url": "https://codeload.github.com/vstakhov/libucl/tar.gz/0.8.1",
-               "sha256": "d7f09634000f3cc0be0bd2480afeaae650baa1a7d2901fb82ca93fbe48bf25c9"
+               "sha256": "a6397e179672f0e8171a0f9a2cfc37e01432b357fd748b13f4394436689d24ef"
              }
            ],
            "buildsystem": "simple",
@@ -282,6 +283,22 @@
            ]
          },
          {
+           "name": "time",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/golang/time/tar.gz/master",
+               "sha256": "85a7de8cca3cd46e798f0f1af766fb5a889ee495e7213b34fe64e3c956f4c9d2"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf master",
+             "mkdir -p /app/src/golang.org/x",
+             "mv time-master /app/src/golang.org/x/time"
+           ]
+         },
+         {
            "name": "snappy",
            "sources": [
              {
@@ -352,7 +369,6 @@
            "name": "cli",
            "sources": [
              {
-
                "type": "file",
                "url": "https://codeload.github.com/urfave/cli/tar.gz/934abfb",
                "sha256": "ce5299d4ca7dfab21777d7fa7064c20c3a4cee07c7b14512c3254dbd2227482b"
@@ -366,18 +382,66 @@
            ]
          },
          {
-           "name": "bitmarkd",
+           "name": "gluamapper",
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/bitmarkd/tar.gz/v8.2",
-               "sha256": "3213155b15ed988f9c0e66fc811551e9d84a64309b7b7b1141fb85ef7e856c0c"
+               "url": "https://codeload.github.com/yuin/gluamapper/tar.gz/master",
+               "sha256": "fa7e9b62b59cad09c89b50d95df86f29ef33744a3d8440fa6b1024a33e1d3107"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v8.2",
-             "mv bitmarkd-8.2 /app/src/github.com/bitmark-inc/bitmarkd",
+             "tar zxf master",
+             "mkdir -p /app/src/github.com/yuin",
+             "mv gluamapper-master /app/src/github.com/yuin/gluamapper"
+           ]
+         },
+         {
+           "name": "gopher-lua",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/yuin/gopher-lua/tar.gz/master",
+               "sha256": "28fca2291ece9059c427d70194d979244da90fae4ba631687445a9bd0dc76e96"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf master",
+             "mkdir -p /app/src/github.com/yuin",
+             "mv gopher-lua-master /app/src/github.com/yuin/gopher-lua"
+           ]
+         },
+         {
+           "name": "mapstructure",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/mitchellh/mapstructure/tar.gz/v1.1.2",
+               "sha256": "53fbc06b125ff1c9c73a4eb1764346932671a29c67a45a92e2ebc6855635069b"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v1.1.2",
+             "mkdir -p /app/src/github.com/mitchellh",
+             "mv mapstructure-1.1.2 /app/src/github.com/mitchellh/mapstructure"
+           ]
+         },
+         {
+           "name": "bitmarkd",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/bitmarkd/tar.gz/v0.10.1",
+               "sha256": "706912a1f278ee63ea6b7c8fb4f1d47f2f5e955c4e623dca9f3b57e3884bb93d"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v0.10.1",
+             "mv bitmarkd-0.10.1 /app/src/github.com/bitmark-inc/bitmarkd",
              "go install github.com/bitmark-inc/bitmarkd/command/bitmarkd"
            ]
          }

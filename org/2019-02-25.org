@@ -1,0 +1,135 @@
+* CPU resource limiting
+
+  Since bitmarkd runs cross platform, needs to consider the solution is able to
+  run on different platform.
+
+** By number of goroutine
+
+   ~GOMAXPROCS~
+
+   In the case of multi-thread, sleep a goroutine has no effect on changing CPU
+   usage rate, because scheduler will try to put as many tasks as possible, sleep
+   just release CPU to run other task. In overall, the CPU usage rate is not changed.
+
+   Most open source project (xmrig, cpuminer) can only specify # of threads to
+   run, instead of specifying # of usage per CPU.
+
+* Thread
+
+** Cooperative
+
+   Once a thread starts to execute, no other thread can control cpu unless that
+   running thread return control (yield), this is how goroutine runs.
+
+** Preemptive
+
+   One thread can interrupt a running thread.
+
+* Goroutine
+
+  Go routine runs in cooperative mode, so if a goroutine does not give-up the
+  cpu control, then other goroutine does not have the access.
+
+  In the code below, since ~say("hello")~ occupies the cpu, and program exist
+  once ~say("hello")~ ends, the ~say("world")~ may or may not run. The result of
+  this code can only gurantees 5 "hello", and 0 ~ 5 "world" depends on cpu busy
+  or not. Be noted, 5 "hello" definitely at the beginning, after with 0 ~ 5 "hello"
+
+  #+BEGIN_SRC go
+    package main
+
+    import (
+      "fmt"
+    )
+
+    func say(s string) {
+      for i := 0; i < 5; i++ {
+        fmt.Println(s)
+      }
+    }
+
+    func main() {
+      go say("world")
+      say("hello")
+    }
+  #+END_SRC
+
+  #+RESULTS:
+  | hello |
+  | hello |
+  | hello |
+  | hello |
+  | hello |
+  | world | (appear 0 ~ 5 times)
+
+  To ensure other goroutines with chances to run, put additional ~sleep~ to
+  ensure cpu control is given(yield). In this way, output will be "world \n hello"
+  repeat 5 times. Since after every print always come with ~sleep~, so the
+  output result keeps in same order.
+
+  #+BEGIN_SRC go
+    package main
+
+    import (
+      "fmt"
+      "time"
+    )
+
+    func say(s string) {
+      for i := 0; i < 5; i++ {
+        time.Sleep(100 * time.Millisecond)
+        fmt.Println(s)
+      }
+    }
+
+    func main() {
+      go say("world")
+      say("hello")
+    }
+  #+END_SRC
+
+  #+RESULTS:
+  | hello |
+  | world |
+  | hello |
+  | world |
+  | hello |
+  | world |
+  | hello |
+  | world |
+  | hello |
+  | world |
+
+  With below code, the "world" can exist for 0 ~ 5 times. The difference between
+  this example and first example is that "world" could appear randomly, and
+  count is also random.
+
+  #+BEGIN_SRC go
+    package main
+
+    import (
+      "fmt"
+      "runtime"
+    )
+
+    func say(s string) {
+      for i := 0; i < 5; i++ {
+        runtime.Gosched()
+        fmt.Println(s)
+      }
+    }
+
+    func main() {
+      go say("world")
+      say("hello")
+    }
+  #+END_SRC
+
+  #+RESULTS:
+  | hello |
+  | world |
+  | world |
+  | hello |
+  | hello |
+  | hello |
+  | hello |

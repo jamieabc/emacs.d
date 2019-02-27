@@ -1,0 +1,109 @@
+* Geth
+
+** Setup dev mode
+
+   [[https://ethereum.stackexchange.com/questions/1839/regtest-mode-on-ethereum][reference]]
+
+   In brief, ethereum has no ~regmode~ as bitcoin, but it is possible to run
+   single node privately. To mine blocks, start a single mining thread.
+
+   in following example, rpc port is set to ~8545~, ipc filename is ~geth.ipc~, geth
+   directory is ~eth~ [[https://ethereum.stackexchange.com/questions/4287/geth-dev-exposes-live-net-accounts-is-it-safe][(reference)]]
+
+   #+BEGIN_SRC shell
+     geth --dev --nodiscover --mine --minerthreads 1 --maxpeers 0 --verbosity 4 --gcmode
+     "archive" --rpc --rpcapi db,eth,net,web3,personal --rpccorsdomain "*" --rpcport
+     8545 --rpcaddr "0.0.0.0" --ipcpath geth.ipc --datadir eth
+   #+END_SRC
+
+   ~dev~ mode starts with pre-configured passphrase and account, to unlock
+   account, first attach into geth by ipc: [[https://ethereum.stackexchange.com/questions/44210/how-do-i-unlock-the-geth-dev-developer-account][(reference)]]
+
+   #+BEGIN_SRC shell
+     geth attach ipc:eth/geth.ipc
+   #+END_SRC
+
+   because account has default passphrase, unlock account with empty passphrase
+   as follows:
+
+   #+BEGIN_SRC shell
+     personal.unlockAccount(eth.accounts[0], "");
+   #+END_SRC
+
+   For ~truffle~ to run migration, modify ~truffle-config.js~ network gas price,
+   max is around 4M, I use ~4600000~ for now.
+
+** New account
+
+   [[https://ethereum.stackexchange.com/questions/12824/different-way-of-creating-account][reference]]
+
+   In geth console:
+
+   #+BEGIN_SRC shell
+     personal.newAccount()
+   #+END_SRC
+
+   In command line:
+
+   #+BEGIN_SRC shell
+     geth account new
+   #+END_SRC
+
+** Check gas limit
+
+   #+BEGIN_SRC shell
+     web3.eth.getBlock("pending").gasLimit
+   #+END_SRC
+
+* Truffle
+
+** Get token name
+
+   #+BEGIN_SRC shell
+     c = await JimJimCoin.at(address)
+     c.name()
+     c.totalSupply().then(i => i.toString())
+   #+END_SRC
+
+* Web3
+
+** Get accounts
+
+   #+BEGIN_SRC js
+     web3.eth.getAccounts((err, res) => accounts = res) // in truffle
+     web3.eth.accounts // in geth console
+   #+END_SRC
+
+** Get transaction info
+
+   [[https://ethereum.stackexchange.com/questions/40283/how-to-get-blocknumber-of-contracts-deployed-with-truffle][reference]]
+
+   #+BEGIN_SRC js
+     web3.eth.getTransaction(txHash)
+   #+END_SRC
+
+** Get block info
+
+   To get state root, transactions root, receipt root:
+
+   #+BEGIN_SRC js
+     web3.eth.getBlock(blockNumber)
+   #+END_SRC
+
+** Decode contract data
+
+   [[https://medium.com/cybermiles/diving-into-ethereums-world-state-c893102030ed][reference]]
+
+** Count key-value
+
+   ~geth~ uses leveldb to store values, and merkle trie uses compact way to
+   store. In order to count total storage size, modify [[https://github.com/ethereumjs/merkle-patricia-tree/blob/f86961edae43e358d45ce271a46764422c1d8232/src/readStream.js#L16][this file]] for found
+   key-value pair.
+
+** Approve
+
+   #+BEGIN_SRC js
+     a = AaronToken.at(contractAddr)
+     a.approve.sendTransaction(addr, size, { from: srcAddr })
+     a.approve.sendTransaction(addr, size)
+   #+END_SRC

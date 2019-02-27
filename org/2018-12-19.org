@@ -1,0 +1,37 @@
+* Crypto Installation
+** Litecoin
+
+   [[https://github.com/litecoin-project/litecoin/blob/master/doc/build-osx.md][Installation reference]]
+   
+** Bitcoin
+
+   [[https://github.com/bitcoin/bitcoin/blob/master/doc/build-osx.md][Installation reference]]
+   
+* Dnsmasq
+** Modify dns resolver file
+
+   resolver file is at ~/etc/resolv.conf~.
+   
+   This file is for dns to search domain name. Example config file contains
+   ~aaron.bitmark.lan~, which will redirect domain name to ~127.0.0.1~.
+   
+   #+BEGIN_SRC shell
+     search aaron.bitmark.lan
+     nameserver 127.0.0.1
+   #+END_SRC
+   
+** Dnsmasq
+
+   This is mac version for dns server, typical configuration as follows:
+
+   #+BEGIN_SRC shell
+     server=8.8.8.8
+     server=8.8.4.4
+     txt-record=aaron.bitmark.lan,"bitmark=v3 a=127.0.0.1;[::1] c=2136 r=2130 f=057be2bcdaed14d30c816429b838770d129ac237aea287933ede882359467a97 p=e7387aceec876838bf16c26d6bc2a491dfd8b36983f4046d35ef0ab509427f51"
+     txt-record=aaron.bitmark.lan,"bitmark=v3 a=127.0.0.1;[::1] c=2236 r=2230 f=fd87a999930195ee43683f6f234db7164dc3b0f35f7ae232ca76ba6f98de3277 p=4ef2be6a85f606efc5a137b9e79c09b5798c7d6c8e6136be35fcce946c704d38"
+   #+END_SRC
+   
+   ~txt-record~ is used for bitmarkd to search nodes, and following string
+   "bitmarkd=v3 a=...." is achieved by ~bitmarkd dns-txt~.
+   
+   Finally, start dnsmasq by ~sudo dnsmasq --conf-file=/tmp/.config/dnsmasq/dnsmasq.conf~

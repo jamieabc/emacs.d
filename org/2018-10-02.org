@@ -4,11 +4,31 @@
 
     [[https://github.com/ethereum/ropsten][reference]]
 
+    Installation for mac:
+
     #+BEGIN_SRC shell
       brew tap ethereum/ethereum
       brew install ethereum
+    #+END_SRC
 
-      geth --testnet --syncmode "full" --gcmode "archive" --bootnodes "enode://6332792c4a00e3e4ee0926ed89e0d27ef985424d97b6a45bf0f23e51f0dcb5e66b875777506458aea7af6f9e4ffb69f43f3778ee73c81ed9d34c51c4b16b0b0f@52.232.243.152:30303,enode://94c15d1b9e2fe7ce56e458b9a3b672ef11894ddedd0c6f247e0f1d3487f52b66208fb4aeb8179fce6e3a749ea93ed147c37976d67af557508d199d9594c35f09@192.81.208.223:30303" --rpc --rpcapi db,eth,net,web3,personal --rpccorsdomain '*' --cache=1024 --rpcport 8545 --rpcaddr 0.0.0.0
+    [[https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Ubuntu][reference]]
+
+    Installation for ubuntu:
+
+    #+BEGIN_SRC shell
+      sudo apt install software-properties-common
+      sudo add-apt-repository -y ppa:ethereum/ethereum
+      sudo apt update
+      sudo apt install ethereum
+    #+END_SRC
+
+    Run geth:
+
+    #+BEGIN_SRC shell
+      geth --testnet --syncmode "full" --gcmode "archive" --bootnodes
+      "enode://6332792c4a00e3e4ee0926ed89e0d27ef985424d97b6a45bf0f23e51f0dcb5e66b875777506458aea7af6f9e4ffb69f43f3778ee73c81ed9d34c51c4b16b0b0f@52.232.243.152:30303,enode://94c15d1b9e2fe7ce56e458b9a3b672ef11894ddedd0c6f247e0f1d3487f52b66208fb4aeb8179fce6e3a749ea93ed147c37976d67af557508d199d9594c35f09@192.81.208.223:30303"
+      --rpc --rpcapi db,eth,net,web3,personal --rpccorsdomain '*' --cache=1024
+      --rpcport 8545 --rpcaddr 0.0.0.0 --ipcpath geth.ipc
     #+END_SRC
 
     default db path on Mac is ~~/Library/Ethereum/testnet/geth/chaindata/~
@@ -18,6 +38,7 @@
     #+BEGIN_SRC shell
       geth --testnet removedb
     #+END_SRC
+
 *** Get tx info
 
     Install node library

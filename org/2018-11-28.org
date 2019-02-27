@@ -1,0 +1,24 @@
+* Emacs lisp
+
+  [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html][reference]]
+
+  Backquote (`) constructs allow you to quote a list, but selectively evaluate
+  elements of that list. In the simplest case, it is identical to the special
+  form quote (described in the previous section; see Quoting). For example,
+  these two forms yield identical results:
+
+  #+BEGIN_SRC emacs-lisp
+    `(a list of (+ 2 3) elements)
+    ⇒ (a list of (+ 2 3) elements)
+    '(a list of (+ 2 3) elements)
+    ⇒ (a list of (+ 2 3) elements)
+  #+END_SRC
+  
+  The special marker ‘,’ inside of the argument to backquote indicates a value
+  that isn't constant. The Emacs Lisp evaluator evaluates the argument of ‘,’,
+  and puts the value in the list structure:
+  
+  #+BEGIN_SRC emacs-lisp
+    (a list of ,(+ 2 3) elements)
+    ⇒ (a list of 5 elements)
+  #+END_SRC

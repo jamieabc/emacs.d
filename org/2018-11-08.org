@@ -1,83 +1,12 @@
 * bitmark-cli
-** Setup config
-
-   #+BEGIN_SRC shell
-     bitmark-cli -c cli.conf -p 12345678 -i test setup -t -c 127.0.0.1:2130 -d test
-   #+END_SRC
-
-** Create Issue
-
-   #+BEGIN_SRC shell
-     bitmark-cli -c cli.conf -i test create -a "first asset" -m "a\u0000b" -f "123456"
-   #+END_SRC
-** Check status of a transfer
-
-   #+BEGIN_SRC shell
-     bitmark-cli -c cli.conf status -txid 37df7628daa3cea05db10576f0c919741787303d64f142f66e59cabaff943f1e
-   #+END_SRC
-** Create another account
-
-   #+BEGIN_SRC shell
-     bitmark-cli -c cli.conf -i test2 add -d test2
-   #+END_SRC
-** Create transfer
 
   #+BEGIN_SRC shell
-    bitmark-cli -c cli.conf -i test transfer --txid 37df7628daa3cea05db10576f0c919741787303d64f142f66e59cabaff943f1e --receiver test2 -u true
+    bitmark-cli -c cli.conf setup -i test -n local -x 127.0.0.1:2130
+    bitmark-cli -c cli.conf create -a test -m "a\u0000b" -f "1234"
   #+END_SRC
 
-  #+RESULTS:
-  : {
-  :   "transferId": "28148a628d278bdaf8bb217777c5663f28abeb35a888186a3b785ab6ab8c1066",
-  :   "payId": "504650542fd3812e7d22ed8bb19ae317cc8e4737b14ed883a7cf705a535a5367cc427efc4cfbdffcfe76be08ff041cfb",
-  :   "payments": {
-  :     "BTC": [
-  :       {
-  :         "currency": "BTC",
-  :         "address": "msxN7C7cRNgbgyUzt3EcvrpmWXc59sZVN4",
-  :         "amount": "20000"
-  :       }
-  :     ],
-  :     "LTC": [
-  :       {
-  :         "currency": "LTC",
-  :         "address": "mjPkDNakVA4w4hJZ6WF7p8yKUV2merhyCM",
-  :         "amount": "200000"
-  :       }
-  :     ]
-  :   },
-  :   "commands": {
-  :     "BTC": "bitmark-wallet --conf ${XDG_CONFIG_HOME}/bitmark-wallet/bitmark-wallet.conf btc --testnet sendmany --hex-data '504650542fd3812e7d22ed8bb19ae317cc8e4737b14ed883a7cf705a535a5367cc427efc4cfbdffcfe76be08ff041cfb' 'msxN7C7cRNgbgyUzt3EcvrpmWXc59sZVN4,20000'",
-  :     "LTC": "bitmark-wallet --conf ${XDG_CONFIG_HOME}/bitmark-wallet/bitmark-wallet.conf ltc --testnet sendmany --hex-data '504650542fd3812e7d22ed8bb19ae317cc8e4737b14ed883a7cf705a535a5367cc427efc4cfbdffcfe76be08ff041cfb' 'mjPkDNakVA4w4hJZ6WF7p8yKUV2merhyCM,200000'"
-  :   }
-  : }
 
 * bitmark-wallet
-** Init
 
-   #+BEGIN_SRC shell
-     bitmark-wallet -C wallet.conf init
-   #+END_SRC
-
-** Create new btc address
-
-   #+BEGIN_SRC shell
-     bitmark-wallet -C wallet.conf btc -t newaddress
-   #+END_SRC
-
-** Sync btc balance
-
-   #+BEGIN_SRC shell
-     bitmark-wallet -C wallet.conf btc -t sync
-   #+END_SRC
-
-** Pay
-
-   #+BEGIN_SRC shell
-     bitmark-wallet -C "${HOME}"/.config/wallet/wallet.conf btc --testnet sendmany --hex-data '504650542fd3812e7d22ed8bb19ae317cc8e4737b14ed883a7cf705a535a5367cc427efc4cfbdffcfe76be08ff041cfb' 'msxN7C7cRNgbgyUzt3EcvrpmWXc59sZVN4,20000'
-   #+END_SRC
-
-   #+RESULTS:
-   : {"txId": "01bf8e1e1d15a24e86e0c4f7181081aa84f9556ba39a16cc00cde188f80cdafd", "rawTx": "0100000001eed9c55daa82688bb9de12a2ee9ce1a9fba73dc45b75350bfac884cf01d26243010000006b483045022100ed8ed7764b98e8ebdff1c9ed2fe375789bbf79bbe0899d681e3b81554058df4b022056c3a996456c9ac56c44b3869445be5faf1435af8a986b25c6e89c320d03e46a0121035cabfd53a54bf9c7f2c81d77512f7b85d5f1835f180afdc63f19b484c429fc1fffffffff03204e0000000000001976a914886fc94c1420d404103f32d1c812513857f6ecc988ac168fc300000000001976a9144f79473eba332d2c8e4dd98a7a8b16edb8ff7bc788ac0000000000000000326a30504650542fd3812e7d22ed8bb19ae317cc8e4737b14ed883a7cf705a535a5367cc427efc4cfbdffcfe76be08ff041cfb00000000"}
-
-   37df7628daa3cea05db10576f0c919741787303d64f142f66e59cabaff943f1e
+  build
+  setup wallet conf

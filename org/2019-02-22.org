@@ -1,0 +1,142 @@
+* Recorderd
+
+  The situation is quite strange here, from math, current difficulty 1 stands
+  for 1/256 possibility a hash is valid. Current hashing power is about 120 H/s,
+  which means that ever 3 seconds, 360 H will be generated and there should
+  exist 1 valid hash.
+
+  But from events two days ago, each block comes out above 1 minute:
+
+  #+BEGIN_SRC
+  {
+            :block_number => "179243",
+    :block_generation_min => nil,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179244",
+    :block_generation_min => 7.0,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179245",
+    :block_generation_min => 6.333333333333333,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179246",
+    :block_generation_min => 14.183333333333334,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179247",
+    :block_generation_min => 1.1666666666666667,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179248",
+    :block_generation_min => 3.5,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179249",
+    :block_generation_min => 12.333333333333334,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179250",
+    :block_generation_min => 1.1666666666666667,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179251",
+    :block_generation_min => 7.016666666666667,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179252",
+    :block_generation_min => 11.5,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179253",
+    :block_generation_min => 4.666666666666667,
+              :difficulty => "ffffffffffffff00"
+  }
+  {
+            :block_number => "179254",
+    :block_generation_min => 21.85,
+              :difficulty => "ffffffffffffff00"
+  }
+  #+END_SRC
+
+** Even receives ok, existing mining thread not stop
+
+   log as follows:
+
+   #+BEGIN_SRC shell
+     2019-02-22 15:24:29 [INFO] subscriber-0: received data: {"Job":"0008","Header":{"version":2,"transactionCount":3,"number":"5","previousBlock":"c4669b42b71ac1a2593f3658294f2d5f73456812119a5ed7cc57d7472ba0c800","merkleRoot":"4db01f7ba6b5c7120cc4bef89b3e30d467bd3dd5daedca7d8504769e7bcaff7b","timestamp":"1550820269","difficulty":"ffffffffffffff00","nonce":"81cc536f536d65c1"},"TxZero":"BgFIASJtb2RuU29ldnkzd3Vab0hDQUVwcVBqclhqalViM3Fxd3V3AiJtdWp5Vk11dHpEOVJXZTY3ZVNxNDlYTE1wb01LTnRoUjMyIRP0FnedsGWjKYVYiWcqtNjdN7DQ6xiccv7QdRuAFeO+itIJQO4mcRBvwagg6eRU6yyneG01OUkNxsGdc2qXLyUKw3ykyLD4b1Em8RwfQP1EDmBC0WCCVxUOlM/9lra43WysaAA=","TxIds":["e20c481ef579c0109b2b68fdcfc22bc8425b94f66cfe4895113e75d103b13444","e5932f76bde0e30cad76ae400773405e1f157853284c9262517ccfa1cc950ca3","6fef47316c0803f187c991b47b904d0b7b3e8f9393bf5e4862bc10661028c2ea"]}
+     ...
+     2019-02-22 15:24:29 [INFO] proofer-1: nonce[0]: 0xc1656d536f53cc82
+     2019-02-22 15:24:33 [INFO] proofer-1: nonce[10]: 0xc1656d536f53cc8c
+     2019-02-22 15:24:34 [INFO] proofer-1: job: "0008" nonce: 0xc1656d536f53cc8e
+     2019-02-22 15:24:34 [INFO] proofer-1: digest: 0011dfd9518168b9a88956f999fed4954bef90e5a5562ffc9a90fe2c87499640
+     2019-02-22 15:24:34 [INFO] proofer-1: it takes 12 rounds for hashing
+     2019-02-22 15:24:34 [DEBUG] submitter-0: received data: [7375626d69747465722d30 30303038 8ecc536f536d65c1]
+     2019-02-22 15:24:34 [INFO] submitter-0: rpc: json to send: {"Request":"block.nonce","Job":"0008","Packed":"jsxTb1NtZcE="}
+     2019-02-22 15:24:35 [DEBUG] submitter-0: rpc: received data: {"job":"0008","ok":true}
+     2019-02-22 15:24:35 [INFO] submitter-0: rpc: received from server: map[job:0008 ok:true]
+     2019-02-22 15:24:38 [INFO] proofer-1: nonce[20]: 0xc1656d536f53cc96
+     2019-02-22 15:24:43 [INFO] proofer-1: nonce[30]: 0xc1656d536f53cca0
+     2019-02-22 15:24:47 [INFO] proofer-1: nonce[40]: 0xc1656d536f53ccaa
+     2019-02-22 15:24:51 [INFO] proofer-1: nonce[50]: 0xc1656d536f53ccb4
+     2019-02-22 15:24:55 [INFO] proofer-1: nonce[60]: 0xc1656d536f53ccbe
+     2019-02-22 15:24:59 [INFO] proofer-1: nonce[70]: 0xc1656d536f53ccc8
+     2019-02-22 15:25:04 [INFO] proofer-1: nonce[80]: 0xc1656d536f53ccd2
+     2019-02-22 15:25:08 [INFO] proofer-1: nonce[90]: 0xc1656d536f53ccdc
+     2019-02-22 15:25:12 [INFO] proofer-1: nonce[100]: 0xc1656d536f53cce6
+     ...
+     2019-02-22 15:26:28 [INFO] proofer-1: nonce[280]: 0xc1656d536f53cd9a
+     2019-02-22 15:26:29 [INFO] proofer-1: hash rate: 141.718032 H/min
+   #+END_SRC
+
+   when ~recorderd~ receives bitmarkd message of "ok", it will keep hashing
+   until 2 minutes timeout reached.
+
+   It could possibly all threads are working on block hashing that is already
+   been accepted. Wastes hashing power to calculate actual hash.
+
+** Every period of time, bitmarkd sends a new hash to recorderd
+
+   Technically, it could have no difference on hashing probability, but it will
+   have a cost for context switch. Maybe it's better to check for "block number"
+   to see if new incoming request worth doing. If it's the same block number,
+   then maybe it's worth doing calculating on current working one instead of new
+   one.
+
+** Proxy
+
+   Proofer has a proxy for receiving incoming request, then randomly send to
+   thread pool, each thread has no knowledge of request, they are just dump
+   workers. That's why it didn't know that if the block is already accepted,
+   stop current working progress.
+
+** Rate Sampling
+
+*** Sampler
+
+    Calculate maximum hashing power
+
+*** Throttler
+
+    Control hash generation speed
+
+*** Scheduler
+
+    Control recorderd run or stop.
+
+    Respond to bitmarkd (if it's in working or not)
+
+*** Config Reader
+
+    Read config change every X minutes

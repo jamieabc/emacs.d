@@ -1,0 +1,30 @@
+* Comparison
+** Meeting minutes for the meeting:
+   - [X] Automatically get live currency price from website for calculation
+   - [X] Automatically color column based on number, e.g. green for 10x performance
+   - [X] Change price comparison based on USD
+   - [ ] Re-check data storage of share transfer
+   - [X] Add some notes to explain why issue limits for maximum 100
+   - [X] Check ethereum wording for hidden node
+   - [X] Use wording in terms of ethereum, e.g. Bitmark share create <--> Ethereum deploy contract
+   - [X] For comparing hashing price, use open market value, e.g. nicehash
+   - [X] When comparing hashing rate, compare based on difficulty, e.g. how many hashes possibly for Bitmark difficulty 1 and ethereum difficulty 1
+   - [X] Add comparison of asset metadata and provenance, e.g. Bitmark native support and ethereum need contract to support
+   - [X] Remove the hidden account address comparison
+   - [X] Change wording of cloud interoperability, it's misleading by current wording => Bitmark cannot run on cloud environment
+   - [X] Better wording for white label coin
+   - [X] List units for every comparison
+
+** Hashing cost
+
+   [[https://www.nicehash.com][website]]
+
+   By calculating hashing price, since there's no argon2 hashing machines, use
+   Monero algorithm as a substitution.
+
+   |          | Price (BTC) | Hash (per day) | Cost / Hash |
+   |----------+-------------+----------------+-------------|
+   | Ethereum |        3.18 | 0.0737 TH      | 4.31 E-11   |
+   | Monero   |       0.049 | 0.2808 MH      | 1.7 E-7     |
+
+   hashing cost of Monero vs Ethereum = 3944 times

@@ -1,0 +1,49 @@
+* ERC 20 Comparison
+** Issue
+
+   BM - Asset record + issue record + share record
+
+   SC - ERC 20 create
+
+** Transfer
+
+   BM - Grant record
+
+   SC - ERC 20 transfer
+
+** Swap
+
+   BM - swap record
+
+   SC - Still in consideration, current idea is 3 contracts: A, B, and C. When
+   doing swap, contract A and B put tokens into contract C, then contract C do
+   the swap, send both records to contract A and B.
+
+* Solidity
+
+  [[https://solidity.readthedocs.io/en/v0.5.0/][version 0.5 doc]]
+
+  solidity version matters when compiling contract, e.g. version 0.5 has
+  breaking changes so that some old contract cannot exist on that. One way is
+  to upgrade contract by newer syntax, the other one is to change compiler version.
+
+  ~openzeppelin-solidity~ has more stars than ~zeppelin-solidity~, so I change
+  to use former one.
+
+** Balance
+
+   [[https://stackoverflow.com/questions/48558766/two-ways-of-getting-balance-in-solidity][reference]]
+
+   Use map to store balances, key-value pair, default to 0.
+
+* Truffle
+
+** Abbreviation
+
+   BN: BigNumber
+
+** Clean start
+
+   #+BEGIN_SRC shell
+     truffle migrate --reset --network development --compile-all
+   #+END_SRC

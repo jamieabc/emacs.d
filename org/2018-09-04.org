@@ -47,32 +47,6 @@
    &{0 0}
    &{5 7}
 * Bitmarkd
-** https
-
-   Available commands:
-   - rpc
-
-     performs a call to any normal RPC
-
-   - details
-
-     get node info
-
-   - connections
-
-     list existing connections of a node
-
-   - peers
-
-     list available connections
-
-     #+BEGIN_SRC shell
-       curl -k http://localhost:2130/bitmarkd/rpc --output -
-       curl -k http://localhost:2130/bitmarkd/details --output -
-       curl -k http://localhost:2130/bitmarkd/connections --output -
-       curl -k http://localhost:2130/bitmarkd/peers --output -
-     #+END_SRC
-
 ** Json rpc
 
    Connect to bitmarkd:
