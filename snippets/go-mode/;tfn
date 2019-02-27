@@ -1,0 +1,8 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: func Test$1($2) { $0 }
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: ;tfn
+# --
+func Test${1:Function}(t *testing.T) {
+    $0
+}
