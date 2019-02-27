@@ -2,7 +2,7 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 ;;; add executable path
-(dolist (path '("/usr/local/bin" "/Users/Aaron/golang/bin" "/Library/TeX/texbin"))
+(dolist (path '("/usr/local/bin" "/Users/Aaron/gocode/bin" "/Library/TeX/texbin"))
   (add-to-list 'exec-path path))
 (setenv "PATH"
         (concat "/usr/local/bin" ":"
@@ -954,9 +954,8 @@
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
   ;;; get go related environment variables
-  (setenv "GOPATH" (concat (getenv "HOME") "/golang"))
+  (setenv "GOPATH" (concat (getenv "HOME") "/gocode"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
-
 
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
