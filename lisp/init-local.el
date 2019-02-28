@@ -943,7 +943,7 @@
 (global-set-key (kbd "C-x G") #'counsel-git-change-worktree)
 ;;; magit
 
-;;; go
+;;; go-mode
 (require-package 'go-mode)
 (require-package 'go-snippets)
 (require-package 'go-dlv)
@@ -958,9 +958,10 @@
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
 
   (set (make-local-variable 'company-backends) '(company-go))
-  (company-mode)
 
   (setq gofmt-command "goimports")                ; gofmt to invokes goimports
+
+  (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
   (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
@@ -975,19 +976,19 @@
   (setq-default tab-width 4)
 
   ;; Key bindings specific to go-mode
-  (local-set-key (kbd "M-.") 'godef-jump)         ; Go to definition
-  (local-set-key (kbd "M-*") 'pop-tag-mark)       ; Return from whence you came
-  (local-set-key (kbd "s-p") 'compile)            ; Invoke compiler
-  (local-set-key (kbd "s-P") 'recompile)          ; Redo most recent compile cmd
+  (local-set-key (kbd "M-.") #'godef-jump)         ; Go to definition
+  (local-set-key (kbd "M-*") #'pop-tag-mark)       ; Return from where you came
+  (local-set-key (kbd "s-p") #'compile)            ; Invoke compiler
+  (local-set-key (kbd "s-P") #'recompile)          ; Redo most recent compile cmd
   (local-set-key (kbd "s-c p") #'go-test-current-project)
   (local-set-key (kbd "s-c f") #'go-test-current-file)
-  (local-set-key (kbd "M-]") 'next-error)         ; Go to next error (or msg)
-  (local-set-key (kbd "M-[") 'previous-error)     ; Go to previous error or msg
+  (local-set-key (kbd "M-]") #'next-error)         ; Go to next error (or msg)
+  (local-set-key (kbd "M-[") #'previous-error)     ; Go to previous error or msg
   )
 
 ;; Connect go-mode-hook with the function we just defined
 (add-hook 'go-mode-hook #'my-go-mode-hook)
-;;; go
+;;; go-mode
 
 ;;; language server
 (require-package 'lsp-mode)
