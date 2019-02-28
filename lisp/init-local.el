@@ -1070,40 +1070,40 @@
              '("ts" "#+BEGIN_SRC typescript\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
 ;; add <ts for typescript expansion
 
-;; add <sql for typescript expansion
+;; add <sql for sql expansion
 (add-to-list 'org-structure-template-alist
              '("sql" "#+BEGIN_SRC sql\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <sql for typescript expansion
+;; add <sql for sql expansion
 
-;; add <rb for typescript expansion
+;; add <rb for ruby expansion
 (add-to-list 'org-structure-template-alist
              '("rb" "#+BEGIN_SRC ruby\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <rb for typescript expansion
+;; add <rb for ruby expansion
 
-;; add <html for typescript expansion
+;; add <html for html expansion
 (add-to-list 'org-structure-template-alist
              '("html" "#+BEGIN_SRC browser\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <html for typescript expansion
+;; add <html for html expansion
 
-;; add <go for typescript expansion
+;; add <go for golang expansion
 (add-to-list 'org-structure-template-alist
              '("go" "#+BEGIN_SRC go\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <go for typescript expansion
+;; add <go for golang expansion
 
 ;; add <sh for shell expansion
 (add-to-list 'org-structure-template-alist
              '("sh" "#+BEGIN_SRC shell\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <sh for typescript expansion
+;; add <sh for shell expansion
 
-;; add <http for typescript expansion
+;; add <http for http expansion
 (add-to-list 'org-structure-template-alist
              '("http" "#+BEGIN_SRC http\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <http for typescript expansion
+;; add <http for http expansion
 
-;; add <gvy for typescript expansion
+;; add <gvy for groovy expansion
 (add-to-list 'org-structure-template-alist
              '("gvy" "#+BEGIN_SRC groovy\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <gvy for typescript expansion
+;; add <gvy for groovy expansion
 
 ;;; org
 
@@ -1152,13 +1152,8 @@
 
 ;; typescript
 (require-package 'tern)
-(require-package 'tern-auto-complete)
 (add-hook 'typescript-mode-hook (lambda () (setq typescript-indent-level 2)))
 (add-hook 'typescript-mode-hook (lambda () (tern-mode t)))
-(eval-after-load 'tern
-  '(progn
-     (require-package 'tern-auto-complete)
-     (tern-ac-setup)))
 (defun delete-tern-process ()
   "Force restart of tern in new project."
   (interactive)
