@@ -244,9 +244,6 @@
 (add-hook 'prog-mode-hook
           #'add-fira-code-symbol-keywords)
 
-;;; enable line number mode
-(global-linum-mode t)
-
 ;;; avy
 (require-package 'avy)
 (global-set-key (kbd "C-c C-;") #'avy-goto-char-timer)
