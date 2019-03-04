@@ -945,7 +945,6 @@
 (require-package 'go-snippets)
 (require-package 'go-dlv)
 (require-package 'go-guru)
-(require-package 'company-go)
 (require-package 'gotest)
 
 (defun my-go-mode-hook ()
@@ -953,8 +952,6 @@
   ;;; get go related environment variables
   (setenv "GOPATH" (concat (getenv "HOME") "/gocode"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
-
-  (set (make-local-variable 'company-backends) '(company-go))
 
   (setq gofmt-command "goimports")                ; gofmt to invokes goimports
 
