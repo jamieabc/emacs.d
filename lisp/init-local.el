@@ -981,6 +981,7 @@
   (local-set-key (kbd "s-c f") #'go-test-current-file)
   (local-set-key (kbd "M-]") #'next-error)         ; Go to next error (or msg)
   (local-set-key (kbd "M-[") #'previous-error)     ; Go to previous error or msg
+  (local-set-key (kbd "RET") #'newline)
   )
 
 ;; Connect go-mode-hook with the function we just defined
