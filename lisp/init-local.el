@@ -9,6 +9,12 @@
                 (concat (getenv "HOME") "/golang/bin") ":"
                 "/Library/TeX/texbin" ":"
                 (getenv "PATH")))
+;;; language server
+(require-package 'lsp-mode)
+(require-package 'lsp-ui)
+(require-package 'lsp-vue)
+(require-package 'company-lsp)
+;;; language server
 
 ;;; nvm
 (require-package 'nvm)
@@ -943,7 +949,6 @@
 ;;; go-mode
 (require-package 'go-mode)
 (require-package 'go-snippets)
-(require-package 'go-dlv)
 (require-package 'go-guru)
 (require-package 'gotest)
 
@@ -953,9 +958,9 @@
   (setenv "GOPATH" (concat (getenv "HOME") "/gocode"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
 
-  (setq gofmt-command "goimports")                ; gofmt to invokes goimports
-
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
+
+  (setq gofmt-command "goimports")                ; gofmt to invokes goimports
 
   (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
@@ -984,13 +989,6 @@
 ;; Connect go-mode-hook with the function we just defined
 (add-hook 'go-mode-hook #'my-go-mode-hook)
 ;;; go-mode
-
-;;; language server
-(require-package 'lsp-mode)
-(require-package 'lsp-ui)
-(require-package 'lsp-vue)
-(require-package 'company-lsp)
-;;; language server
 
 ;;; vue
 (require-package 'vue-mode)
