@@ -6,7 +6,7 @@
   (add-to-list 'exec-path path))
 (setenv "PATH"
         (concat "/usr/local/bin" ":"
-                (concat (getenv "HOME") "/golang/bin") ":"
+                (concat (getenv "HOME") "/gocode/bin") ":"
                 "/Library/TeX/texbin" ":"
                 (getenv "PATH")))
 ;;; language server
@@ -597,6 +597,7 @@
         paredit-doublequote
         paredit-backward-delete
         paredit-backward-kill-word
+        paredit-forward-kill-word
         paredit-close-round
         paredit-newline
         paredit-open-round
