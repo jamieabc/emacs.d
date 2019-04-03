@@ -142,15 +142,15 @@
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/certgen/tar.gz/v1.0",
-               "sha256": "ed0fa1d610cc9784ed05c808c04164745a56e9e36b63e33a74f3ac57863caa83"
+               "url": "https://codeload.github.com/bitmark-inc/certgen/tar.gz/v0.1.1",
+               "sha256": "8f298113dc155afb0d8991afcc9611f9f6fa213d89c5d35a7fa7a526b1baaf7c"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v1.0",
+             "tar zxf v0.1.1",
              "mkdir -p /app/src/github.com/bitmark-inc",
-             "mv certgen-1.0 /app/src/github.com/bitmark-inc/certgen"
+             "mv certgen-0.1.1 /app/src/github.com/bitmark-inc/certgen"
            ]
          },
          {
@@ -158,14 +158,14 @@
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/exitwithstatus/tar.gz/v1.1",
-               "sha256": "4a012a59942f4f190f7e970854ab496ebc550e2330f2553b503bcdbf49b517e4"
+               "url": "https://codeload.github.com/bitmark-inc/exitwithstatus/tar.gz/v0.1.2",
+               "sha256": "1c54ae7d58cfc09b252f2f62b295b11ce66dd0a4d17d28a742b49d39a5129073"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v1.1",
-             "mv exitwithstatus-1.1 /app/src/github.com/bitmark-inc/exitwithstatus"
+             "tar zxf v0.1.2",
+             "mv exitwithstatus-0.1.2 /app/src/github.com/bitmark-inc/exitwithstatus"
            ]
          },
          {
@@ -174,14 +174,14 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/getoptions/tar.gz/v1.1",
-               "sha256": "16c64d26a5a50d3600599bc7960a09a4406ba2a1e59b20e1c3a6d5a93a76543d"
+               "url": "https://codeload.github.com/bitmark-inc/getoptions/tar.gz/v0.1.1",
+               "sha256": "7d817d764b1b7bcec6d8110f906f805bb938904134f300df53330cc5b506dc47"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v1.1",
-             "mv getoptions-1.1 /app/src/github.com/bitmark-inc/getoptions"
+             "tar zxf v0.1.1",
+             "mv getoptions-0.1.1 /app/src/github.com/bitmark-inc/getoptions"
            ]
          },
          {
@@ -190,14 +190,14 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/go-argon2/tar.gz/v1.3",
-               "sha256": "96fdb43bfadc1c8e32f0dbd1d31b15f8385c83b670c9955db6e563faa96bc600"
+               "url": "https://codeload.github.com/bitmark-inc/go-argon2/tar.gz/v0.1.4",
+               "sha256": "0eb9e51725dc6997ecbd959296ff9b4487a8d3b661cb0c7335be056871418c67"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v1.3",
-             "mv go-argon2-1.3 /app/src/github.com/bitmark-inc/go-argon2"
+             "tar zxf v0.1.4",
+             "mv go-argon2-0.1.4 /app/src/github.com/bitmark-inc/go-argon2"
            ]
          },
          {
@@ -239,14 +239,14 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/logger/tar.gz/v3.4",
-               "sha256": "231d9e754eca1f76dffc7aecb0dde29c7247aecba851f67ae237fcb755a2c655"
+               "url": "https://codeload.github.com/bitmark-inc/logger/tar.gz/v0.3.4",
+               "sha256": "7ae8ea52f6a2e395d073477572bddcd8ea8b1e43e782c9c882c1dab7f727096e"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v3.4",
-             "mv logger-3.4 /app/src/github.com/bitmark-inc/logger"
+             "tar zxf v0.3.4",
+             "mv logger-0.3.4 /app/src/github.com/bitmark-inc/logger"
            ]
          },
          {
@@ -255,14 +255,14 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/listener/tar.gz/v1.3",
-               "sha256": "8a3b77e035ba44949134a1cb9459e75eb62d75be15b9d469bf53b7dde3a68454"
+               "url": "https://codeload.github.com/bitmark-inc/listener/tar.gz/v0.2.0",
+               "sha256": "4a48b2e35ef19e9e44ea32cab6398747fa6b1f182eb2e88caf8a4ae267d3832a"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v1.3",
-             "mv listener-1.3 /app/src/github.com/bitmark-inc/listener"
+             "tar zxf v0.2.0",
+             "mv listener-0.2.0 /app/src/github.com/bitmark-inc/listener"
            ]
          },
          {
@@ -271,15 +271,15 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/golang/crypto/tar.gz/e363607",
-               "sha256": "e32166defb1f0f47bfe9ceca4aadfb9508599cda40d9f058aa00eee9e4e00547"
+               "url": "https://codeload.github.com/golang/crypto/tar.gz/3d3f9f413869",
+               "sha256": "350f3e37a30bad009d90aa4b2df7d239c363865557788368a402492dc14c899e"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf e363607",
+             "tar zxf 3d3f9f413869",
              "mkdir -p /app/src/golang.org/x",
-             "mv crypto-e363607 /app/src/golang.org/x/crypto"
+             "mv crypto-3d3f9f413869 /app/src/golang.org/x/crypto"
            ]
          },
          {
@@ -287,15 +287,15 @@
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/golang/time/tar.gz/master",
-               "sha256": "85a7de8cca3cd46e798f0f1af766fb5a889ee495e7213b34fe64e3c956f4c9d2"
+               "url": "https://codeload.github.com/golang/time/tar.gz/85acf8d2951c",
+               "sha256": "96c2a33d1f1409b7db0a71ca73748e7cbac8b8878430de82c76e408a08f76fd1"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf master",
+             "tar zxf 85acf8d2951c",
              "mkdir -p /app/src/golang.org/x",
-             "mv time-master /app/src/golang.org/x/time"
+             "mv time-85acf8d2951c /app/src/golang.org/x/time"
            ]
          },
          {
@@ -304,15 +304,15 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/golang/snappy/tar.gz/2e65f85",
-               "sha256": "dbbc74e9fbea19d803a6984314286acfb3ba554a693f5bce0c8073e18a180d99"
+               "url": "https://codeload.github.com/golang/snappy/tar.gz/2e65f85255db",
+               "sha256": "3f0d9ed5fbea9b10b33c38321afe9a9e8a45dc3f0dbed9c3c1b640e69da05f76"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf 2e65f85",
+             "tar zxf 2e65f85255db",
              "mkdir -p /app/src/github.com/golang",
-             "mv snappy-2e65f85 /app/src/github.com/golang/snappy"
+             "mv snappy-2e65f85255db /app/src/github.com/golang/snappy"
            ]
          },
          {
@@ -321,14 +321,14 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/golang/sys/tar.gz/4497e2d",
-               "sha256": "a187139c2c457ea5ea374307b11a32e0ce9d9a639476ba9df63623752955d07e"
+               "url": "https://codeload.github.com/golang/sys/tar.gz/66b7b1311ac8",
+               "sha256": "aab347bbb80620ee96d0f4cf918e1fc643c46a7b8cbfc42c93ed645b4bc95d4e"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf 4497e2d",
-             "mv sys-4497e2d /app/src/golang.org/x/sys"
+             "tar zxf 66b7b1311ac8",
+             "mv sys-66b7b1311ac8 /app/src/golang.org/x/sys"
            ]
          },
          {
@@ -337,15 +337,15 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/pebbe/zmq4/tar.gz/3515f4e",
-               "sha256": "b811b91b96067056fcecafe701da3209866395ef176c712b219a6af8e68d5292"
+               "url": "https://codeload.github.com/pebbe/zmq4/tar.gz/v1.0.0",
+               "sha256": "269e0fb8b51a2c9a9086f4f7c8699a075362ffecb09f653da0bf6f7a6ee8e785"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf 3515f4e",
+             "tar zxf v1.0.0",
              "mkdir -p /app/src/github.com/pebbe",
-             "mv zmq4-3515f4e /app/src/github.com/pebbe/zmq4"
+             "mv zmq4-1.0.0 /app/src/github.com/pebbe/zmq4"
            ]
          },
          {
@@ -354,15 +354,15 @@
              {
 
                "type": "file",
-               "url": "https://codeload.github.com/syndtr/goleveldb/tar.gz/ae2bd5e",
-               "sha256": "b41f6356fdfbb5b9aaf0a797c393d1642d8bc273065335fbadd52c5539f69105"
+               "url": "https://codeload.github.com/syndtr/goleveldb/tar.gz/f9080354173f",
+               "sha256": "5368bea096d540afe826254259889264199b5fe09ea0a142ddebf09a4eef11d7"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf ae2bd5e",
+             "tar zxf f9080354173f",
              "mkdir -p /app/src/github.com/syndtr",
-             "mv goleveldb-ae2bd5e /app/src/github.com/syndtr/goleveldb"
+             "mv goleveldb-f9080354173f /app/src/github.com/syndtr/goleveldb"
            ]
          },
          {
@@ -370,15 +370,15 @@
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/urfave/cli/tar.gz/934abfb",
-               "sha256": "ce5299d4ca7dfab21777d7fa7064c20c3a4cee07c7b14512c3254dbd2227482b"
+               "url": "https://codeload.github.com/urfave/cli/tar.gz/v1.20.0",
+               "sha256": "c5ba59f5742c99618b5ba34211699287cd3e80c41488bb267035ce0163e3bade"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf 934abfb",
+             "tar zxf v1.20.0",
              "mkdir -p /app/src/github.com/urfave",
-             "mv cli-934abfb /app/src/github.com/urfave/cli"
+             "mv cli-1.20.0 /app/src/github.com/urfave/cli"
            ]
          },
          {
@@ -386,15 +386,15 @@
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/yuin/gluamapper/tar.gz/master",
-               "sha256": "fa7e9b62b59cad09c89b50d95df86f29ef33744a3d8440fa6b1024a33e1d3107"
+               "url": "https://codeload.github.com/yuin/gluamapper/tar.gz/d836955830e7",
+               "sha256": "966a0062fa11526c7eb3b97a7b47a24be792cc60babaab93a918f15f113fcad4"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf master",
+             "tar zxf d836955830e7",
              "mkdir -p /app/src/github.com/yuin",
-             "mv gluamapper-master /app/src/github.com/yuin/gluamapper"
+             "mv gluamapper-d836955830e7 /app/src/github.com/yuin/gluamapper"
            ]
          },
          {
@@ -402,15 +402,31 @@
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/yuin/gopher-lua/tar.gz/master",
-               "sha256": "28fca2291ece9059c427d70194d979244da90fae4ba631687445a9bd0dc76e96"
+               "url": "https://codeload.github.com/yuin/gopher-lua/tar.gz/a0dfe84f6227",
+               "sha256": "0031da05b0bab6ae15b5bab10a97c12d6191a8018b47cbc42ccfc03913739467"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf master",
+             "tar zxf a0dfe84f6227",
              "mkdir -p /app/src/github.com/yuin",
-             "mv gopher-lua-master /app/src/github.com/yuin/gopher-lua"
+             "mv gopher-lua-a0dfe84f6227 /app/src/github.com/yuin/gopher-lua"
+           ]
+         },
+         {
+           "name": "pretty",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/kr/pretty/tar.gz/v0.1.0",
+               "sha256": "3aeb5d90b719765781befb9f156d0d0b8e5a7aafbcf15321e9eabbd35df31358"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v0.1.0",
+             "mkdir -p /app/src/github.com/kr",
+             "mv pretty-0.1.0 /app/src/github.com/kr/pretty"
            ]
          },
          {
@@ -430,18 +446,34 @@
            ]
          },
          {
-           "name": "bitmarkd",
+           "name": "gomega",
            "sources": [
              {
                "type": "file",
-               "url": "https://codeload.github.com/bitmark-inc/bitmarkd/tar.gz/v0.10.1",
-               "sha256": "706912a1f278ee63ea6b7c8fb4f1d47f2f5e955c4e623dca9f3b57e3884bb93d"
+               "url": "https://codeload.github.com/onsi/gomega/tar.gz/v1.4.2",
+               "sha256": "8b8ff6df8872c2b5970a1e0a6c52961ba8afdae7a2ab1e23f42c29c019fd9ca0"
              }
            ],
            "buildsystem": "simple",
            "build-commands": [
-             "tar zxf v0.10.1",
-             "mv bitmarkd-0.10.1 /app/src/github.com/bitmark-inc/bitmarkd",
+             "tar zxf v1.4.2",
+             "mkdir -p /app/src/github.com/onsi",
+             "mv gomega-1.4.2 /app/src/github.com/onsi/gomega"
+           ]
+         },
+         {
+           "name": "bitmarkd",
+           "sources": [
+             {
+               "type": "file",
+               "url": "https://codeload.github.com/bitmark-inc/bitmarkd/tar.gz/v0.10.5",
+               "sha256": "8cd462788541226ee69dd625702d967a586777883006650b6924c5b99865d6c9"
+             }
+           ],
+           "buildsystem": "simple",
+           "build-commands": [
+             "tar zxf v0.10.5",
+             "mv bitmarkd-0.10.5 /app/src/github.com/bitmark-inc/bitmarkd",
              "go install github.com/bitmark-inc/bitmarkd/command/bitmarkd"
            ]
          }

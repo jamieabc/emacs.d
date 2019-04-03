@@ -21,7 +21,7 @@
 
    #+BEGIN_SRC shell
      flatpak --user remote-add --no-gpg-verify test repo
-     flatpak --user install test com.bitmark.bitmarkd
+     flatpak --user install bitmarkd.flatpak
    #+END_SRC
 ** Local run
 

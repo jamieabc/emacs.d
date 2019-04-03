@@ -1,0 +1,8 @@
+* Flatpak offline installation
+** Ubuntu path
+
+   ~~/.local/share/flatpak/~
+
+   The runtime library is located at ~~/.local/share/flatpak/runtime~,
+   backup this library then next time no need network to download
+   runtime libraries. But the size is quite big, total about 3GB.
