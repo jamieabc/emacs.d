@@ -961,7 +961,7 @@
 
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
-  (add-hook 'go-mode-hook (lambda () (paredit-everywhere-mode -1)))
+  ;; (add-hook 'go-mode-hook (lambda () (paredit-everywhere-mode -1)))
 
   (setq gofmt-command "goimports")                ; gofmt to invokes goimports
 
