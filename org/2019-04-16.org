@@ -1,0 +1,24 @@
+* TCP Keep Alive
+  [[https://stackoverflow.com/questions/1480236/does-a-tcp-socket-connection-have-a-keep-alive/33927447#33927447][reference]]
+
+  Event socket connection opened with TCP keep-alive, it may still be
+  closed.
+
+  The ~tcp_keepalive_time~: time waits for incoming data, default ~7200~
+  seconds (2 hours)
+
+  The ~tcp_keepalive_probes~: how many times to retry after above time
+  limit exceeds, default to ~9~ times. zeromq uses term ~TCP_KEEPCNT~.
+
+  The ~tcp_keepalive_intvl~: how long to retry after first timeout,
+  default to ~75~ second
+
+** Linux
+
+   ~cat /proc/sys/net/ipv4/tcp_keepalive_time~
+   ~cat /proc/sys/net/ipv4/tcp_keepalive_probes~
+   ~cat /proc/sys/net/ipv4/tcp_keepalive_intvl~
+
+** Mac
+
+   ~sysctl net.inet.tcp | grep -E "keepidle|keepintvl|keepcnt"~
