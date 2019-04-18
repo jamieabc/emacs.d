@@ -1197,11 +1197,6 @@
 (require-package 'swift-mode)
 ;;; swift
 
-;;; wakatime
-(require-package 'wakatime-mode)
-(global-wakatime-mode)
-;;; wakatime
-
 ;;; open url
 (global-set-key (kbd "C-c C-u") #'browse-url-at-point)
 ;;; open url
