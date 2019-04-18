@@ -1206,6 +1206,10 @@
 (global-set-key (kbd "C-c C-u") #'browse-url-at-point)
 ;;; open url
 
+;;; theme
+(add-hook 'after-init-hook (lambda () (load-theme 'sanityinc-solarized-dark)))
+;;; theme
+
 
 (provide 'init-local)
 ;;; init-local.el ends here
