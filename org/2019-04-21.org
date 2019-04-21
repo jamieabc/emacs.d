@@ -1,0 +1,27 @@
+* Emacs string
+
+  In regexp, ~^~ and ~`~ are different:
+
+  ~^~ means start of new line
+
+  ~`~ means start of entire string
+
+  ~$~ and ~'~ and different:
+
+  ~$~ means end of new line
+
+  ~'~ means end of entire string
+
+  examples:
+
+  (string-match "^foo" "foo")         ; => 0
+  (string-match "\\`foo" "foo")       ; => 0
+  (string-match "^foo" "bar\nfoo")    ; => 4
+  (string-match "\\`foo" "bar\nfoo")  ; => nil
+
+  (string-match "foo$" "foo")         ; => 0
+  (string-match "foo\\'" "foo")       ; => 0
+  (string-match "foo$" "foo\nbar")    ; => 0
+  (string-match "foo\\'" "foo\nbar")  ; => nil
+
+  other special character controlled by backslash at [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Regexp-Backslash.html#Regexp-Backslash][reference]]
