@@ -293,8 +293,60 @@
                             )))))
 
 (global-set-key (kbd "s-s") #'my-toggle-between-camel-case-and-snake-case)
-(global-set-key (kbd "s-d") #'my-toggle-between-camel-case-and-dash-words)
+(global-set-key (kbd "s-S") #'my-toggle-between-camel-case-and-dash-words)
 ;;; convert word between snake-case or camel-case
+
+;;; delete word to substring start of camel case or snake case
+(defun my-delete-backward-substr ()
+  "Delete backward to camcel case or snake case substring."
+  (interactive)
+  (save-excursion (let* ((bounds (if (use-region-p)
+                                     (cons (region-beginning) (region-end))
+                                   (bounds-of-thing-at-point 'symbol)))
+                         (text (buffer-substring-no-properties (car bounds) (cdr bounds)))
+                         (case-fold-search nil)
+                         (end (point))
+                         (snake-case (string-match-p "_" text))
+                         (dash-case (string-match-p "-" text))
+                         (camel-case (string-match-p "[A-Z]" text)))
+                    (when bounds
+                      (cond (snake-case
+                             (progn (re-search-backward "_" nil :no-error)
+                                    (kill-region (point) end)))
+                            (camel-case
+                             (progn (re-search-backward "[A-Z]" nil :no-error)
+                                    (kill-region (point) end)))
+                            (dash-case
+                             (progn (re-search-backward "-" nil :no-error)
+                                    (kill-region (point) end)))
+                            )))))
+
+(defun my-delete-forward-substr ()
+  "Delete backward to camcel case or snake case substring."
+  (interactive)
+  (save-excursion (let* ((bounds (if (use-region-p)
+                                     (cons (region-beginning) (region-end))
+                                   (bounds-of-thing-at-point 'symbol)))
+                         (text (buffer-substring-no-properties (car bounds) (cdr bounds)))
+                         (case-fold-search nil)
+                         (beginning (point))
+                         (snake-case (string-match-p "_" text))
+                         (dash-case (string-match-p "-" text))
+                         (camel-case (string-match-p "[A-Z]" text)))
+                    (when bounds
+                      (cond (snake-case
+                             (progn (re-search-forward "_" nil :no-error)
+                                    (kill-region beginning (point))))
+                            (camel-case
+                             (progn (re-search-forward "[A-Z]" nil :no-error)
+                                    (kill-region beginning (point))))
+                            (dash-case
+                             (progn (re-search-forward "-" nil :no-error)
+                                    (kill-region beginning (point))))
+                            )))))
+(global-set-key (kbd "s-<backspace>") #'my-delete-backward-substr)
+(global-set-key (kbd "s-d") #'my-delete-forward-substr)
+;;; delete word to substring start of camel case or snake case
 
 ;;; swiper
 (require-package 'swiper)
@@ -1204,7 +1256,6 @@
 ;;; theme
 (add-hook 'after-init-hook (lambda () (load-theme 'sanityinc-solarized-dark)))
 ;;; theme
-
 
 (provide 'init-local)
 ;;; init-local.el ends here
