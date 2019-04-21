@@ -25,3 +25,10 @@
   (string-match "foo\\'" "foo\nbar")  ; => nil
 
   other special character controlled by backslash at [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Regexp-Backslash.html#Regexp-Backslash][reference]]
+* Emacs moving
+
+  ~subword-mode~ treat word by camel/dash/snake case
+
+  ~superword-mode~ separate word by space
+
+  To move substring by camel/dash/snake case, use ~M-x subword-mode~
