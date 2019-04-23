@@ -494,6 +494,12 @@
 (add-hook 'ruby-mode-hook #'rubocop-mode)
 ;;; rubocop
 
+;;; ruby auto format
+(require-package 'rufo)
+(add-hook 'ruby-mode-hook #'rufo-minor-mode)
+(setq rufo-enable-format-on-save t)
+;;; ruby auto format
+
 ;;; ruby
 
 ;;; ido-vertical-mode
