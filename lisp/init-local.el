@@ -495,9 +495,8 @@
 ;;; rubocop
 
 ;;; ruby auto format
-(require-package 'rufo)
-(add-hook 'ruby-mode-hook #'rufo-minor-mode)
-(setq rufo-enable-format-on-save t)
+;;; rubocop already provides auto format
+;;; rubocop-autocorrect-current-file C-c C-r F
 ;;; ruby auto format
 
 ;;; ruby
