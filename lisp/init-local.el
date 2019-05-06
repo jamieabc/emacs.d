@@ -1063,6 +1063,7 @@
 ;;; vue
 
 ;;; org
+(require 'org-tempo)
 (require-package 'org-plus-contrib)
 (require-package 'org-bullets)
 (require-package 'org-beautify-theme)
@@ -1110,56 +1111,35 @@
 (global-set-key (kbd "s-f") 'org-file-today)
 (global-set-key (kbd "s-F") 'org-file-list)
 
-;;; add <el for emacs-lisp expansion
 (add-to-list 'org-structure-template-alist
-             '("el" "#+BEGIN_SRC emacs-lisp\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;;; add <el for emacs-lisp expansion
+             '("el" . "src emacs-lisp\n"))
 
-;; add <js for javascript expansion
 (add-to-list 'org-structure-template-alist
-             '("js" "#+BEGIN_SRC js\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <js for javascript expansion
+             '("js" . "src js\n"))
 
-;; add <ts for typescript expansion
 (add-to-list 'org-structure-template-alist
-             '("ts" "#+BEGIN_SRC typescript\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <ts for typescript expansion
+             '("ts" . "src typescript\n"))
 
-;; add <sql for sql expansion
 (add-to-list 'org-structure-template-alist
-             '("sql" "#+BEGIN_SRC sql\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <sql for sql expansion
+             '("sql" . "src sql\n"))
 
-;; add <rb for ruby expansion
 (add-to-list 'org-structure-template-alist
-             '("rb" "#+BEGIN_SRC ruby\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <rb for ruby expansion
+             '("rb" . "src ruby\n"))
 
-;; add <html for html expansion
 (add-to-list 'org-structure-template-alist
-             '("html" "#+BEGIN_SRC browser\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <html for html expansion
+             '("html" . "src browser\n"))
 
-;; add <go for golang expansion
 (add-to-list 'org-structure-template-alist
-             '("go" "#+BEGIN_SRC go\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <go for golang expansion
+             '("go" . "src go\n"))
 
-;; add <sh for shell expansion
 (add-to-list 'org-structure-template-alist
-             '("sh" "#+BEGIN_SRC shell\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <sh for shell expansion
+             '("sh" . "src shell\n"))
 
-;; add <http for http expansion
 (add-to-list 'org-structure-template-alist
-             '("http" "#+BEGIN_SRC http\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <http for http expansion
+             '("http" . "src http\n"))
 
-;; add <gvy for groovy expansion
 (add-to-list 'org-structure-template-alist
-             '("gvy" "#+BEGIN_SRC groovy\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
-;; add <gvy for groovy expansion
-
+             '("gvy" . "src groovy\n"))
 ;;; org
 
 ;;; groovy
