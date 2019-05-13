@@ -1,0 +1,11 @@
+* Big/Little endian
+
+  Too often forget, make a note here
+
+  A value of 0x12345678
+
+  Big Endian: 0x12 0x34 0x56 0x78
+
+  Little Endian: 0x78 0x56 0x34 0x12
+
+  Interl: Little endian
