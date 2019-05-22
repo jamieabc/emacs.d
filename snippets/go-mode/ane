@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: assert not equal
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: ane
+# --
+assert.NotEqual(t, ${1:expected}, ${2:actual}, ${0:message})
