@@ -449,18 +449,21 @@
 ;; git difftool
 
 ;;; select words in quote
-(defun my-select-word-in-quote ()
+(defun my-copy-word-in-quote ()
   "Select text between nearest left and right delimiters."
   (interactive)
-  (let (p1 p2 (skipChars "^\"<>(){}[]\'"))
+  (let (p1 p2 (skipChars "^\"<>(){}[]\'") (pos (point)))
     (skip-chars-backward skipChars)
     (setq p1 (point))
     (skip-chars-forward skipChars)
     (setq p2 (point))
     (set-mark p1)
+    (kill-ring-save p1 p2)
+    (deactivate-mark)
+    (goto-char pos)
     )
   )
-(global-set-key (kbd "C-c s q") 'my-select-word-in-quote)
+(global-set-key (kbd "C-c s q") 'my-copy-word-in-quote)
 ;;; select words in quote
 
 ;;; ruby
