@@ -1032,6 +1032,16 @@
 (require-package 'go-guru)
 (require-package 'gotest)
 
+(defun my-go-switch-test ()
+  "Define function to switch files between normal file and test file."
+  (interactive)
+  (let* ((file-name (buffer-name))
+         (test (string-match-p "_test.go" file-name)))
+    (if test
+        (find-file (replace-regexp-in-string "_test.go" ".go" file-name))
+      (find-file (replace-regexp-in-string ".go" "_test.go" file-name))
+      )))
+
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
   ;;; get go related environment variables
@@ -1072,6 +1082,7 @@
   (local-set-key (kbd "M-]") #'next-error)         ; Go to next error (or msg)
   (local-set-key (kbd "M-[") #'previous-error)     ; Go to previous error or msg
   (local-set-key (kbd "RET") #'newline)
+  (local-set-key (kbd "s-t") #'my-go-switch-test)
   )
 
 ;; Connect go-mode-hook with the function we just defined
