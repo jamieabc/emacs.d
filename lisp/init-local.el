@@ -1073,14 +1073,16 @@
   (setq-default tab-width 4)
 
   ;; Key bindings specific to go-mode
-  (local-set-key (kbd "M-.") #'godef-jump)         ; Go to definition
+  (local-set-key (kbd "M-.") #'godef-jump)
+  (local-set-key (kbd "C-x M-.") #'godef-jump-other-window)
   (local-set-key (kbd "M-*") #'pop-tag-mark)       ; Return from where you came
   (local-set-key (kbd "s-p") #'compile)            ; Invoke compiler
   (local-set-key (kbd "s-P") #'recompile)          ; Redo most recent compile cmd
   (local-set-key (kbd "s-c p") #'go-test-current-project)
   (local-set-key (kbd "s-c f") #'go-test-current-file)
-  (local-set-key (kbd "M-]") #'next-error)         ; Go to next error (or msg)
-  (local-set-key (kbd "M-[") #'previous-error)     ; Go to previous error or msg
+  (local-set-key (kbd "s-c t") #'go-test-current-test)
+  (local-set-key (kbd "M-]") #'next-error)
+  (local-set-key (kbd "M-[") #'previous-error)
   (local-set-key (kbd "RET") #'newline)
   (local-set-key (kbd "s-t") #'my-go-switch-test)
   )
