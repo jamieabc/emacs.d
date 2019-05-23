@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: package gomock
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: gomock
+# --
+"github.com/golang/mock/gomock"

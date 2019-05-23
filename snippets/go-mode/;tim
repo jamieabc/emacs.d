@@ -1,0 +1,9 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: test import
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: ;tim
+# --
+import (
+    "testing"
+    "github.com/stretchr/testify"
+)
