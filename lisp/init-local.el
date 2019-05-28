@@ -1025,6 +1025,15 @@
 (setq electric-pair-preserve-balance nil)
 ;;; auto pair
 
+;;; git-messenger
+(global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
+(eval-after-load 'git-messenger
+  '(progn
+     (define-key git-messenger-map (kbd "m") 'git-messenger:copy-message)
+     (custom-set-variables '(git-messenger:use-magit-popup t))
+     ))
+;;; git-messenger
+
 ;;; magit
 (eval-after-load 'magit
   '(progn
