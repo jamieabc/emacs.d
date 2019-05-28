@@ -1032,6 +1032,7 @@
 (require-package 'go-guru)
 (require-package 'gotest)
 (require-package 'go-imenu)
+(require-package 'go-eldoc)
 
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
@@ -1051,6 +1052,9 @@
 
   ;; go-imenu
   (add-hook 'go-mode-hook 'go-imenu-setup)
+
+  ;; go-eldoc
+  (add-hook 'go-mode-hook 'go-eldoc-setup)
 
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
