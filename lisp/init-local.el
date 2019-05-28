@@ -1030,7 +1030,8 @@
 (eval-after-load 'git-messenger
   '(progn
      (define-key git-messenger-map (kbd "m") 'git-messenger:copy-message)
-     (custom-set-variables '(git-messenger:use-magit-popup t))
+     (setq git-messenger:show-detail t
+           git-messenger:use-magit-popup t)
      ))
 ;;; git-messenger
 
