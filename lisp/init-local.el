@@ -281,7 +281,6 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (global-set-key (kbd "C-c g") #'goto-last-change)))
-
 ;;; go to last change
 
 ;;; ag
