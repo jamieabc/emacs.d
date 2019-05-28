@@ -1033,6 +1033,8 @@
 (require-package 'gotest)
 (require-package 'go-imenu)
 (require-package 'go-eldoc)
+(require-package 'flycheck-gometalinter)
+(require-package 'godoctor)
 
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
@@ -1068,6 +1070,9 @@
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
+
+  ;; linter
+  (flycheck-gometalinter-setup)
 
   ;; company-go
   ;; (push 'company-lsp company-backends)
