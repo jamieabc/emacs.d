@@ -1031,6 +1031,7 @@
 (require-package 'go-snippets)
 (require-package 'go-guru)
 (require-package 'gotest)
+(require-package 'go-imenu)
 
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
@@ -1047,6 +1048,9 @@
   ;;; get go related environment variables
   (setenv "GOPATH" (concat (getenv "HOME") "/gocode"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
+
+  ;; go-imenu
+  (add-hook 'go-mode-hook 'go-imenu-setup)
 
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
