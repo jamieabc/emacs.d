@@ -276,6 +276,14 @@
 (global-set-key (kbd "C-x ;") #'avy-goto-word-1)
 ;;; avy
 
+;;; go to last change
+(require-package 'goto-chg)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (global-set-key (kbd "C-c g") #'goto-last-change)))
+
+;;; go to last change
+
 ;;; ag
 (if (eq system-type 'darwin)
     (setq-default counsel-ag-base-command "/usr/local/bin/ag --vimgrep --nocolor --nogroup %s"))
