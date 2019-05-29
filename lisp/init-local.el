@@ -1067,9 +1067,20 @@
       (find-file (replace-regexp-in-string ".go" "_test.go" file-name))
       )))
 
+(defun my-convert-function-to-method (obj)
+  "Convert function into method."
+  (interactive "sObject name:")
+  (save-excursion (let ((start (line-beginning-position))
+                        (end (line-end-position))
+                        (abbrev (downcase (substring obj 0 1))))
+                    (goto-char start)
+                    (search-forward "func ")
+                    (insert (message "(%s *%s) " abbrev obj))
+                    )))
+
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
-  ;;; get go related environment variables
+;;; get go related environment variables
   (setenv "GOPATH" (concat (getenv "HOME") "/gocode"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
   (setenv "GO111MODULE" "on")
@@ -1085,11 +1096,11 @@
   ;; (add-hook 'go-mode-hook (lambda () (paredit-everywhere-mode -1)))
   (add-hook 'go-mode-hook 'subword-mode)
 
-  (setq gofmt-command "goimports")                ; gofmt to invokes goimports
+  (setq gofmt-command "goimports")      ; gofmt to invokes goimports
 
   (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
-  (if (not (string-match "go" compile-command))   ; set compile command default
+  (if (not (string-match "go" compile-command)) ; set compile command default
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
 
@@ -1103,7 +1114,7 @@
   (company-mode)
 
   ;; guru settings
-  (go-guru-hl-identifier-mode)                    ; highlight identifiers
+  (go-guru-hl-identifier-mode)          ; highlight identifiers
 
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
@@ -1111,9 +1122,9 @@
   ;; Key bindings specific to go-mode
   (local-set-key (kbd "M-.") #'godef-jump)
   (local-set-key (kbd "C-x M-.") #'godef-jump-other-window)
-  (local-set-key (kbd "M-*") #'pop-tag-mark)       ; Return from where you came
-  (local-set-key (kbd "s-p") #'compile)            ; Invoke compiler
-  (local-set-key (kbd "s-P") #'recompile)          ; Redo most recent compile cmd
+  (local-set-key (kbd "M-*") #'pop-tag-mark) ; Return from where you came
+  (local-set-key (kbd "s-p") #'compile)      ; Invoke compiler
+  (local-set-key (kbd "s-P") #'recompile) ; Redo most recent compile cmd
   (local-set-key (kbd "s-c p") #'go-test-current-project)
   (local-set-key (kbd "s-c f") #'go-test-current-file)
   (local-set-key (kbd "s-c t") #'go-test-current-test)
@@ -1121,6 +1132,7 @@
   (local-set-key (kbd "M-[") #'previous-error)
   (local-set-key (kbd "RET") #'newline)
   (local-set-key (kbd "s-t") #'my-go-switch-test)
+  (local-set-key (kbd "s-m") #'my-convert-function-to-method)
   )
 
 ;; Connect go-mode-hook with the function we just defined
