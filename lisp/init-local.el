@@ -1055,6 +1055,7 @@
 (require-package 'go-imenu)
 (require-package 'go-eldoc)
 (require-package 'godoctor)
+(require-package 'flycheck-golangci-lint)
 
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
@@ -1071,6 +1072,7 @@
   ;;; get go related environment variables
   (setenv "GOPATH" (concat (getenv "HOME") "/gocode"))
   (setenv "GOROOT" "/usr/local/opt/go/libexec")
+  (setenv "GO111MODULE" "on")
 
   ;; go-imenu
   (add-hook 'go-mode-hook 'go-imenu-setup)
@@ -1090,6 +1092,9 @@
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
+
+  ;; linter
+  (add-hook 'go-mode-hook 'flycheck-golangci-lint-setup)
 
   ;; company-go
   ;; (push 'company-lsp company-backends)
