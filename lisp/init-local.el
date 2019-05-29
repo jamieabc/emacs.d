@@ -2,7 +2,11 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 ;;; add executable path
-(dolist (path '("/usr/local/bin" "/Users/Aaron/gocode/bin" "/Library/TeX/texbin"))
+(dolist (path '(
+                "/usr/local/bin"
+                "/Users/Aaron/gocode/bin"
+                "/Library/TeX/texbin"
+                ))
   (add-to-list 'exec-path path))
 (setenv "PATH"
         (concat "/usr/local/bin" ":"
@@ -1050,7 +1054,6 @@
 (require-package 'gotest)
 (require-package 'go-imenu)
 (require-package 'go-eldoc)
-(require-package 'flycheck-gometalinter)
 (require-package 'godoctor)
 
 (defun my-go-switch-test ()
@@ -1087,9 +1090,6 @@
   (if (not (string-match "go" compile-command))   ; set compile command default
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
-
-  ;; linter
-  (flycheck-gometalinter-setup)
 
   ;; company-go
   ;; (push 'company-lsp company-backends)
