@@ -1095,6 +1095,7 @@
 
   ;; linter
   (add-hook 'go-mode-hook 'flycheck-golangci-lint-setup)
+  (setq flycheck-golangci-lint-fast t)
 
   ;; company-go
   ;; (push 'company-lsp company-backends)
