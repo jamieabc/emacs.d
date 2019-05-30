@@ -1078,6 +1078,21 @@
                     (insert (message "(%s *%s) " abbrev obj))
                     )))
 
+(defun my-truncate-func-declaration-too-long ()
+  "Reformat function declaration line which is too long."
+  (interactive)
+  (save-excursion (let ((start (line-beginning-position))
+                        (end (line-end-position)))
+                    (goto-char start)
+                    (search-forward-regexp "func (.*) .*)")
+                    (backward-char 1)
+                    (insert ",")
+                    (goto-char start)
+                    (search-forward-regexp "func (.*) .*(")
+                    (insert "\n")
+                    (while (re-search-forward "," end t)
+                      (replace-match ",\n")))))
+
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
 ;;; get go related environment variables
@@ -1131,8 +1146,10 @@
   (local-set-key (kbd "M-]") #'next-error)
   (local-set-key (kbd "M-[") #'previous-error)
   (local-set-key (kbd "RET") #'newline)
-  (local-set-key (kbd "s-t") #'my-go-switch-test)
-  (local-set-key (kbd "s-m") #'my-convert-function-to-method)
+  (local-unset-key (kbd "s-m"))
+  (local-set-key (kbd "s-m s-t") #'my-go-switch-test)
+  (local-set-key (kbd "s-m s-m") #'my-convert-function-to-method)
+  (local-set-key (kbd "s-m s-l") #'my-truncate-func-declaration-too-long)
   )
 
 ;; Connect go-mode-hook with the function we just defined
