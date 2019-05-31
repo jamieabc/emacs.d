@@ -1142,17 +1142,17 @@
   (setq-default tab-width 4)
 
   ;; key bindings specific to go-mode
-  (local-set-key (kbd "m-.") #'godef-jump)
-  (local-set-key (kbd "c-x m-.") #'godef-jump-other-window)
-  (local-set-key (kbd "m-*") #'pop-tag-mark) ; return from where you came
+  (local-set-key (kbd "M-.") #'godef-jump)
+  (local-set-key (kbd "C-x M-.") #'godef-jump-other-window)
+  (local-set-key (kbd "s-*") #'pop-tag-mark) ; return from where you came
   (local-set-key (kbd "s-p") #'compile)      ; invoke compiler
   (local-set-key (kbd "s-p") #'recompile) ; redo most recent compile cmd
   (local-set-key (kbd "s-c p") #'go-test-current-project)
   (local-set-key (kbd "s-c f") #'go-test-current-file)
   (local-set-key (kbd "s-c t") #'go-test-current-test)
-  (local-set-key (kbd "m-]") #'next-error)
-  (local-set-key (kbd "m-[") #'previous-error)
-  (local-set-key (kbd "ret") #'newline)
+  (local-set-key (kbd "M-]") #'next-error)
+  (local-set-key (kbd "M-[") #'previous-error)
+  (local-set-key (kbd "<return>") #'newline)
   (local-unset-key (kbd "s-z"))
   (local-set-key (kbd "s-z s-t") #'my-go-switch-test)
   (local-set-key (kbd "s-z s-m") #'my-convert-function-to-method)
