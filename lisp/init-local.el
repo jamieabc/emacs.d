@@ -1153,10 +1153,10 @@
   (local-set-key (kbd "M-]") #'next-error)
   (local-set-key (kbd "M-[") #'previous-error)
   (local-set-key (kbd "<return>") #'newline)
-  (local-unset-key (kbd "s-z"))
-  (local-set-key (kbd "s-z s-t") #'my-go-switch-test)
-  (local-set-key (kbd "s-z s-m") #'my-convert-function-to-method)
-  (local-set-key (kbd "s-z s-l") #'my-truncate-func-declaration-too-long)
+  (local-unset-key (kbd "s-'"))
+  (local-set-key (kbd "s-' t") #'my-go-switch-test)
+  (local-set-key (kbd "s-' m") #'my-convert-function-to-method)
+  (local-set-key (kbd "s-' l") #'my-truncate-func-declaration-too-long)
   )
 
 ;; connect go-mode-hook with the function we just defined
