@@ -1064,8 +1064,8 @@
          (test-file-p (string-match-p "_test.go" file-name)))
     (message "%s" file-name)
     (if test-file-p
-        (find-file-existing (replace-regexp-in-string "_test.go$" ".go" file-name))
-      (find-file-existing (replace-regexp-in-string ".go$" "_test.go" file-name))
+        (find-file (replace-regexp-in-string "_test.go$" ".go" file-name))
+      (find-file (replace-regexp-in-string ".go$" "_test.go" file-name))
       )))
 
 (defun my-convert-function-to-method (obj)
