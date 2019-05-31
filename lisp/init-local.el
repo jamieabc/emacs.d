@@ -1060,11 +1060,12 @@
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
   (interactive)
-  (let* ((file-name (buffer-name))
-         (test (string-match-p "_test.go" file-name)))
-    (if test
-        (find-file (replace-regexp-in-string "_test.go" ".go" file-name))
-      (find-file (replace-regexp-in-string ".go" "_test.go" file-name))
+  (let* ((file-name (buffer-file-name))
+         (test-file-p (string-match-p "_test.go" file-name)))
+    (message "%s" file-name)
+    (if test-file-p
+        (find-file-existing (replace-regexp-in-string "_test.go$" ".go" file-name))
+      (find-file-existing (replace-regexp-in-string ".go$" "_test.go" file-name))
       )))
 
 (defun my-convert-function-to-method (obj)
@@ -1079,7 +1080,7 @@
                     )))
 
 (defun my-truncate-func-declaration-too-long ()
-  "Reformat function declaration line which is too long."
+  "reformat function declaration line which is too long."
   (interactive)
   (save-excursion (let* ((start (line-beginning-position))
                          (line (buffer-substring-no-properties
@@ -1100,11 +1101,11 @@
                       (replace-match ",\n")))))
 
 (defun my-go-mode-hook ()
-  "Define function to call when go-mode load."
+  "define function to call when go-mode load."
 ;;; get go related environment variables
-  (setenv "GOPATH" (concat (getenv "HOME") "/gocode"))
-  (setenv "GOROOT" "/usr/local/opt/go/libexec")
-  (setenv "GO111MODULE" "on")
+  (setenv "gopath" (concat (getenv "home") "/gocode"))
+  (setenv "goroot" "/usr/local/opt/go/libexec")
+  (setenv "go111module" "on")
 
   ;; go-imenu
   (add-hook 'go-mode-hook 'go-imenu-setup)
@@ -1140,25 +1141,25 @@
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
 
-  ;; Key bindings specific to go-mode
-  (local-set-key (kbd "M-.") #'godef-jump)
-  (local-set-key (kbd "C-x M-.") #'godef-jump-other-window)
-  (local-set-key (kbd "M-*") #'pop-tag-mark) ; Return from where you came
-  (local-set-key (kbd "s-p") #'compile)      ; Invoke compiler
-  (local-set-key (kbd "s-P") #'recompile) ; Redo most recent compile cmd
+  ;; key bindings specific to go-mode
+  (local-set-key (kbd "m-.") #'godef-jump)
+  (local-set-key (kbd "c-x m-.") #'godef-jump-other-window)
+  (local-set-key (kbd "m-*") #'pop-tag-mark) ; return from where you came
+  (local-set-key (kbd "s-p") #'compile)      ; invoke compiler
+  (local-set-key (kbd "s-p") #'recompile) ; redo most recent compile cmd
   (local-set-key (kbd "s-c p") #'go-test-current-project)
   (local-set-key (kbd "s-c f") #'go-test-current-file)
   (local-set-key (kbd "s-c t") #'go-test-current-test)
-  (local-set-key (kbd "M-]") #'next-error)
-  (local-set-key (kbd "M-[") #'previous-error)
-  (local-set-key (kbd "RET") #'newline)
-  (local-unset-key (kbd "s-m"))
-  (local-set-key (kbd "s-m s-t") #'my-go-switch-test)
-  (local-set-key (kbd "s-m s-m") #'my-convert-function-to-method)
-  (local-set-key (kbd "s-m s-l") #'my-truncate-func-declaration-too-long)
+  (local-set-key (kbd "m-]") #'next-error)
+  (local-set-key (kbd "m-[") #'previous-error)
+  (local-set-key (kbd "ret") #'newline)
+  (local-unset-key (kbd "s-z"))
+  (local-set-key (kbd "s-z s-t") #'my-go-switch-test)
+  (local-set-key (kbd "s-z s-m") #'my-convert-function-to-method)
+  (local-set-key (kbd "s-z s-l") #'my-truncate-func-declaration-too-long)
   )
 
-;; Connect go-mode-hook with the function we just defined
+;; connect go-mode-hook with the function we just defined
 (add-hook 'go-mode-hook #'my-go-mode-hook)
 ;;; go-mode
 
@@ -1166,7 +1167,7 @@
 (require-package 'vue-mode)
 (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
 (defun my-vue-hook ()
-  "Vue hook."
+  "vue hook."
   (require 'lsp-vue)
   (require 'lsp-ui)
   (lsp-vue-mmm-enable))
