@@ -3,4 +3,4 @@
 # contributor: Aaron Chang <aaron DOT chang AT gmail>
 # key: ;mex
 # --
-${1:mock}.EXPECT().${2:method}(${3:gomock.Any()}).Return(${4:return})${0:.AnyTimes()}
+${1:mock}.EXPECT().${2:method}(${3:gomock.Any()}).Return(${4:return}).${5:AnyTimes}($0)
