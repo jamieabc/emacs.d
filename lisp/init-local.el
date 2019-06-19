@@ -1107,6 +1107,9 @@
   (setenv "goroot" "/usr/local/opt/go/libexec")
   (setenv "go111module" "on")
 
+  ;; go lang server
+  (add-hook 'go-mode-hook #'lsp)
+
   ;; go-imenu
   (add-hook 'go-mode-hook 'go-imenu-setup)
 
