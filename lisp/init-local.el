@@ -1,4 +1,5 @@
-;;;packages
+;;; packages -- My customization of emacs
+
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 ;;; add executable path
@@ -115,7 +116,7 @@
   )
 
 (defun redmine-add-subtask (subject)
-  "Create subtask under current ticket."
+  "Create subtask SUBJECT under current ticket."
   (interactive "sPlease enter subject:")
   (shell-command (format "redmine ci -a 72 -t Task -p %s 1 '%s'" (get-ticket-number) subject))
   )
@@ -128,7 +129,7 @@
   )
 
 (defun redmine-add-task (subject)
-  "Create redmine task."
+  "Create redmine task of SUBJECT."
   (shell-command (format "redmine ci -a 72 -t Task 1 '%s'" subject))
   )
 
@@ -139,21 +140,21 @@
   )
 
 (defun redmine-develop-issue (yes-or-no)
-  "Develop redmine issue."
+  "Develop redmine issue YES-OR-NO."
   (interactive "sDevelop this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -s 'In Progress' %s" (get-ticket-number))))
   )
 
 (defun redmine-resolve-issue (yes-or-no)
-  "Resolve redmine issue."
+  "Resolve redmine issue YES-OR-NO."
   (interactive "sResolve this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Resolved %s" (get-ticket-number))))
   )
 
 (defun redmine-close-issue (yes-or-no)
-  "Close redmine issue."
+  "Close redmine issue YES-OR-NO."
   (interactive "sClose this issue?")
   (if (equal yes-or-no "y")
       (shell-command (format "redmine ui -a 72 -r 100 -s Closed %s" (get-ticket-number))))
@@ -297,6 +298,7 @@
             ("[^\\*/<>]\\(\\*\\)[^\\*/<>]" #Xe16f))))
 
 (defun add-fira-code-symbol-keywords ()
+  "Add ligature."
   (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
 
 (add-hook 'prog-mode-hook
@@ -614,11 +616,11 @@
 
 ;;; comment whole line or add tail
 (defun comment-whole-line-or-add-tail (&optional arg)
-  "Replacement for the comment-dwim command.
-   If no region is selected and current line is not blank and we are not at
-   the end of the line, then comment current line.
-   Replaces default behaviour of comment-dwim, when it inserts comment at the
-   end of the line."
+  "Replacement for the comment-dwim command with optional ARG.
+  If no region is selected and current line is not blank and we are not at
+  the end of the line, then comment current line.
+  Replaces default behaviour of comment-dwim, when it inserts comment at the
+  end of the line."
   (interactive "*P")
   (comment-normalize-vars)
   (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
@@ -1201,7 +1203,7 @@
 (require-package 'vue-mode)
 (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
 (defun my-vue-hook ()
-  "vue hook."
+  "Vue hook."
   (require 'lsp-vue)
   (require 'lsp-ui)
   (lsp-vue-mmm-enable))
