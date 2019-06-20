@@ -976,7 +976,7 @@
 ;;; open line above
 
 ;;; emacs line
-(setq whitespace-line-column 100) ;; limit line length
+(setq whitespace-line-column 110) ;; limit line length
 (setq whitespace-style '(face lines-tail))
 
 (add-hook 'prog-mode-hook 'whitespace-mode)
