@@ -1099,7 +1099,7 @@
       )))
 
 (defun my-convert-function-to-method (obj)
-  "Convert function into method."
+  "Convert function OBJ into method."
   (interactive "sObject name:")
   (save-excursion (let ((start (line-beginning-position))
                         (end (line-end-position))
@@ -1110,7 +1110,7 @@
                     )))
 
 (defun my-truncate-func-declaration-too-long ()
-  "reformat function declaration line which is too long."
+  "Reformat function declaration line which is too long."
   (interactive)
   (save-excursion (let* ((start (line-beginning-position))
                          (line (buffer-substring-no-properties
@@ -1131,7 +1131,7 @@
                       (replace-match ",\n")))))
 
 (defun my-go-mode-hook ()
-  "define function to call when go-mode load."
+  "Define function to call when go-mode load."
 ;;; get go related environment variables
   (setenv "gopath" (concat (getenv "home") "/gocode"))
   (setenv "goroot" "/usr/local/opt/go/libexec")
