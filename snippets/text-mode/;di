@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# [difficulty]
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: ;di
+# --
+[difficulty] $0
