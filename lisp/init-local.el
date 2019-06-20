@@ -1085,6 +1085,7 @@
 (require-package 'go-eldoc)
 (require-package 'godoctor)
 (require-package 'flycheck-golangci-lint)
+(require-package 'go-fill-struct)
 
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
