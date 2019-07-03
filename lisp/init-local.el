@@ -1173,7 +1173,7 @@
 (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
 (defun my-vue-hook ()
   "Vue hook."
-  (add-hook 'vue-mode-hook #'my-vue-hook)
+  (add-hook 'vue-mode-hook #'my-vue-hook))
 ;;; vue
 
 ;;; org
