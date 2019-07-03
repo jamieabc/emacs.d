@@ -16,38 +16,6 @@
                 (getenv "PATH")))
 ;;; language server
 (require-package 'eglot)
-;; (require-package 'lsp-mode)
-;; (setq lsp-print-io nil)
-;; (setq lsp-trace nil)
-;; (setq lsp-auto-guess-root t)
-;; (setq lsp-document-sync-method 'incremental)
-;; (setq lsp-response-timeout 10)
-;; (setq lsp-prefer-flymake t)
-;; (require-package 'lsp-ui)
-;; (setq lsp-ui-doc-enable nil)
-;; (setq lsp-ui-doc-header t)
-;; (setq lsp-ui-doc-include-signature nil)
-;; (setq lsp-ui-doc-position 'at-point)
-;; (setq lsp-ui-doc-max-width 120)
-;; (setq lsp-ui-doc-max-height 30)
-;; (setq lsp-ui-doc-use-childframe t)
-;; (setq lsp-ui-doc-use-webkit t)
-;; (setq lsp-ui-flycheck-enable nil)
-;; (setq lsp-ui-sideline-enable nil)
-;; (setq lsp-ui-sideline-ignore-duplicate t)
-;; (setq lsp-ui-sideline-show-symbol t)
-;; (setq lsp-ui-sideline-show-hover t)
-;; (setq lsp-ui-sideline-show-diagnostics nil)
-;; (setq lsp-ui-sideline-show-code-actions t)
-;; (setq lsp-ui-sideline-code-actions-prefix "[]")
-;; (setq lsp-ui-imenu-enable t)
-;; (setq lsp-ui-imenu-kind-position 'top)
-;; (setq lsp-ui-peek-enable t)
-;; (setq lsp-ui-peek-peek-height 20)
-;; (setq lsp-ui-peek-list-width 50)
-;; (setq lsp-ui-peek-fontify 'on-demand)
-;; (require-package 'company-lsp)
-;; (setq company-lsp-async t)
 (setq company-tooltip-limit 20)
 (setq company-idle-delay .3)             ;decrease delay before autocompletion popup
 (setq company-echo-delay 0)             ;remove annoying blinking
@@ -1086,7 +1054,7 @@
 (require-package 'go-snippets)
 (require-package 'go-guru)
 (require-package 'gotest)
-(require-package 'go-imenu)
+;; (require-package 'go-imenu)
 (require-package 'go-eldoc)
 (require-package 'godoctor)
 (require-package 'flycheck-golangci-lint)
@@ -1143,12 +1111,10 @@
   (setenv "go111module" "on")
 
   ;; go lang server
-  ;; (setq lsp-clients-go-server-args '("--cache-style=always" "--diagnostics-style=onsave"))
-  ;; (add-hook 'go-mode-hook #'lsp)
   (add-hook 'go-mode-hook 'eglot-ensure)
 
   ;; go-imenu
-  (add-hook 'go-mode-hook 'go-imenu-setup)
+  ;; (add-hook 'go-mode-hook 'go-imenu-setup)
 
   ;; go-eldoc
   (add-hook 'go-mode-hook 'go-eldoc-setup)
@@ -1171,7 +1137,6 @@
   (setq flycheck-golangci-lint-fast t)
 
   ;; company-go
-  ;; (push 'company-lsp company-backends)
   (set (make-local-variable 'company-backends) '(company-go))
   (company-mode)
 
@@ -1208,10 +1173,7 @@
 (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
 (defun my-vue-hook ()
   "Vue hook."
-  (require 'lsp-vue)
-  (require 'lsp-ui)
-  (lsp-vue-mmm-enable))
-(add-hook 'vue-mode-hook #'my-vue-hook)
+  (add-hook 'vue-mode-hook #'my-vue-hook)
 ;;; vue
 
 ;;; org
