@@ -496,36 +496,44 @@
 ;;; select words in quote
 
 ;;; ruby
-
-;;; rvm
 (require-package 'rvm)
-;; (rvm-use "ruby-2.3.3" "dsp")
-(rvm-use-default)
-;;; rvm
+(require-package 'rspec-mode)
+(require-package 'rubocop)
+
+(defun my-ruby-mode-hook ()
+  "My ruby mode hook."
+  (rvm-use-default)
+  ;; (rvm-use "ruby-2.3.3" "dsp")
+
+  (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+    (rvm-activate-corresponding-ruby))
+
+  (eval-after-load 'rspec-mode
+    '(progn
+       (setq rspec-command-options "--fail-fast --color")
+       ))
+
+  (defadvice rspec-compile (around rspec-compile-around)
+    "Use BASH shell for running the specs because of ZSH issues."
+    (let ((shell-file-name "/bin/bash"))
+      ad-do-it))
+
+  (ad-activate 'rspec-compile)
+  )
+
+
+(add-hook 'ruby-mode-hook 'my-ruby-mode-hook)
 
 ;;; langserver
 (add-hook 'ruby-mode-hook 'eglot-ensure)
 
 ;;; rspec
-(require-package 'rspec-mode)
 (add-hook 'ruby-mode-hook 'rspec-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 (add-hook 'rspec-mode-hook (lambda () (local-set-key (kbd "C-c , s") 'rspec-verify-single)))
-(eval-after-load 'rspec-mode
-  '(progn
-     (setq rspec-command-options "--fail-fast --color")
-     ))
-
-(defadvice rspec-compile (around rspec-compile-around)
-  "Use BASH shell for running the specs because of ZSH issues."
-  (let ((shell-file-name "/bin/bash"))
-    ad-do-it))
-
-(ad-activate 'rspec-compile)
 ;;; rspec
 
 ;;; rubocop
-(require-package 'rubocop)
 (add-hook 'ruby-mode-hook #'rubocop-mode)
 ;;; rubocop
 
