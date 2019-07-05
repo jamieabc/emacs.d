@@ -1,0 +1,6 @@
+* Freebsd update ruby/gems
+  #+begin_src shell
+    pkg clean
+    pkg update -f
+    pkg install rubygem-cucumber
+  #+end_src
