@@ -505,8 +505,10 @@
   (rvm-use-default)
   ;; (rvm-use "ruby-2.3.3" "dsp")
 
-  (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-    (rvm-activate-corresponding-ruby))
+  ;; (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  ;;   (rvm-activate-corresponding-ruby))
+
+  (rvm-activate-corresponding-ruby)
 
   (eval-after-load 'rspec-mode
     '(progn
@@ -519,6 +521,8 @@
       ad-do-it))
 
   (ad-activate 'rspec-compile)
+
+  (local-set-key (kbd "s-.") 'xref-find-definitions)
   )
 
 
