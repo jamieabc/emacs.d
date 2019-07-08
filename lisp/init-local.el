@@ -1372,5 +1372,9 @@
 (add-hook 'after-init-hook (lambda () (load-theme 'sanityinc-solarized-dark)))
 ;;; theme
 
+;;; folding
+(global-origami-mode 1)
+;;; folding
+
 (provide 'init-local)
 ;;; init-local.el ends here
