@@ -508,6 +508,9 @@
   ;; (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   ;;   (rvm-activate-corresponding-ruby))
 
+  (autoload 'inf-ruby-minor-mode "inf-ruby" "Run an inferior Ruby process" t)
+  (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+
   (rvm-activate-corresponding-ruby)
 
   (eval-after-load 'rspec-mode
