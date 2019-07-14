@@ -1,0 +1,9 @@
+* Mac irb arrow not working
+
+  [[https://github.com/guard/guard/wiki/Add-Readline-support-to-Ruby-on-Mac-OS-X][reference]]
+
+  #+begin_src shell
+    rvm pkg install readline --verify-downloads 1
+
+    rvm reinstall all --force
+  #+end_src
