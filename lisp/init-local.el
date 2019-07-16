@@ -1192,7 +1192,6 @@
 ;;; vue
 
 ;;; org
-(require 'org-tempo)
 (require-package 'org-plus-contrib)
 (require-package 'org-bullets)
 (require-package 'org-beautify-theme)
@@ -1322,16 +1321,6 @@
   "Force restart of tern in new project."
   (interactive)
   (delete-process "Tern"))
-
-(require-package 'tide)
-(defun setup-tide ()
-  "Setup typescript interactive env."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1))
 
 ;; formats the buffer before saving
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
