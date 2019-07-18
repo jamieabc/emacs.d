@@ -1,0 +1,6 @@
+# -*- coding: utf-8; mode: snippet -*-
+# name: assert contains
+# contributor: Aaron Chang <aaron DOT chang AT gmail>
+# key: act
+# --
+assert.Contains(t, ${1:expected}, ${2:actual}, ${0:message})
