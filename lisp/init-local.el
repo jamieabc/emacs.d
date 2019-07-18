@@ -1074,6 +1074,14 @@
 (require-package 'godoctor)
 (require-package 'flycheck-golangci-lint)
 (require-package 'go-fill-struct)
+(require-package 'company-go)
+(require-package 'go-dlv)
+(require-package 'go-rename)
+(require-package 'golint)
+(require-package 'govet)
+(require-package 'go-impl)
+(require-package 'go-tag)
+(require-package 'go-gen-test)
 
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
@@ -1161,12 +1169,15 @@
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
 
+  ;; go-tag
+  (setq go-tag-args (list "-transform" "camelcase"))
+
   ;; key bindings specific to go-mode
   (local-set-key (kbd "M-.") #'godef-jump)
   (local-set-key (kbd "C-x M-.") #'godef-jump-other-window)
   (local-set-key (kbd "s-*") #'pop-tag-mark) ; return from where you came
   (local-set-key (kbd "s-p") #'compile)      ; invoke compiler
-  (local-set-key (kbd "s-p") #'recompile) ; redo most recent compile cmd
+  (local-set-key (kbd "s-P") #'recompile) ; redo most recent compile cmd
   (local-set-key (kbd "s-c p") #'go-test-current-project)
   (local-set-key (kbd "s-c f") #'go-test-current-file)
   (local-set-key (kbd "s-c t") #'go-test-current-test)
@@ -1177,6 +1188,9 @@
   (local-set-key (kbd "s-' t") #'my-go-switch-test)
   (local-set-key (kbd "s-' m") #'my-convert-function-to-method)
   (local-set-key (kbd "s-' l") #'my-truncate-func-declaration-too-long)
+  (local-set-key (kbd "s-' a") #'go-tag-add)
+  (local-set-key (kbd "s-' A") #'go-tag-remove)
+  (local-set-key (kbd "s-T") #'go-gen-test-dwim)
   )
 
 ;; connect go-mode-hook with the function we just defined
