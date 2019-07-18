@@ -1101,20 +1101,18 @@
 (setq company-echo-delay 0)              ;remove annoying blinking
 (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 (custom-set-faces
- '(company-preview
-   ((t (:foreground "darkgray" :underline t))))
- '(company-preview-common
-   ((t (:inherit company-preview))))
- '(company-tooltip
-   ((t (:background "lightgray" :foreground "black"))))
- '(company-tooltip-selection
-   ((t (:background "steelblue" :foreground "white"))))
- '(company-tooltip-common
-   ((((type x)) (:inherit company-tooltip :weight bold))
-    (t (:inherit company-tooltip))))
- '(company-tooltip-common-selection
-   ((((type x)) (:inherit company-tooltip-selection :weight bold))
-    (t (:inherit company-tooltip-selection)))))
+ '(company-preview ((t (:background "gold3" :foreground "black"))))
+ '(company-preview-common ((t (:background "gold3" :foreground "grey20"))))
+ '(company-preview-search ((t (:background "green4" :foreground "green"))))
+ '(company-scrollbar-bg ((t (:background "#303030"))))
+ '(company-scrollbar-fg ((t (:background "#404040"))))
+ '(company-tooltip ((t (:background "#202020" :foreground "grey"))))
+ '(company-tooltip-annotation ((t (:foreground "gold"))))
+ '(company-tooltip-annotation-selection ((t (:foreground "white"))))
+ '(company-tooltip-common ((t (:inherit company-tooltip :foreground "white"))))
+ '(company-tooltip-common-selection ((t (:foreground "white"))))
+ '(company-tooltip-selection ((t (:background "red3" :foreground "white"))))
+ )
 ;;; company
 
 (defun my-go-switch-test ()
