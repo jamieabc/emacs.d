@@ -14,28 +14,6 @@
                 (concat (getenv "HOME") "/gocode/bin") ":"
                 "/Library/TeX/texbin" ":"
                 (getenv "PATH")))
-;;; language server
-(require-package 'eglot)
-(setq company-tooltip-limit 20)
-(setq company-idle-delay .3)             ;decrease delay before autocompletion popup
-(setq company-echo-delay 0)             ;remove annoying blinking
-(setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
-(custom-set-faces
- '(company-preview
-   ((t (:foreground "darkgray" :underline t))))
- '(company-preview-common
-   ((t (:inherit company-preview))))
- '(company-tooltip
-   ((t (:background "lightgray" :foreground "black"))))
- '(company-tooltip-selection
-   ((t (:background "steelblue" :foreground "white"))))
- '(company-tooltip-common
-   ((((type x)) (:inherit company-tooltip :weight bold))
-    (t (:inherit company-tooltip))))
- '(company-tooltip-common-selection
-   ((((type x)) (:inherit company-tooltip-selection :weight bold))
-    (t (:inherit company-tooltip-selection)))))
-;;; language server
 
 ;;; nvm
 (require-package 'nvm)
@@ -530,9 +508,6 @@
 
 
 (add-hook 'ruby-mode-hook 'my-ruby-mode-hook)
-
-;;; langserver
-(add-hook 'ruby-mode-hook 'eglot-ensure)
 
 ;;; rspec
 (add-hook 'ruby-mode-hook 'rspec-mode)
@@ -1082,6 +1057,65 @@
 (require-package 'go-impl)
 (require-package 'go-tag)
 (require-package 'go-gen-test)
+(require-package 'lsp-mode)
+(require-package 'lsp-ui)
+(require-package 'company-lsp)
+
+;;; lsp
+(setq lsp-auto-guess-root t
+      lsp-document-sync-method 'incremental
+      lsp-response-timeout 10
+      lsp-prefer-flymake nil
+      lsp-ui-doc-enable t
+      lsp-ui-doc-use-childframe t
+      lsp-ui-doc-position 'top     ;top, bottom, at-point
+      lsp-ui-doc-max-width 120
+      lsp-ui-doc-max-height 30
+      lsp-ui-doc-include-signature t
+      lsp-ui-doc-use-childframe t
+      lsp-ui-doc-use-webkit t
+      lsp-ui-side-line-enable nil
+      lsp-ui-flycheck-enable nil
+      lsp-ui-flycheck-list-position 'right
+      lsp-ui-flycheck-live-reporting t
+      lsp-ui-sideline-enable nil
+      lsp-ui-sideline-ignore-duplicate t
+      lsp-ui-sideline-show-symbol t
+      lsp-ui-sideline-show-hover t
+      lsp-ui-sideline-show-diagnostics nil
+      lsp-ui-sideline-show-code-actions t
+      lsp-ui-sideline-code-actions-prefix "[]"
+      lsp-ui-imenu-enable t
+      lsp-ui-imenu-kind-position 'top
+      lsp-ui-peek-enable t
+      lsp-ui-peek-peek-height 20
+      lsp-ui-peek-list-width 60
+      lsp-ui-peek-fontify 'always    ;never, on-demand, always
+      company-lsp-async t
+      )
+;;; lsp
+
+;;; company
+(setq company-tooltip-limit 20)
+(setq company-idle-delay .5)             ;decrease delay before autocompletion popup
+(setq company-echo-delay 0)              ;remove annoying blinking
+(setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+(custom-set-faces
+ '(company-preview
+   ((t (:foreground "darkgray" :underline t))))
+ '(company-preview-common
+   ((t (:inherit company-preview))))
+ '(company-tooltip
+   ((t (:background "lightgray" :foreground "black"))))
+ '(company-tooltip-selection
+   ((t (:background "steelblue" :foreground "white"))))
+ '(company-tooltip-common
+   ((((type x)) (:inherit company-tooltip :weight bold))
+    (t (:inherit company-tooltip))))
+ '(company-tooltip-common-selection
+   ((((type x)) (:inherit company-tooltip-selection :weight bold))
+    (t (:inherit company-tooltip-selection)))))
+;;; company
 
 (defun my-go-switch-test ()
   "Define function to switch files between normal file and test file."
@@ -1133,19 +1167,10 @@
   (setenv "goroot" "/usr/local/opt/go/libexec")
   (setenv "go111module" "on")
 
-  ;; go lang server
-  (add-hook 'go-mode-hook 'eglot-ensure)
-
   ;; go-imenu
   ;; (add-hook 'go-mode-hook 'go-imenu-setup)
 
-  ;; go-eldoc
-  (add-hook 'go-mode-hook 'go-eldoc-setup)
-
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
-
-  ;; (add-hook 'go-mode-hook (lambda () (paredit-everywhere-mode -1)))
-  (add-hook 'go-mode-hook 'subword-mode)
 
   (setq gofmt-command "goimports")      ; gofmt to invokes goimports
 
@@ -1158,10 +1183,6 @@
   ;; linter
   (add-hook 'go-mode-hook 'flycheck-golangci-lint-setup)
   (setq flycheck-golangci-lint-fast t)
-
-  ;; company-go
-  (set (make-local-variable 'company-backends) '(company-go))
-  (company-mode)
 
   ;; guru settings
   (go-guru-hl-identifier-mode)          ; highlight identifiers
@@ -1194,6 +1215,11 @@
   )
 
 ;; connect go-mode-hook with the function we just defined
+(add-hook 'go-mode-hook #'lsp-deferred)
+(add-hook 'go-mode-hook #'lsp-ui-mode)
+;; (add-hook 'go-mode-hook #'company-lsp)
+(add-hook 'go-mode-hook #'go-eldoc-setup)
+(add-hook 'go-mode-hook #'subword-mode)
 (add-hook 'go-mode-hook #'my-go-mode-hook)
 ;;; go-mode
 
