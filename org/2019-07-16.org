@@ -5,7 +5,7 @@
      brew instal autoconf automake gnutls pkg-config texinfo libxml2
      git clone -b master git://git.sv.gnu.org/emacs.git
      ./configure --with-imagemagick --with-modules --with-mailutils --with-cairo
-     make install
+     make; make install
    #+end_src
 
    Application is under ~./nextstep/Emacs.app~. Copy it into
