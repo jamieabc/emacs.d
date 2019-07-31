@@ -1070,9 +1070,10 @@
 ;;; lsp
 (setq lsp-auto-guess-root t
       lsp-document-sync-method 'incremental
-      lsp-response-timeout 10
-      lsp-prefer-flymake nil
-      lsp-ui-doc-enable t
+      lsp-response-timeout 5
+      lsp-enable-indentation nil
+      lsp-prefer-flymake t
+      lsp-ui-doc-enable nil
       lsp-ui-doc-use-childframe t
       lsp-ui-doc-position 'top     ;top, bottom, at-point
       lsp-ui-doc-max-width 120
@@ -1081,7 +1082,7 @@
       lsp-ui-doc-use-childframe t
       lsp-ui-doc-use-webkit t
       lsp-ui-side-line-enable nil
-      lsp-ui-flycheck-enable nil
+      lsp-ui-flycheck-enable t
       lsp-ui-flycheck-list-position 'right
       lsp-ui-flycheck-live-reporting t
       lsp-ui-sideline-enable nil
@@ -1091,7 +1092,7 @@
       lsp-ui-sideline-show-diagnostics nil
       lsp-ui-sideline-show-code-actions t
       lsp-ui-sideline-code-actions-prefix "[]"
-      lsp-ui-imenu-enable t
+      lsp-ui-imenu-enable nil
       lsp-ui-imenu-kind-position 'top
       lsp-ui-peek-enable t
       lsp-ui-peek-peek-height 20
@@ -1103,7 +1104,7 @@
 
 ;;; company
 (setq company-tooltip-limit 20)
-(setq company-idle-delay .5)             ;decrease delay before autocompletion popup
+(setq company-idle-delay 0.5)             ;decrease delay before autocompletion popup
 (setq company-echo-delay 0)              ;remove annoying blinking
 (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 (custom-set-faces
@@ -1219,8 +1220,8 @@
   )
 
 ;; connect go-mode-hook with the function we just defined
-(add-hook 'go-mode-hook #'lsp-deferred)
-(add-hook 'go-mode-hook #'lsp-ui-mode)
+;; (add-hook 'go-mode-hook #'lsp-deferred)
+;; (add-hook 'go-mode-hook #'lsp-ui-mode)
 ;; (add-hook 'go-mode-hook #'company-lsp)
 (add-hook 'go-mode-hook #'go-eldoc-setup)
 (add-hook 'go-mode-hook #'subword-mode)
