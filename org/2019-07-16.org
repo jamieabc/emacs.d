@@ -1,5 +1,5 @@
 * Emacs
-** Install from source
+** Install from source on Mac
 
    #+begin_src shell
      brew instal autoconf automake gnutls pkg-config texinfo libxml2
@@ -10,6 +10,16 @@
 
    Application is under ~./nextstep/Emacs.app~. Copy it into
    ~/Applications~.
+** Install from source on Linux
+
+   #+begin_src shell
+     sudo apt install autoconf automake libtool texinfo build-essential xorg-dev libgtk2.0-dev libjpeg-dev libncurses5-dev libdbus-1-dev libgif-dev libtiff-dev libm17n-dev libpng-dev librsvg2-dev libotf-dev libgnutls28-dev libxml2-dev libwebkit2gtk-4.0-dev
+
+     ./configure --with-imagemagick --with-modules --with-mailutils --with-cairo --with-xwidgets --with-x-toolkit=gtk3
+     make bootstrap
+     sudo make install
+#+end_src
+
 
 ** Trouble shooting
 
