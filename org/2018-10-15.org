@@ -26,6 +26,7 @@
 ** Local run
 
    #+BEGIN_SRC shell
+     flatpak run com.bitmark.bitmarkd --init
      flatpak run com.bitmark.bitmarkd
      flatpak-builder --run flatpak/build-bitmarkd flatpak/com.bitmark.bitmarkd.json
    #+END_SRC
