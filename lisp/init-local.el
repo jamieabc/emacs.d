@@ -2,6 +2,8 @@
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
+(setq desktop-save-mode nil)
+
 ;;; add executable path
 (dolist (path '(
                 "/usr/local/bin"
