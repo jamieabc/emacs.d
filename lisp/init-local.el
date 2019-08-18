@@ -249,31 +249,16 @@
   "Add ligature."
   (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
 
+(add-hook 'prog-mode-hook #'add-fira-code-symbol-keywords)
+
 (require-package 'pretty-mode)
-
-(if (eq system-type 'darwin)
-    (add-hook 'prog-mode-hook #'add-fira-code-symbol-keywords)
-  (global-pretty-mode t)
-  (pretty-deactivate-groups
-   '(:equality :ordering :ordering-double :ordering-triple
-               :arrows :arrows-twoheaded :punctuation
-               :logic :sets))
-  (pretty-activate-groups
-   '(:sub-and-superscripts :greek :arithmetic-nary))
-  )
-
-;; (add-hook 'prog-mode-hook
-;;           #'add-fira-code-symbol-keywords)
-
-;; (global-pretty-mode t)
-
-;; (pretty-deactivate-groups
-;;  '(:equality :ordering :ordering-double :ordering-triple
-;;              :arrows :arrows-twoheaded :punctuation
-;;              :logic :sets))
-
-;; (pretty-activate-groups
-;;  '(:sub-and-superscripts :greek :arithmetic-nary))
+(global-pretty-mode t)
+(pretty-deactivate-groups
+ '(:equality :ordering :ordering-double :ordering-triple
+             :arrows :arrows-twoheaded :punctuation
+             :logic :sets))
+(pretty-activate-groups
+ '(:sub-and-superscripts :greek :arithmetic-nary))
 
 ;;; avy
 (require-package 'avy)
