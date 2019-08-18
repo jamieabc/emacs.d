@@ -532,7 +532,6 @@
 
 (add-hook 'ruby-mode-hook 'my-ruby-mode-hook)
 (add-hook 'ruby-mode-hook #'lsp-deferred)
-(add-hook 'go-mode-hook #'lsp-ui-mode)
 
 ;;; rubocop
 (add-hook 'ruby-mode-hook #'rubocop-mode)
@@ -1233,8 +1232,8 @@
   )
 
 ;; connect go-mode-hook with the function we just defined
-;; (add-hook 'go-mode-hook #'lsp-deferred)
-;; (add-hook 'go-mode-hook #'lsp-ui-mode)
+(add-hook 'go-mode-hook #'lsp-deferred)
+(add-hook 'go-mode-hook #'lsp-ui-mode)
 ;; (add-hook 'go-mode-hook #'company-lsp)
 (add-hook 'go-mode-hook #'go-eldoc-setup)
 (add-hook 'go-mode-hook #'subword-mode)
