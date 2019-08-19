@@ -1,0 +1,36 @@
+* Grafana
+
+  Use docker-compose to start 2 containers, so that one container can
+  see the other's port, following is ~docker-compose.yml~ content:
+
+  #+begin_src ruby
+     influxdb:
+       image: "influxdb"
+       container_name: influxdb
+       ports:
+         - "8083:8083"
+         - "8086:8086"
+         - "8090:8090"
+       environment:
+         - INFLUXDB_ADMIN_ENABLED=true
+         - INFLUXDB_ADMIN_USER=admin
+         - INFLUXDB_ADMIN_PASSWORD=admin
+
+     grafana:
+       image: "grafana/grafana"
+       container_name: grafana
+       ports:
+         - "3000:3000"
+       links:
+         - influxdb
+  #+end_src
+
+  #+begin_src shell
+    docker-compose up
+    docker-compose ps
+  #+end_src
+
+  When settings dashboard in grafana, need to specify HTTP with URL:
+  ~http://localhost:8086~, and change ~Access~ to ~Browser~
+
+  [[https://community.influxdata.com/t/cannot-connect-to-influx-datasource-from-grafana/8048/2][reference]]
