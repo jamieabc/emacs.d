@@ -9,6 +9,7 @@
                 "/usr/local/bin"
                 "/Users/Aaron/gocode/bin"
                 "/Library/TeX/texbin"
+                "/Users/Aaron/.ghcup/bin"
                 "/Users/Aaron/.local/bin"
                 ))
   (add-to-list 'exec-path path))
