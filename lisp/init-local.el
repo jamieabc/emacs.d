@@ -1419,6 +1419,11 @@
 (require-package 'dracula-theme)
 (require-package 'solarized-theme)
 (add-hook 'after-init-hook (lambda () (load-theme 'solarized-dark)))
+(setq solarized-distinct-fringe-background t
+      solarized-high-contrast-mode-line nil
+      solarized-emphasize-indicators t)
+(setq line-spacing 1.1)
+(global-hl-line-mode t)
 ;;; theme
 
 ;;; folding
