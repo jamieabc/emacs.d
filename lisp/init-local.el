@@ -850,7 +850,9 @@
     ("xar" "=>")
     ("lar" "<-")
     ("ass" ":=")
-    ("ret" "return")
+    ;; ("ret" "return")
+    ("tobe" "::")
+    ("rar" "->")
 
     ;; regex
     ("uaz" "\\([A-Za-z0-9]+\\)" )
@@ -1414,7 +1416,9 @@
 ;;; open url
 
 ;;; theme
-(add-hook 'after-init-hook (lambda () (load-theme 'sanityinc-solarized-dark)))
+(require-package 'dracula-theme)
+(require-package 'solarized-theme)
+(add-hook 'after-init-hook (lambda () (load-theme 'solarized-dark)))
 ;;; theme
 
 ;;; folding
