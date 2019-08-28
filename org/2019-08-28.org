@@ -1,0 +1,30 @@
+* Office 2019 Mac
+
+The download link can be found at [[https://go.microsoft.com/fwlink/?linkid=525133][here]]. The serializer can be found at
+[[https://gist.github.com/zthxxx/9ddc171d00df98cbf8b4b0d8469ce90a/raw/Microsoft_Office_2019_VL_Serializer.pkg][here]].
+
+The way to check signature is by following command
+
+#+begin_src shell :results output
+  pkgutil --check-signature ~/Downloads/registered.pkg
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Package "registered.pkg":
+   Status: signed by a certificate trusted by Mac OS X
+   Certificate Chain:
+    1. Developer ID Installer: Microsoft Corporation (UBF8T346G9)
+       SHA1 fingerprint: 1B 38 60 A3 D8 C0 A3 72 F4 9F 9A E7 70 D1 5F 92 4C 43 9A ED
+       -----------------------------------------------------------------------------
+    2. Developer ID Certification Authority
+       SHA1 fingerprint: 3B 16 6C 3B 7D C4 B7 51 C9 FE 2A FA B9 13 56 41 E3 88 E1 86
+       -----------------------------------------------------------------------------
+    3. Apple Root CA
+       SHA1 fingerprint: 61 1E 5B 66 2C 59 3A 08 FF 58 D1 4A E2 24 52 D1 98 DF 6C 60
+
+#+end_example
+
+
+The command is able to check which organization signs the file, so it
+can be trusted.
