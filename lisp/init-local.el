@@ -20,8 +20,8 @@
                 (getenv "PATH")))
 
 ;;; nvm
-(require-package 'nvm)
-(nvm-use "v8.11.3")
+;; (require-package 'nvm)
+;; (nvm-use "v8.11.3")
 ;;; nvm
 
 ;;;  redmine related functions
