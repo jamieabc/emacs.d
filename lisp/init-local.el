@@ -118,7 +118,7 @@
 ;;; redmine related functions
 
 ;;; set font size
-(add-to-list 'default-frame-alist '(font . "Fira Code Retina-14"))
+(add-to-list 'default-frame-alist '(font . "Fira Code Retina-16"))
 
 ;;; Fira code
 ;; This works when using emacs --daemon + emacsclient
