@@ -13,6 +13,6 @@
 ** Build
 #+begin_src shell
   ./autogen.sh
-  ./configure --with-gui=no BDB_LIBS="-l/home/aaron/Documents/Workspace/crypto/bitcoin/db4/db-4.8.30.NC/build_unix" BDB_CFLAGS="-I/home/aaron/Documents/Workspace/crypto/bitcoin/db4/include"
+  ./configure --with-gui=no --with-incompatible-bdb LDFLAGS="-L/home/aaron/Documents/Workspace/crypto/bitcoin/db4/lib/" CPPFLAGS="-I/home/aaron/Documents/Workspace/crypto/bitcoin/db4/include/"
   make -j4
 #+end_src
