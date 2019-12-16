@@ -1,0 +1,6 @@
+* Regression test
+** For local chain (regression mode), ignore block hash difficulty verification
+** Bitmarkd is able to generate block in regression mode
+*** modify recorderd so that it can receive difficulty, judge by that provided value
+*** write another dummy recorderd only for regression mode
+*** modify bitmarkd internal mechanism to generate regression block instantly
