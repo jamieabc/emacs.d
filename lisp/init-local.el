@@ -21,7 +21,7 @@
 
 ;;; nvm
 ;; (require-package 'nvm)
-;; (nvm-use "v8.11.3")
+;; (nvm-use "v12.16.1")
 ;;; nvm
 
 ;;;  redmine related functions
