@@ -120,6 +120,20 @@
 ;;; set font size
 (add-to-list 'default-frame-alist '(font . "Fira Code Retina-16"))
 
+;;; utf8
+(set-keyboard-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
+(setq default-process-coding-system '(utf-8 . utf-8))
+(setq-default pathname-coding-system 'utf-8)
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+(prefer-coding-system       'utf-8)
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
 ;;; Fira code
 ;; This works when using emacs --daemon + emacsclient
 (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
@@ -252,15 +266,6 @@
   (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
 
 (add-hook 'prog-mode-hook #'add-fira-code-symbol-keywords)
-
-(require-package 'pretty-mode)
-(global-pretty-mode t)
-(pretty-deactivate-groups
- '(:equality :ordering :ordering-double :ordering-triple
-             :arrows :arrows-twoheaded :punctuation
-             :logic :sets))
-(pretty-activate-groups
- '(:sub-and-superscripts :greek :arithmetic-nary))
 
 ;;; avy
 (require-package 'avy)
