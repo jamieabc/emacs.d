@@ -4,7 +4,9 @@
    #+begin_src shell
      brew instal autoconf automake gnutls pkg-config texinfo libxml2
      git clone -b master git://git.sv.gnu.org/emacs.git
-     ./configure --with-imagemagick --with-modules --with-mailutils --with-cairo
+     export LIBXML2_CFLAGS=`xml2-config --cflags`
+     export LIBXML2_LIBS=`xml2-config --libs`
+     ./configure --with-imagemagick --with-modules --with-mailutils --with-cairo --with-ns
      make; make install
    #+end_src
 
