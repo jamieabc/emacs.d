@@ -1423,7 +1423,7 @@
 ;;; theme
 (require-package 'dracula-theme)
 (require-package 'solarized-theme)
-(add-hook 'after-init-hook (lambda () (load-theme 'solarized-dark)))
+(add-hook 'after-init-hook (lambda () (load-theme 'solarized-light)))
 (setq solarized-distinct-fringe-background t
       solarized-high-contrast-mode-line nil
       solarized-emphasize-indicators t)
