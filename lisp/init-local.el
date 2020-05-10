@@ -1068,7 +1068,6 @@
 (require-package 'go-snippets)
 (require-package 'go-guru)
 (require-package 'gotest)
-;; (require-package 'go-imenu)
 (require-package 'go-eldoc)
 (require-package 'godoctor)
 (require-package 'flycheck-golangci-lint)
@@ -1110,7 +1109,7 @@
       lsp-ui-sideline-show-diagnostics nil
       lsp-ui-sideline-show-code-actions t
       lsp-ui-sideline-code-actions-prefix "[]"
-      lsp-ui-imenu-enable nil
+      lsp-ui-imenu-enable t
       lsp-ui-imenu-kind-position 'top
       lsp-ui-peek-enable t
       lsp-ui-peek-peek-height 20
@@ -1188,10 +1187,6 @@
 ;;; get go related environment variables
   (setenv "gopath" (concat (getenv "home") "/gocode"))
   (setenv "goroot" "/usr/local/opt/go/libexec")
-  (setenv "go111module" "on")
-
-  ;; go-imenu
-  ;; (add-hook 'go-mode-hook 'go-imenu-setup)
 
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
