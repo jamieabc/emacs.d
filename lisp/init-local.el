@@ -118,7 +118,7 @@
 ;;; redmine related functions
 
 ;;; set font size
-(add-to-list 'default-frame-alist '(font . "Fira Code Retina-18"))
+(add-to-list 'default-frame-alist '(font . "Fira Code Retina-16"))
 
 ;;; utf8
 (set-keyboard-coding-system 'utf-8)
