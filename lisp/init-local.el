@@ -118,7 +118,7 @@
 ;;; redmine related functions
 
 ;;; set font size
-(add-to-list 'default-frame-alist '(font . "Fira Code Retina-16"))
+(add-to-list 'default-frame-alist '(font . "Fira Code Retina-14"))
 
 ;;; utf8
 (set-keyboard-coding-system 'utf-8)
@@ -1190,9 +1190,16 @@
 
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
-  (setq gofmt-command "goimports")      ; gofmt to invokes goimports
+  ;; (setq gofmt-command "goimports")      ; gofmt to invokes goimports
 
-  (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
+  ;; (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
+
+  ;; gopls
+  (add-hook 'before-save-hook #'lsp-format-buffer)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t)
+  (lsp-register-custom-settings
+   '(("gopls.completeUnimported" t t)
+     ("gopls.staticcheck" t t)))
 
   (if (not (string-match "go" compile-command)) ; set compile command default
       (set (make-local-variable 'compile-command)
