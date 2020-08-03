@@ -933,7 +933,10 @@
 ;;;
 
 ;;; remove trailing whitespace
-(add-to-list 'before-save-hook 'delete-trailing-whitespace)
+(defun remove-trailing-whitespace ()
+  "Add hook to remove trailing whitespace."
+  (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+(add-hook 'prog-mode-hook #'remove-trailing-whitespace)
 ;;; remove trailing whitespace
 
 ;;; company
