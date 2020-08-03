@@ -402,6 +402,7 @@
      (setq ivy-count-format "(%d/%d) ")
      (setq ivy-display-style 'fancy)
      (setq enable-recursive-minibuffers t)
+     (setq ivy-initial-inputs-alist nil)
      ))
 ;;; swiper
 
@@ -1080,6 +1081,8 @@
 (require-package 'go-impl)
 (require-package 'go-tag)
 (require-package 'go-gen-test)
+(require-package 'go-rename)
+(require-package 'go-imenu)
 (require-package 'lsp-mode)
 (require-package 'lsp-ui)
 (require-package 'company-lsp)
