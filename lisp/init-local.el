@@ -888,6 +888,7 @@
 ;;; symbol-overly: highlight symbol
 (require-package 'symbol-overlay)
 (after-load 'symbol-overlay
+  (define-key symbol-overlay-mode-map (kbd "M-i") #'move-to-tab-stop)
   (define-key symbol-overlay-mode-map (kbd "M-I") #'symbol-overlay-put)
   (define-key symbol-overlay-mode-map (kbd "<f8>") #'symbol-overlay-remove-all)
   (define-key symbol-overlay-mode-map (kbd "M-W") #'symbol-overlay-save-symbol)
@@ -1448,6 +1449,9 @@
 ;;; folding
 (global-origami-mode 1)
 ;;; folding
+
+;;; move to tab stop
+(setq-default tab-stop-list (number-sequence 0 120 4))
 
 (provide 'init-local)
 ;;; init-local.el ends here
