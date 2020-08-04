@@ -1442,12 +1442,13 @@
 ;;; open url
 
 ;;; theme
-(require-package 'dracula-theme)
-(require-package 'solarized-theme)
-(add-hook 'after-init-hook (lambda () (load-theme 'solarized-light)))
-(setq solarized-distinct-fringe-background t
-      solarized-high-contrast-mode-line nil
-      solarized-emphasize-indicators t)
+;; (require-package 'dracula-theme)
+;; (require-package 'solarized-theme)
+;; (add-hook 'after-init-hook (lambda () (load-theme 'solarized-light)))
+;; (setq solarized-distinct-fringe-background t
+;;       solarized-high-contrast-mode-line nil
+;;       solarized-emphasize-indicators t)
+(add-hook 'after-init-hook (lambda () (load-theme 'sanityinc-solarized-light)))
 (setq line-spacing 1.1)
 (global-hl-line-mode t)
 ;;; theme
