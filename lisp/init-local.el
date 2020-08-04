@@ -1195,6 +1195,14 @@
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
 
+  ;; lsp
+  (add-hook 'go-mode-hook #'lsp-deferred)
+  (add-hook 'go-mode-hook #'lsp-ui-mode)
+  ;; (add-hook 'go-mode-hook #'company-lsp)
+
+  (add-hook 'go-mode-hook #'go-eldoc-setup)
+  (add-hook 'go-mode-hook #'subword-mode)
+
   ;;; get go related environment variables
   (setenv "gopath" (concat (getenv "home") "/gocode"))
   (setenv "goroot" "/usr/local/opt/go/libexec")
@@ -1204,7 +1212,6 @@
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
   ;; (setq gofmt-command "goimports")      ; gofmt to invokes goimports
-
   ;; (add-hook 'before-save-hook #'gofmt-before-save) ; gofmt before every save
 
   ;; gopls
@@ -1258,12 +1265,6 @@
   (setq tab-width 4)
   )
 
-;; connect go-mode-hook with the function we just defined
-(add-hook 'go-mode-hook #'lsp-deferred)
-(add-hook 'go-mode-hook #'lsp-ui-mode)
-;; (add-hook 'go-mode-hook #'company-lsp)
-(add-hook 'go-mode-hook #'go-eldoc-setup)
-(add-hook 'go-mode-hook #'subword-mode)
 (add-hook 'go-mode-hook #'my-go-mode-hook)
 ;;; go-mode
 
