@@ -1250,6 +1250,12 @@
   (local-set-key (kbd "s-' a") #'go-tag-add)
   (local-set-key (kbd "s-' A") #'go-tag-remove)
   (local-set-key (kbd "s-T") #'go-gen-test-dwim)
+
+  ;; not show trailing white sace
+  (setq show-trailing-whitespace nil)
+
+  ;; tab width
+  (setq tab-width 4)
   )
 
 ;; connect go-mode-hook with the function we just defined
