@@ -939,6 +939,9 @@
 (add-hook 'prog-mode-hook #'remove-trailing-whitespace)
 ;;; remove trailing whitespace
 
+;;; disable showing trailing whitespace
+(setq-default show-trailing-whitespace nil)
+
 ;;; company
 (setq company-dabbrev-downcase nil)     ;not to downcase
 ;;; company
