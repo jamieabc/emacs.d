@@ -1092,7 +1092,8 @@
 (require-package 'go-imenu)
 (require-package 'lsp-mode)
 (require-package 'lsp-ui)
-(require-package 'company-lsp)
+(require-package 'lsp-ivy)
+(require-package 'lsp-treemacs)
 
 ;;; lsp
 (setq lsp-auto-guess-root t
@@ -1100,7 +1101,7 @@
       lsp-response-timeout 5
       lsp-enable-indentation nil
       lsp-prefer-flymake t
-      lsp-ui-doc-enable nil
+      lsp-ui-doc-enable t
       lsp-ui-doc-use-childframe t
       lsp-ui-doc-position 'top     ;top, bottom, at-point
       lsp-ui-doc-max-width 120
@@ -1112,7 +1113,7 @@
       lsp-ui-flycheck-enable t
       lsp-ui-flycheck-list-position 'right
       lsp-ui-flycheck-live-reporting t
-      lsp-ui-sideline-enable nil
+      lsp-ui-sideline-enable t
       lsp-ui-sideline-ignore-duplicate t
       lsp-ui-sideline-show-symbol t
       lsp-ui-sideline-show-hover t
@@ -1125,7 +1126,6 @@
       lsp-ui-peek-peek-height 20
       lsp-ui-peek-list-width 60
       lsp-ui-peek-fontify 'always    ;never, on-demand, always
-      company-lsp-async t
       )
 ;;; lsp
 
@@ -1196,9 +1196,11 @@
   "Define function to call when go-mode load."
 
   ;; lsp
+  (go +lsp)
   (add-hook 'go-mode-hook #'lsp-deferred)
   (add-hook 'go-mode-hook #'lsp-ui-mode)
-  ;; (add-hook 'go-mode-hook #'company-lsp)
+  (add-hook 'go-mode-hook #'lsp-ivy-workspace-symbol)
+  (add-hook 'go-mode-hook #'lsp-treemacs-errors-list)
 
   (add-hook 'go-mode-hook #'go-eldoc-setup)
   (add-hook 'go-mode-hook #'subword-mode)
