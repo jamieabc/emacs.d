@@ -938,6 +938,7 @@
   "Add hook to remove trailing whitespace."
   (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
 (add-hook 'prog-mode-hook #'remove-trailing-whitespace)
+(add-hook 'text-mode-hook #'remove-trailing-whitespace)
 ;;; remove trailing whitespace
 
 ;;; disable showing trailing whitespace
