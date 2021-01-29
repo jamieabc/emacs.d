@@ -1196,6 +1196,12 @@
 (defun my-go-mode-hook ()
   "Define function to call when go-mode load."
 
+   ;;; get go related environment variables
+  (setenv "GOPATH" (concat (getenv "home") "/gocode"))
+  (setenv "GOROOT" "/usr/lib/go")
+  (setenv "GO111MODULE" "on")
+  (setenv "CGO_ENABLED" "0")
+
   ;; lsp
   (go +lsp)
   (add-hook 'go-mode-hook #'lsp-deferred)
@@ -1206,11 +1212,6 @@
   (add-hook 'go-mode-hook #'go-eldoc-setup)
   (add-hook 'go-mode-hook #'subword-mode)
 
-  ;;; get go related environment variables
-  (setenv "gopath" (concat (getenv "home") "/gocode"))
-  (setenv "goroot" "/usr/local/opt/go/libexec")
-  (setenv "GO111MODULE" "on")
-  (setenv "CGO_ENABLED" "0")
 
   (setq flycheck-disabled-checkers '(go-vet)) ;fix for go-vet
 
