@@ -1202,6 +1202,9 @@
   (setenv "GO111MODULE" "on")
   (setenv "CGO_ENABLED" "0")
 
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+
   ;; lsp
   (go +lsp)
   (add-hook 'go-mode-hook #'lsp-deferred)
@@ -1236,9 +1239,6 @@
   ;; guru settings
   (go-guru-hl-identifier-mode)          ; highlight identifiers
 
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 4)
-
   ;; go-tag
   (setq go-tag-args (list "-transform" "camelcase"))
 
@@ -1265,8 +1265,6 @@
   ;; not show trailing white sace
   (setq show-trailing-whitespace nil)
 
-  ;; tab width
-  (setq tab-width 4)
   )
 
 (add-hook 'go-mode-hook #'my-go-mode-hook)
