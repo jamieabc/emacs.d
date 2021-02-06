@@ -495,7 +495,6 @@
 (require-package 'rvm)
 (require-package 'rspec-mode)
 (require-package 'rubocop)
-(require-package 'minitest)
 
 (defun my-ruby-mode-hook ()
   "My ruby mode hook."
@@ -509,20 +508,16 @@
   (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 
   ;; test
-  (add-hook 'ruby-mode-hook #'minitest-mode)
-  (eval-after-load 'minitest
-    '(minitest-install-snippets))
-
   (rvm-activate-corresponding-ruby)
 
-  ;;; rspec
+;;; rspec
   (add-hook 'ruby-mode-hook 'rspec-mode)
   (add-hook 'after-init-hook 'inf-ruby-switch-setup)
   (add-hook 'rspec-mode-hook (lambda () (local-set-key (kbd "C-c , s") 'rspec-verify-single)))
   (eval-after-load 'rspec-mode
     '(progn
        (setq rspec-command-options "--fail-fast --color")))
-  ;;; rspec
+;;; rspec
 
   (defadvice rspec-compile (around rspec-compile-around)
     "Use BASH shell for running the specs because of ZSH issues."
@@ -532,15 +527,18 @@
   (ad-activate 'rspec-compile)
 
   (local-set-key (kbd "s-.") 'xref-find-definitions)
+
+;;; rubocop
+  (add-hook 'ruby-mode-hook #'rubocop-mode)
+;;; rubocop
+
+  ;; ruby lang server
+  (add-hook 'ruby-mode-hook #'lsp-deferred)
   )
 
 
 (add-hook 'ruby-mode-hook 'my-ruby-mode-hook)
-(add-hook 'ruby-mode-hook #'lsp-deferred)
 
-;;; rubocop
-(add-hook 'ruby-mode-hook #'rubocop-mode)
-;;; rubocop
 
 ;;; ruby auto format
 ;;; rubocop already provides auto format
