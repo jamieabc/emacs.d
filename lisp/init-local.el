@@ -1324,35 +1324,28 @@
 (global-set-key (kbd "s-f") 'org-file-today)
 (global-set-key (kbd "s-F") 'org-file-list)
 
-(add-to-list 'org-structure-template-alist
-             '("el" . "src emacs-lisp\n"))
+(setq org-structure-template-alist
+      '(("a" . "export ascii\n")
+        ("c" . "center\n")
+        ("C" . "comment\n")
+        ("e" . "example\n")
+        ("E" . "export")
+        ("h" . "export html\n")
+        ("l" . "export latex\n")
+        ("q" . "quote\n")
+        ("s" . "src")
+        ("el" . "src emacs-lisp\n")
+        ("js" . "src js\n")
+        ("ts" . "src typescript\n")
+        ("sql" . "src sql\n")
+        ("rb" . "src ruby\n")
+        ("html" . "src browser\n")
+        ("go" . "src go\n")
+        ("sh" . "src shell\n")
+        ("http" . "src http\n")
+        ("gvy" . "src groovy\n")
+        ("v" . "verse\n")))
 
-(add-to-list 'org-structure-template-alist
-             '("js" . "src js\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("ts" . "src typescript\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("sql" . "src sql\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("rb" . "src ruby\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("html" . "src browser\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("go" . "src go\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("sh" . "src shell\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("http" . "src http\n"))
-
-(add-to-list 'org-structure-template-alist
-             '("gvy" . "src groovy\n"))
 ;;; org
 
 ;;; groovy
