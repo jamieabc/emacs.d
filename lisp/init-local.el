@@ -586,6 +586,9 @@
                               "*"))
   ;; exclude below directories and files
   (setq-local ffip-prune-patterns '("*/.git/*" "*/node_modules/*" "*/dist/*"))
+
+  ;; for windows
+  (when (eq system-type 'windows-nt) (setq ffip-find-executable "c:\\\\msys64\\\\usr\\\\bin\\\\find"))
   )
 (add-hook 'prog-mode-hook 'my-setup-find-file-in-project)
 (add-hook 'markdown-mode-hook 'my-setup-find-file-in-project)
