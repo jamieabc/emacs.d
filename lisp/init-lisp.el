@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq-default debugger-bury-or-kill 'kill)
+
 (require-package 'elisp-slime-nav)
 (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
   (add-hook hook 'turn-on-elisp-slime-nav-mode))
@@ -38,7 +40,8 @@
 (global-set-key [remap eval-expression] 'pp-eval-expression)
 
 (with-eval-after-load 'lisp-mode
-  (define-key emacs-lisp-mode-map (kbd "C-x C-e") 'sanityinc/eval-last-sexp-or-region))
+  (define-key emacs-lisp-mode-map (kbd "C-x C-e") 'sanityinc/eval-last-sexp-or-region)
+  (define-key emacs-lisp-mode-map (kbd "C-c C-e") 'pp-eval-expression))
 
 (when (maybe-require-package 'ipretty)
   (add-hook 'after-init-hook 'ipretty-mode))
@@ -126,6 +129,7 @@ there is no current file, eval the current buffer."
 ;; Automatic byte compilation
 ;; ----------------------------------------------------------------------------
 (when (maybe-require-package 'auto-compile)
+  (setq auto-compile-delete-stray-dest nil)
   (add-hook 'after-init-hook 'auto-compile-on-save-mode)
   (add-hook 'after-init-hook 'auto-compile-on-load-mode))
 
