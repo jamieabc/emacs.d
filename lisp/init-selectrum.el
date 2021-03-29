@@ -5,6 +5,7 @@
 
 (when (maybe-require-package 'selectrum)
   (add-hook 'after-init-hook 'selectrum-mode)
+  (setq-default selectrum-fix-vertical-window-height t)
 
   (when (maybe-require-package 'selectrum-prescient)
     (require 'prescient)
@@ -14,7 +15,7 @@
 
   (when (maybe-require-package 'embark)
     (define-key selectrum-minibuffer-map (kbd "C-c C-o") 'embark-export)
-    (define-key selectrum-minibuffer-map (kbd "C-c C-c") 'embark-act-noexit))
+    (define-key selectrum-minibuffer-map (kbd "C-c C-c") 'embark-act))
 
   (when (maybe-require-package 'consult)
     (when (maybe-require-package 'projectile)
