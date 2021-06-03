@@ -11,8 +11,6 @@
 (when (maybe-require-package 'company)
   (add-hook 'after-init-hook 'global-company-mode)
   (with-eval-after-load 'company
-    (dolist (backend '(company-eclim company-semantic))
-      (delq backend company-backends))
     (diminish 'company-mode)
     (defun sanityinc/company-icons-margin-auto (&rest args)
       (apply (if (eq 'dark (frame-parameter nil 'background-mode))
